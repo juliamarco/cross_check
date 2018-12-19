@@ -1,21 +1,24 @@
-require './lib/game_data'
+require './lib/games_data'
 require './lib/teams_data'
+require 'csv'
 
 class StatTracker
-  attr_reader :game_data,
+  attr_reader :games_data,
               :teams_data
 
-  def initialize(locations)
-    @game_data = GameData.new(locations[:games])
-    @teams_data = TeamsData.new(locations[:teams])
+  def initialize(games_data, teams_data)  
+    @games_data = games_data
+    @teams_data = teams_data
   end
 
   def self.from_csv(locations)
-    stat_tracker = StatTracker.new(locations)
+    games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      GameData.new(row)
+    end
+    teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      TeamsData.new(row)
+    end
+  StatTracker.new(games_data, teams_data)
   end
 
 end
-
-# In this scenario, everytime we call stattracker.gamedata, it'll reload the files.
-# Might get slow eventually if we're doing this.
-# We may want to not call locations in initialize, move to different method?
