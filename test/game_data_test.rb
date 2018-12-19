@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require './lib/games_data'
 require './lib/stat_tracker'
 require 'pry'
@@ -20,13 +23,11 @@ class GameDataTest < MiniTest::Test
     assert_instance_of GameData, games_data
   end
 
-  def test_data_file_reads_csv
-    stat_tracker = StatTracker.from_csv(@locations)
+  def test_it_has_attributes
+    row = 2012030221,20122013,"P","2013-05-16",3,6,2,3,"home win OT","left","TD Garden","/api/v1/venues/null","America/New_York",-4,"EDT"
+    games_data = GameData.new(row)
 
-expected_hash = {}
-    assert_equal expected_hash, stat_tracker.games_data[0]
+    assert_equal 2012030221, games_data.game_id
   end
-
-
-
+  
 end
