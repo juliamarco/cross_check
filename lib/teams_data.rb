@@ -11,6 +11,7 @@ class TeamsData
   def initialize(path)
     @data_file = []
     read(path)
+    merge_hashes
   end
 
   def read(path)

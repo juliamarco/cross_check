@@ -9,7 +9,9 @@ class GameData
 
   def initialize(path)
     @data_file = []
+    binding.pry
     read(path)
+    merge_hashes
   end
 
   def read(path)
@@ -35,6 +37,7 @@ class GameData
     @data_file.shift
     return @data_file
   end
+
 
 
 end
