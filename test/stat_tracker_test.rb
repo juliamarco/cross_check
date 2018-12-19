@@ -1,5 +1,6 @@
 require './lib/stat_tracker'
 require './lib/game_data'
+require './lib/teams_data'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -26,5 +27,15 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal expected_hash, stat_tracker.game_data.data_file
   end
+
+  def test_it_holds_the_game_data
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    expected_hash = {"team_id"=>[1, 4, 26, 14, 6], "franchiseId"=>[23, 16, 14, 31, 6], "shortName"=>["New Jersey", "Philadelphia", "Los Angeles", "Tampa Bay", "Boston"], "teamName"=>["Devils", "Flyers", "Kings", "Lightning", "Bruins"], "abbreviation"=>["NJD", "PHI", "LAK", "TBL", "BOS"], "link"=>["/api/v1/teams/1", "/api/v1/teams/4", "/api/v1/teams/26", "/api/v1/teams/14", "/api/v1/teams/6"]}
+
+    assert_equal expected_hash, stat_tracker.teams_data.data_file
+  end
+
+
 
 end
