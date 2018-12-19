@@ -11,7 +11,6 @@ class GameData
     @data_file = []
     binding.pry
     read(path)
-    merge_hashes
   end
 
   def read(path)
