@@ -29,7 +29,8 @@ class GameData
       "venue_time_zone_offset",
       "venue_time_zone_tz"]
 
-    @data_file = CSV.read(path, converters: :numeric).map do |row|
+    @data_file = CSV.read(path, headers: true, converters: :numeric).map do |row|
+binding.pry
       Hash[keys.zip(row)]
     end
     @data_file.shift
