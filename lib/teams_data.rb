@@ -1,35 +1,26 @@
 require 'csv'
+require './lib/game_data'
 require './lib/merge_hashes_module'
 
 
-class GameData
+class TeamsData
   include MergeHashes
 
   attr_reader :data_file
 
   def initialize(path)
     @data_file = []
-    binding.pry
     read(path)
     merge_hashes
   end
 
   def read(path)
-    keys = ["game_id",
-      "season",
-      "type",
-      "date_time",
-      "away_team_id",
-      "home_team_id",
-      "away_goals",
-      "home_goals",
-      "outcome",
-      "home_rink_side_start",
-      "venue",
-      "venue_link",
-      "venue_time_zone_id",
-      "venue_time_zone_offset",
-      "venue_time_zone_tz"]
+    keys = ["team_id",
+      "franchiseId",
+      "shortName",
+      "teamName",
+      "abbreviation",
+      "link"]
 
     @data_file = CSV.read(path, converters: :numeric).map do |row|
       Hash[keys.zip(row)]
