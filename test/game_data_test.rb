@@ -24,3 +24,4 @@ class GameDataTest < MiniTest::Test
     assert_equal expected_hash, game_data.data_file
   end
   end
+  

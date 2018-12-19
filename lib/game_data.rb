@@ -9,6 +9,7 @@ class GameData
 
   def initialize(path)
     @data_file = []
+    binding.pry
     read(path)
   end
 
