@@ -1,9 +1,13 @@
+require 'simplecov'
+SimpleCov.start
+
 require './lib/stat_tracker'
 require './lib/games_data'
 require './lib/teams_data'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
+
 
 class StatTrackerTest < MiniTest::Test
 
@@ -20,7 +24,7 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, stat_tracker
   end
 
-  def test_it_holds_the_game_data
+  def test_it_holds_the_games_data
     stat_tracker = StatTracker.from_csv(@locations)
 
     assert_equal 2, stat_tracker.games_data[0].away_goals
@@ -28,7 +32,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 20122013, stat_tracker.games_data[2].season
     assert_equal "P", stat_tracker.games_data[3].type
     assert_equal "2013-05-25", stat_tracker.games_data[4].date_time
-
   end
 
   def test_it_holds_the_teams_data
