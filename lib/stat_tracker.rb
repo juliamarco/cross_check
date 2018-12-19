@@ -1,7 +1,6 @@
 require './lib/game_data'
 require './lib/teams_data'
 
-
 class StatTracker
   attr_reader :game_data,
               :teams_data
@@ -16,3 +15,7 @@ class StatTracker
   end
 
 end
+
+# In this scenario, everytime we call stattracker.gamedata, it'll reload the files.
+# Might get slow eventually if we're doing this.
+# We may want to not call locations in initialize, move to different method?
