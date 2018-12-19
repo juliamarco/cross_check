@@ -1,33 +1,19 @@
-require 'csv'
-require './lib/game_data'
-require './lib/merge_hashes_module'
-
-
 class TeamsData
-  include MergeHashes
 
-  attr_reader :data_file
+  attr_reader :team_id,
+              :franchiseId,
+              :shortName,
+              :teamName,
+              :abbreviation,
+              :link
 
-  def initialize(path)
-    @data_file = []
-    read(path)
+  def initialize(row)
+    @team_id = row[0]
+    @franchiseId = row[1]
+    @shortName = row[2]
+    @teamName = row[3]
+    @abbreviation = row[4]
+    @link = row[5]
   end
-
-  def read(path)
-    keys = ["team_id",
-      "franchiseId",
-      "shortName",
-      "teamName",
-      "abbreviation",
-      "link"]
-
-    @data_file = CSV.read(path, converters: :numeric).map do |row|
-      Hash[keys.zip(row)]
-    end
-    @data_file.shift
-    return @data_file
-  end
-
-
 
 end

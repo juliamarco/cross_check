@@ -1,4 +1,5 @@
-require './lib/game_data'
+require './lib/games_data'
+require './lib/stat_tracker'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -6,22 +7,26 @@ require 'minitest/pride'
 class GameDataTest < MiniTest::Test
 
   def setup
-    @game_path = './data/game_sample.csv'
+    @games_path = './data/game_sample.csv'
+    @teams_path = './data/team_info_sample.csv'
+    @games_teams_path = './data/game_teams_stats_sample.csv'
+    @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
   end
 
   def test_it_exists
-    game_data = GameData.new(@game_path)
+    row = 2012030221,20122013,"P","2013-05-16",3,6,2,3,"home win OT","left","TD Garden","/api/v1/venues/null","America/New_York",-4,"EDT"
+    games_data = GameData.new(row)
 
-    assert_instance_of GameData, game_data
+    assert_instance_of GameData, games_data
   end
 
   def test_data_file_reads_csv
+    stat_tracker = StatTracker.from_csv(@locations)
 
-    game_data = GameData.new(@game_path)
-
-    expected_hash = [{"game_id"=>2012030221, "season"=>20122013, "type"=>"P", "date_time"=>"2013-05-16", "away_team_id"=>3, "home_team_id"=>6, "away_goals"=>2, "home_goals"=>3, "outcome"=>"home win OT", "home_rink_side_start"=>"left", "venue"=>"TD Garden", "venue_link"=>"/api/v1/venues/null", "venue_time_zone_id"=>"America/New_York", "venue_time_zone_offset"=>-4, "venue_time_zone_tz"=>"EDT"}, {"game_id"=>2012030222, "season"=>20122013, "type"=>"P", "date_time"=>"2013-05-19", "away_team_id"=>3, "home_team_id"=>6, "away_goals"=>2, "home_goals"=>5, "outcome"=>"home win REG", "home_rink_side_start"=>"left", "venue"=>"TD Garden", "venue_link"=>"/api/v1/venues/null", "venue_time_zone_id"=>"America/New_York", "venue_time_zone_offset"=>-4, "venue_time_zone_tz"=>"EDT"}, {"game_id"=>2012030223, "season"=>20122013, "type"=>"P", "date_time"=>"2013-05-21", "away_team_id"=>6, "home_team_id"=>3, "away_goals"=>2, "home_goals"=>1, "outcome"=>"away win REG", "home_rink_side_start"=>"right", "venue"=>"Madison Square Garden", "venue_link"=>"/api/v1/venues/null", "venue_time_zone_id"=>"America/New_York", "venue_time_zone_offset"=>-4, "venue_time_zone_tz"=>"EDT"}, {"game_id"=>2012030224, "season"=>20122013, "type"=>"P", "date_time"=>"2013-05-23", "away_team_id"=>6, "home_team_id"=>3, "away_goals"=>3, "home_goals"=>4, "outcome"=>"home win OT", "home_rink_side_start"=>"right", "venue"=>"Madison Square Garden", "venue_link"=>"/api/v1/venues/null", "venue_time_zone_id"=>"America/New_York", "venue_time_zone_offset"=>-4, "venue_time_zone_tz"=>"EDT"}, {"game_id"=>2012030225, "season"=>20122013, "type"=>"P", "date_time"=>"2013-05-25", "away_team_id"=>3, "home_team_id"=>6, "away_goals"=>1, "home_goals"=>3, "outcome"=>"home win REG", "home_rink_side_start"=>"left", "venue"=>"TD Garden", "venue_link"=>"/api/v1/venues/null", "venue_time_zone_id"=>"America/New_York", "venue_time_zone_offset"=>-4, "venue_time_zone_tz"=>"EDT"}]
-
-    assert_equal expected_hash, game_data.data_file
+expected_hash = {}
+    assert_equal expected_hash, stat_tracker.games_data[0]
   end
-  end
-  
+
+
+
+end
