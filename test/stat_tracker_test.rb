@@ -46,19 +46,19 @@ class StatTrackerTest < MiniTest::Test
   def test_it_has_a_highest_total_score
     stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal 7, stat_tracker.highest_total_score
+    assert_equal 9, stat_tracker.highest_total_score
   end
 
   def test_it_has_a_lowest_total_score
     stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal 3, stat_tracker.lowest_total_score
+    assert_equal 2, stat_tracker.lowest_total_score
   end
 
   def test_it_has_a_biggest_blowout
     stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal 3, stat_tracker.biggest_blowout
+    assert_equal 4, stat_tracker.biggest_blowout
   end
 
   def test_it_has_a_most_popular_venue
@@ -70,16 +70,51 @@ class StatTrackerTest < MiniTest::Test
   def test_it_has_a_least_popular_venue
     stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal "Madison Square Garden", stat_tracker.least_popular_venue
+    assert_equal "CONSOL Energy Center", stat_tracker.least_popular_venue
+  end
+
+  def test_season_with_most_games
+    stat_tracker = StatTracker.from_csv(@locations)
+    assert_equal "20122013", stat_tracker.season_with_most_games
+  end
+
+  def test_season_with_fewest_games
+    stat_tracker = StatTracker.from_csv(@locations)
+    assert_equal "20142015", stat_tracker.season_with_fewest_games
   end
 
   def test_it_can_show_percentage_of_home_wins
     stat_tracker = StatTracker.from_csv(@locations)
 
-    assert_equal 80, stat_tracker.percentage_home_wins
+    assert_equal 90, stat_tracker.percentage_home_wins
   end
 
   def test_it_can_show_percentage_of_visitor_wins
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 10, stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_show_count_of_games_by_season
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    expected = {20122013=>5, 20132014=>2, 20142015=>1, 20152016=>2}
+
+    assert_equal expected, stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_show_average_goals_per_game
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 5.6, stat_tracker.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    expected_hash = {20122013 => 2.6, 20132014 => 3.8, 20142015 => 1.0, 20152016 => 3.3}
+
+    assert_equal expected_hash, stat_tracker.average_goals_by_season
   end
 
 end
