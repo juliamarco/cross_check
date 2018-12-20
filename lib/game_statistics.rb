@@ -49,4 +49,33 @@ module GameStatistics
    return min[0]
  end
 
+ def percentage_home_wins
+   outcomes = @games_data.map do |game|
+      game.outcome
+   end
+   home_wins = outcomes.count do |outcome|
+     outcome.include?("home")
+   end
+   home_wins.to_f / outcomes.length.to_f * 100.0
+ end
+
+
+ def percentage_visitor_wins
+ end
+
+ def season_with_most_games
+ end
+
+ def season_with_fewest_games
+ end
+
+ def count_of_games_by_season
+ end
+
+ def average_goals_per_game
+ end
+
+ def average_goals_by_season
+ end
+
 end

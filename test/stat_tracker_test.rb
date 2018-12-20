@@ -73,6 +73,13 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Madison Square Garden", stat_tracker.least_popular_venue
   end
 
+  def test_it_can_show_percentage_of_home_wins
+    stat_tracker = StatTracker.from_csv(@locations)
 
+    assert_equal 80, stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_show_percentage_of_visitor_wins
+  end
 
 end
