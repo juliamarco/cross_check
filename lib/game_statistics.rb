@@ -24,6 +24,7 @@ module GameStatistics
    return num.abs
  end
 
+  #I think this needs to be tested.
  def counts_venues_occurrences
    counts = Hash.new(0)
    #The argument is a default value argument that will be returned when a key that doesn’t correspond to a hash entry is accessed
@@ -69,6 +70,7 @@ module GameStatistics
    home_wins.to_f / outcomes.length.to_f * 100.0
  end
 
+  #another helper method without a test?
  def count_of_games_by_season
    counts = Hash.new(0)
    @games_data.each do |game|
