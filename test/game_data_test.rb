@@ -9,6 +9,7 @@ require 'minitest/pride'
 
 class GameDataTest < MiniTest::Test
 
+  # stattracker is a loader, whereas a test could potentially have instances of games & attributes... move this stuff to stattracker?
   def setup
     @games_path = './data/game_sample.csv'
     @teams_path = './data/team_info_sample.csv'
@@ -29,5 +30,5 @@ class GameDataTest < MiniTest::Test
 
     assert_equal 2012030221, games_data.game_id
   end
-  
+
 end
