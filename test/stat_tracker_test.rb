@@ -8,7 +8,6 @@ require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-
 class StatTrackerTest < MiniTest::Test
 
   def setup
@@ -44,5 +43,34 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "BOS", stat_tracker.teams_data[4].abbreviation
   end
 
+  def test_it_has_a_highest_total_score
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 7, stat_tracker.highest_total_score
+  end
+
+  def test_it_has_a_lowest_total_score
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 3, stat_tracker.lowest_total_score
+  end
+
+  def test_it_has_a_biggest_blowout
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal 3, stat_tracker.biggest_blowout
+  end
+
+  def test_it_has_a_most_popular_venue
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal "TD Garden", stat_tracker.most_popular_venue
+  end
+
+  def test_it_has_a_least_popular_venue
+    stat_tracker = StatTracker.from_csv(@locations)
+
+    assert_equal "Madison Square Garden", stat_tracker.least_popular_venue
+  end
 
 end
