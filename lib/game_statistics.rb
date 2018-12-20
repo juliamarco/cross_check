@@ -41,4 +41,12 @@ module GameStatistics
    return max[0]
  end
 
+ def least_popular_venue
+   counts = counts_venues_occurrences
+   min = counts.min_by do |key, value|
+       value
+   end
+   return min[0]
+ end
+
 end
