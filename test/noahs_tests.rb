@@ -1,93 +1,94 @@
-def test_it_can_access_the_highest_total_score
-    game_sample_path = './data/game_sample.csv'
-    stat_tracker = StatTracker.from_csv
-    # binding.pry
-    assert_equal 7, stat_tracker.highest_total_score(game_sample_path)
-end
-def highest_total_score(location)
-  total_score = []
-  CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
-    # binding.pry
-      total_score << row[:away_goals].to_i + row[:home_goals].to_i
-    end
-  total_score.max
-end
-
-def test_it_can_access_the_lowest_total_score
-    game_sample_path = './data/game_sample.csv'
-    stat_tracker = StatTracker.from_csv
-    # binding.pry
-    assert_equal 3, stat_tracker.lowest_total_score(game_sample_path)
-end
-def lowest_total_score(location)
-  total_score = []
-  CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
-    # binding.pry
-      total_score << row[:away_goals].to_i + row[:home_goals].to_i
-    end
-  total_score.min
-end
-
-def test_it_can_access_highest_difference_between_winner_and_loser
-  game_sample_path = './data/game_sample.csv'
-  stat_tracker = StatTracker.from_csv
-
-  assert_equal 3, stat_tracker.biggest_blowout(game_sample_path)
-end
-def biggest_blowout(location)
-  scores_diff = []
-  CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
-    # binding.pry
-    if row[:away_goals].to_i > row[:home_goals].to_i
-      scores_diff << row[:away_goals].to_i - row[:home_goals].to_i
-    elsif row[:away_goals].to_i < row[:home_goals].to_i
-      scores_diff << row[:home_goals].to_i - row[:away_goals].to_i
-    end
-  end
-  scores_diff.max
-end
-
-
-
-def test_it_can_access_most_popular_venue
-  game_sample_path = './data/game_sample.csv'
-  stat_tracker = StatTracker.from_csv
-
-  assert_equal "TD Garden", stat_tracker.most_popular_venue(game_sample_path)
-end
-def most_popular_venue(location)
-  all_venues = []
-  sorted_hash = Hash.new(0)
-  CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
-    all_venues << row[:venue]
-  end
-  #maby do a diff enumerable, group_by?
-  all_venues.each do |name|
-    sorted_hash[name] += 1
-  end
-  return sorted_hash.key(sorted_hash.values.max)
-end
-
-
-
-def test_it_can_access_least_popular_venue
-  game_sample_path = './data/game_sample.csv'
-  stat_tracker = StatTracker.from_csv
-
-  assert_equal "CONSOL Energy Center", stat_tracker.least_popular_venue(game_sample_path)
-end
-def least_popular_venue(location)
-  all_venues = []
-  sorted_hash = Hash.new(0)
-  CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
-    all_venues << row[:venue]
-  end
-  #maby do a diff enumerable, group_by?
-  all_venues.each do |name|
-    sorted_hash[name] += 1
-  end
-  return sorted_hash.key(sorted_hash.values.min)
-end
+# def test_it_can_access_the_highest_total_score
+#     game_sample_path = './data/game_sample.csv'
+#     stat_tracker = StatTracker.from_csv
+#     # binding.pry
+#     assert_equal 7, stat_tracker.highest_total_score(game_sample_path)
+# end
+# def highest_total_score(location)
+#   total_score = []
+#   CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+#     # binding.pry
+#       total_score << row[:away_goals].to_i + row[:home_goals].to_i
+#     end
+#   total_score.max
+# end
+#
+# def test_it_can_access_the_lowest_total_score
+#     game_sample_path = './data/game_sample.csv'
+#     stat_tracker = StatTracker.from_csv
+#     # binding.pry
+#     assert_equal 3, stat_tracker.lowest_total_score(game_sample_path)
+# end
+# def lowest_total_score(location)
+#   total_score = []
+#   CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+#     # binding.pry
+#       total_score << row[:away_goals].to_i + row[:home_goals].to_i
+#     end
+#   total_score.min
+# end
+#
+# def test_it_can_access_highest_difference_between_winner_and_loser
+#   game_sample_path = './data/game_sample.csv'
+#   stat_tracker = StatTracker.from_csv
+#
+#   assert_equal 3, stat_tracker.biggest_blowout(game_sample_path)
+# end
+#
+# def biggest_blowout(location)
+#   scores_diff = []
+#   CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+#     # binding.pry
+#     if row[:away_goals].to_i > row[:home_goals].to_i
+#       scores_diff << row[:away_goals].to_i - row[:home_goals].to_i
+#     elsif row[:away_goals].to_i < row[:home_goals].to_i
+#       scores_diff << row[:home_goals].to_i - row[:away_goals].to_i
+#     end
+#   end
+#   scores_diff.max
+# end
+#
+#
+#
+# def test_it_can_access_most_popular_venue
+#   game_sample_path = './data/game_sample.csv'
+#   stat_tracker = StatTracker.from_csv
+#
+#   assert_equal "TD Garden", stat_tracker.most_popular_venue(game_sample_path)
+# end
+# def most_popular_venue(location)
+#   all_venues = []
+#   sorted_hash = Hash.new(0)
+#   CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+#     all_venues << row[:venue]
+#   end
+#   #maby do a diff enumerable, group_by?
+#   all_venues.each do |name|
+#     sorted_hash[name] += 1
+#   end
+#   return sorted_hash.key(sorted_hash.values.max)
+# end
+#
+#
+#
+# def test_it_can_access_least_popular_venue
+#   game_sample_path = './data/game_sample.csv'
+#   stat_tracker = StatTracker.from_csv
+#
+#   assert_equal "CONSOL Energy Center", stat_tracker.least_popular_venue(game_sample_path)
+# end
+# def least_popular_venue(location)
+#   all_venues = []
+#   sorted_hash = Hash.new(0)
+#   CSV.foreach(location, headers: true, header_converters: :symbol) do |row|
+#     all_venues << row[:venue]
+#   end
+#   #maby do a diff enumerable, group_by?
+#   all_venues.each do |name|
+#     sorted_hash[name] += 1
+#   end
+#   return sorted_hash.key(sorted_hash.values.min)
+# end
 
 
 
