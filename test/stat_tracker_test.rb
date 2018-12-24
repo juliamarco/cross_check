@@ -33,7 +33,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_holds_the_teams_data
-    
+
     assert_equal 1, @stat_tracker.teams_data[0].team_id
     assert_equal 16, @stat_tracker.teams_data[1].franchiseId
     assert_equal "Los Angeles", @stat_tracker.teams_data[2].shortName
@@ -56,6 +56,13 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 4, @stat_tracker.biggest_blowout
   end
 
+  def test_it_can_count_venues_occurrences
+
+    expected = {"TD Garden"=>3, "Madison Square Garden"=>2, "United Center"=>2, "Pepsi Center"=>1, "CONSOL Energy Center"=>1, "American Airlines Center"=>1}
+
+    assert_equal expected, @stat_tracker.counts_venues_occurrences
+  end
+
   def test_it_has_a_most_popular_venue
 
     assert_equal "TD Garden", @stat_tracker.most_popular_venue
@@ -63,7 +70,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_a_least_popular_venue
 
-    assert_equal "CONSOL Energy Center", @stat_tracker.least_popular_venue
+    assert_equal "Pepsi Center", @stat_tracker.least_popular_venue
   end
 
   def test_season_with_most_games
@@ -103,6 +110,11 @@ class StatTrackerTest < MiniTest::Test
     expected_hash = {20122013 => 2.6, 20132014 => 3.8, 20142015 => 1.0, 20152016 => 3.3}
 
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_has_a_highest_scoring_visitor
+
+    assert_equal "Wild", @stat_tracker.highest_scoring_visitor
   end
 
 end
