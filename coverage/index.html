@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-24T08:50:04-07:00">2018-12-24T08:50:04-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-24T08:56:03-07:00">2018-12-24T08:56:03-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -73,7 +73,7 @@
       <tr>
         <td class="strong"><a href="#a22d917421956e635cd6ba2a9b89d40eb5f061ec" class="src_link" title="lib/stat_tracker.rb">lib/stat_tracker.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>43</td>
+        <td>48</td>
         <td>18</td>
         <td>18</td>
         <td>0</td>
@@ -1371,34 +1371,64 @@
         <li class="covered" data-hits="102" data-linenumber="38">
           <span class="hits">102</span>
           
-          <code class="ruby">      TeamsData.new(row)</code>
+          <code class="ruby">      TeamsData.new({:team_id =&gt; row[0],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="39">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">                     :franchiseId =&gt; row[1],</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="40">
-          <span class="hits">17</span>
+        <li class="never" data-hits="" data-linenumber="40">
           
-          <code class="ruby">  StatTracker.new(games_data, teams_data)</code>
+          
+          <code class="ruby">                     :shortName =&gt; row[2],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="41">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">                     :teamName =&gt; row[3],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="42">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">                     :abbreviation =&gt; row[4],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="43">
+          
+          
+          <code class="ruby">                     :link =&gt; row[5]})</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="44">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="17" data-linenumber="45">
+          <span class="hits">17</span>
+          
+          <code class="ruby">  StatTracker.new(games_data, teams_data)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="46">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="47">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="48">
           
           
           <code class="ruby">end</code>
@@ -1480,43 +1510,43 @@
         <li class="covered" data-hits="1" data-linenumber="10">
           <span class="hits">1</span>
           
-          <code class="ruby">  def initialize(row)</code>
+          <code class="ruby">  def initialize(teams_data)</code>
         </li>
       
         <li class="covered" data-hits="102" data-linenumber="11">
           <span class="hits">102</span>
           
-          <code class="ruby">    @team_id = row[0]</code>
+          <code class="ruby">    @team_id = teams_data[:team_id]</code>
         </li>
       
         <li class="covered" data-hits="102" data-linenumber="12">
           <span class="hits">102</span>
           
-          <code class="ruby">    @franchiseId = row[1]</code>
+          <code class="ruby">    @franchiseId = teams_data[:franchiseId]</code>
         </li>
       
         <li class="covered" data-hits="102" data-linenumber="13">
           <span class="hits">102</span>
           
-          <code class="ruby">    @shortName = row[2]</code>
+          <code class="ruby">    @shortName = teams_data[:shortName]</code>
         </li>
       
         <li class="covered" data-hits="102" data-linenumber="14">
           <span class="hits">102</span>
           
-          <code class="ruby">    @teamName = row[3]</code>
+          <code class="ruby">    @teamName = teams_data[:teamName]</code>
         </li>
       
         <li class="covered" data-hits="102" data-linenumber="15">
           <span class="hits">102</span>
           
-          <code class="ruby">    @abbreviation = row[4]</code>
+          <code class="ruby">    @abbreviation = teams_data[:abbreviation]</code>
         </li>
       
         <li class="covered" data-hits="102" data-linenumber="16">
           <span class="hits">102</span>
           
-          <code class="ruby">    @link = row[5]</code>
+          <code class="ruby">    @link = teams_data[:link]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="17">

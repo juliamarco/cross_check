@@ -35,7 +35,12 @@ class StatTracker
                     :venue_time_zone_tz => row[14]})
     end
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
-      TeamsData.new(row)
+      TeamsData.new({:team_id => row[0],
+                     :franchiseId => row[1],
+                     :shortName => row[2],
+                     :teamName => row[3],
+                     :abbreviation => row[4],
+                     :link => row[5]})
     end
   StatTracker.new(games_data, teams_data)
   end
