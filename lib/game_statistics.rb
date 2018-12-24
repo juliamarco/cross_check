@@ -24,10 +24,8 @@ module GameStatistics
    return num.abs
  end
 
-  #I think this needs to be tested.
  def counts_venues_occurrences
    counts = Hash.new(0)
-   #The argument is a default value argument that will be returned when a key that doesn’t correspond to a hash entry is accessed
    @games_data.each do |game|
      counts[game.venue] += 1
    end
@@ -37,7 +35,7 @@ module GameStatistics
  def most_popular_venue
    counts = counts_venues_occurrences
    max = counts.max_by do |key, value|
-       value
+    value
    end
    return max[0]
  end
