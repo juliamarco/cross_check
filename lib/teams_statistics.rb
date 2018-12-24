@@ -1,4 +1,4 @@
-module TeamStatistics
+module LeagueStatistics
 
   def highest_scoring_visitor
     away_team = @games_data.find do |game|
