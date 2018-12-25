@@ -14,21 +14,17 @@ class TeamsDataTest < MiniTest::Test
     @teams_path = './data/team_info_sample.csv'
     @games_teams_path = './data/game_teams_stats_sample.csv'
     @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
+    @stat_tracker = StatTracker.from_csv(@locations)
   end
 
   def test_it_exists
-    expected = 1,23,"New Jersey","Devils","NJD","/api/v1/teams/1"
-    teams_data = TeamsData.new(expected)
 
-    assert_instance_of TeamsData, teams_data
+    assert_instance_of TeamsData, @stat_tracker.teams_data[0]
   end
 
   def test_it_has_attributes
-    expected = 1,23,"New Jersey","Devils","NJD","/api/v1/teams/1"
-    teams_data = TeamsData.new(expected)
 
-    assert_equal 1, teams_data.team_id
-    assert_equal 23, teams_data.franchiseId
-    assert_equal "New Jersey", teams_data.shortName
+    assert_equal 1, @stat_tracker.teams_data[0].team_id
+    assert_equal "Philadelphia", @stat_tracker.teams_data[1].shortName
   end
 end
