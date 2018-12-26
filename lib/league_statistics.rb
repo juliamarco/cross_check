@@ -74,6 +74,19 @@ module LeagueStatistics
     return worst_defense_id[0]
   end
 
+  def best_defense
+    best_defense_team = @teams_data.find do |team|
+      team.team_id == best_defense_id
+    end
+    return best_defense_team.teamName
+  end
+
+  def worst_defense
+    worst_defense_team = @teams_data.find do |team|
+      team.team_id == worst_defense_id
+    end
+    return worst_defense_team.teamName
+  end
 
 
 

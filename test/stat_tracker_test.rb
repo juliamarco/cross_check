@@ -177,15 +177,14 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_best_defense_name
-skip
+
     assert_equal "Stars", @stat_tracker.best_defense
   end
 
   def test_it_has_worst_defense_name
-skip
+
     assert_equal "Rangers", @stat_tracker.worst_defense
   end
-
 
 
 end
