@@ -18,7 +18,7 @@ class StatTracker
 
   def self.from_csv(locations)
     games_data = CSV.read(locations[:games], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
-      GameData.new({:game_id => row[0],
+      GameData.new(:game_id => row[0],
                     :season => row[1],
                     :type => row[2],
                     :date_time => row[3],
@@ -32,15 +32,15 @@ class StatTracker
                     :venue_link => row[11],
                     :venue_time_zone_id => row[12],
                     :venue_time_zone_offset => row[13],
-                    :venue_time_zone_tz => row[14]})
+                    :venue_time_zone_tz => row[14])
     end
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
-      TeamsData.new({:team_id => row[0],
+      TeamsData.new(:team_id => row[0],
                      :franchiseId => row[1],
                      :shortName => row[2],
                      :teamName => row[3],
                      :abbreviation => row[4],
-                     :link => row[5]})
+                     :link => row[5])
     end
   StatTracker.new(games_data, teams_data)
   end

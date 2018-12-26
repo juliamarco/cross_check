@@ -117,4 +117,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Wild", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_it_can_count_number_of_teams
+
+    assert_equal 6, @stat_tracker.count_of_teams
+  end
+
 end
