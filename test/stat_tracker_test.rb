@@ -142,4 +142,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Blackhawks", @stat_tracker.best_offense
   end
 
+  def test_it_has_worst_offense
+
+    assert_equal "Penguins", @stat_tracker.worst_offense
+  end
+
 end
