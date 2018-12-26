@@ -1,16 +1,5 @@
 module LeagueStatistics
 
-  def highest_scoring_visitor
-    away_team = @games_data.find do |game|
-      game.away_goals + game.home_goals == highest_total_score
-    end
-    away_team_id = away_team.away_team_id
-    team = @teams_data.find do |team|
-      team.team_id == away_team_id
-    end
-    team.teamName
-  end
-
   def count_of_teams
     @teams_data.count
   end
@@ -88,7 +77,16 @@ module LeagueStatistics
     return worst_defense_team.teamName
   end
 
-
+  def highest_scoring_visitor
+    away_team = @games_data.find do |game|
+      game.away_goals + game.home_goals == highest_total_score
+    end
+    away_team_id = away_team.away_team_id
+    team = @teams_data.find do |team|
+      team.team_id == away_team_id
+    end
+    team.teamName
+  end
 
 
 end

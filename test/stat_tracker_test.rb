@@ -121,10 +121,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
-  def test_it_has_a_highest_scoring_visitor
-
-    assert_equal "Wild", @stat_tracker.highest_scoring_visitor
-  end
 
   def test_it_can_count_number_of_teams
 
@@ -186,5 +182,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Rangers", @stat_tracker.worst_defense
   end
 
+  def test_it_has_a_highest_scoring_visitor
+
+    assert_equal "Wild", @stat_tracker.highest_scoring_visitor
+  end
 
 end
