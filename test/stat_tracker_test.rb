@@ -171,6 +171,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 25, @stat_tracker.best_defense_id
   end
 
+  def test_it_has_worst_defense_id
+
+    assert_equal 3, @stat_tracker.worst_defense_id
+  end
+
   def test_it_has_best_defense_name
 skip
     assert_equal "Stars", @stat_tracker.best_defense
