@@ -10,7 +10,7 @@ require 'csv'
 class TeamsDataTest < MiniTest::Test
 
   def test_it_exists
-    teams_data = CSV.read('./data/team_info_sample.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+    teams_data = CSV.read('./data/team_info.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       TeamsData.new(:team_id => row[0],
                      :franchiseId => row[1],
                      :shortName => row[2],
@@ -23,7 +23,7 @@ class TeamsDataTest < MiniTest::Test
   end
 
   def test_it_has_attributes
-    teams_data = CSV.read('./data/team_info_sample.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+    teams_data = CSV.read('./data/team_info.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       TeamsData.new(:team_id => row[0],
                      :franchiseId => row[1],
                      :shortName => row[2],

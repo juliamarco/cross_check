@@ -1,5 +1,6 @@
 require './lib/games_data'
 require './lib/teams_data'
+require './lib/games_teams_stats'
 require 'csv'
 require './lib/game_statistics'
 require './lib/league_statistics'
@@ -9,11 +10,13 @@ class StatTracker
   include LeagueStatistics
 
   attr_reader :games_data,
-              :teams_data
+              :teams_data,
+              :games_teams_stats
 
-  def initialize(games_data, teams_data)
+  def initialize(games_data, teams_data, games_teams_stats)
     @games_data = games_data
     @teams_data = teams_data
+    @games_teams_stats = games_teams_stats
   end
 
   def self.from_csv(locations)
@@ -42,7 +45,25 @@ class StatTracker
                      :abbreviation => row[4],
                      :link => row[5])
     end
-  StatTracker.new(games_data, teams_data)
+    games_teams_stats = CSV.read(locations[:games_teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      GamesTeamsStats.new(:game_id => row[0],
+                    :team_id => row[1],
+                    :HoA => row[2],
+                    :won => row[3],
+                    :settled_in => row[4],
+                    :head_coach => row[5],
+                    :goals => row[6],
+                    :shots => row[7],
+                    :hits => row[8],
+                    :pim => row[9],
+                    :powerPlayOpportunities => row[10],
+                    :powerPlayGoals => row[11],
+                    :faceOffWinPercentage => row[12],
+                    :giveaways => row[13],
+                    :takeaways => row[14])
+  end
+
+  StatTracker.new(games_data, teams_data, games_teams_stats)
   end
 
 end

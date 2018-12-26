@@ -1,0 +1,11 @@
+"game_id","team_id","HoA","won","settled_in","head_coach","goals","shots","hits","pim","powerPlayOpportunities","powerPlayGoals","faceOffWinPercentage","giveaways","takeaways"
+"2012030221","3","away",FALSE,"OT","John Tortorella",2,35,44,8,3,0,44.8,17,7
+"2012030221","6","home",TRUE,"OT","Claude Julien",3,48,51,6,4,1,55.2,4,5
+"2012030222","3","away",FALSE,"REG","John Tortorella",2,37,33,11,5,0,51.7,1,4
+"2012030314","5","away",FALSE,"REG","Dan Bylsma",0,26,33,8,3,0,47.5,8,1
+"2012030314","6","home",TRUE,"REG","Claude Julien",1,24,25,8,3,0,52.5,11,5
+"2012030231","17","away",FALSE,"REG","Mike Babcock",1,21,43,10,3,0,52.5,6,4
+"2012030231","16","home",TRUE,"REG","Joel Quenneville",4,42,24,10,3,1,47.5,2,11
+"2012030237","16","home",TRUE,"OT","Joel Quenneville",2,35,36,6,4,0,47.5,14,9
+"2012030121","9","away",TRUE,"REG","Paul MacLean",4,31,31,23,2,0,39.4,9,1
+"2012030121","8","home",FALSE,"REG","Michel Therrien",2,50,24,6,5,1,60.6,11,10

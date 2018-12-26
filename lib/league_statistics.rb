@@ -15,5 +15,23 @@ module LeagueStatistics
     @teams_data.count
   end
 
+  def teams_by_goals
+    teams = Hash.new(0)
+    @games_teams_stats.each do |stat|
+      teams[stat.team_id] += stat.goals
+    end
+    return teams
+  end
+
+  def best_offense
+    best_offense_id = teams_by_goals.max_by do |team_id, goal|
+      goal
+    end
+    best_offense = @teams_data.find do |team|
+      team.team_id == best_offense_id[0]
+    end
+    return best_offense.teamName
+  end
+
 
 end

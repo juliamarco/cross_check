@@ -12,7 +12,7 @@ class StatTrackerTest < MiniTest::Test
 
   def setup
     @games_path = './data/game_sample.csv'
-    @teams_path = './data/team_info_sample.csv'
+    @teams_path = './data/team_info.csv'
     @games_teams_path = './data/game_teams_stats_sample.csv'
     @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
     @stat_tracker = StatTracker.from_csv(@locations)
@@ -39,6 +39,14 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Los Angeles", @stat_tracker.teams_data[2].shortName
     assert_equal "Lightning", @stat_tracker.teams_data[3].teamName
     assert_equal "BOS", @stat_tracker.teams_data[4].abbreviation
+  end
+
+  def test_it_holds_the_game_teams_stats_data
+    assert_equal 2012030221, @stat_tracker.games_teams_stats[0].game_id
+    assert_equal 6, @stat_tracker.games_teams_stats[1].team_id
+    assert_equal "away", @stat_tracker.games_teams_stats[2].hoA
+    assert_equal "FALSE", @stat_tracker.games_teams_stats[3].won
+    assert_equal "REG", @stat_tracker.games_teams_stats[4].settled_in
   end
 
   def test_it_has_a_highest_total_score
@@ -119,7 +127,19 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_count_number_of_teams
 
-    assert_equal 6, @stat_tracker.count_of_teams
+    assert_equal 33, @stat_tracker.count_of_teams
+  end
+
+  def test_we_can_arrange_teams_by_goals
+
+    expected_hash = {3=>4, 6=>4, 5=>0, 17=>1, 16=>6, 9=>4, 8=>2}
+
+    assert_equal expected_hash, @stat_tracker.teams_by_goals
+  end
+
+  def test_it_has_best_offense
+
+    assert_equal "Blackhawks", @stat_tracker.best_offense
   end
 
 end
