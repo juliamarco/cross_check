@@ -23,24 +23,38 @@ module LeagueStatistics
     return teams
   end
 
-  def best_offense
+  def best_offense_id
     best_offense_id = teams_by_goals.max_by do |team_id, goal|
-      goal
+    goal
     end
+    return best_offense_id[0]
+  end
+
+  def worst_offense_id
+    worst_offense_id = teams_by_goals.min_by do |team_id, goal|
+    goal
+    end
+    return worst_offense_id[0]
+  end
+
+  def best_offense
     best_offense = @teams_data.find do |team|
-      team.team_id == best_offense_id[0]
+      team.team_id == best_offense_id
     end
     return best_offense.teamName
   end
 
   def worst_offense
-    worst_offense_id = teams_by_goals.min_by do |team_id, goal|
-      goal
-    end
     worst_offense = @teams_data.find do |team|
-      team.team_id == worst_offense_id[0]
+      team.team_id == worst_offense_id
     end
     return worst_offense.teamName
+  end
+
+  def best_defense
+    teams_by_goals
+    worst_offense_id
+    # binding.pry
   end
 
 end

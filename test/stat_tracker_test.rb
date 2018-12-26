@@ -137,18 +137,28 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.teams_by_goals
   end
 
-  def test_it_has_best_offense
+  def test_it_has_best_offense_id
+
+    assert_equal 16, @stat_tracker.best_offense_id
+  end
+
+  def test_it_has_worst_offense_id
+
+    assert_equal 5, @stat_tracker.worst_offense_id
+  end
+
+  def test_it_has_best_offense_name
 
     assert_equal "Blackhawks", @stat_tracker.best_offense
   end
 
-  def test_it_has_worst_offense
+  def test_it_has_worst_offense_name
 
     assert_equal "Penguins", @stat_tracker.worst_offense
   end
 
-  def test_it_has_best_defense
-
+  def test_it_has_best_defense_name
+skip
     assert_equal "Bruins", @stat_tracker.best_defense
   end
 
