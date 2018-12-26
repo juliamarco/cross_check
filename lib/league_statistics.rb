@@ -52,9 +52,22 @@ module LeagueStatistics
   end
 
   def best_defense
-    teams_by_goals
-    worst_offense_id
-    # binding.pry
+    games_with_worst_offense = @games_teams_stats.find_all do |stat|
+      stat.team_id == worst_offense_id
+    end
+    game_with_worst_offense = games_with_worst_offense.min_by do |game|
+      game.goals
+    end
+    game_with_worst_offense_id = game_with_worst_offense.game_id
+    best_defense_id = @games_teams_stats.map do |stat|
+      if stat.game_id == game_with_worst_offense_id && stat.team_id != worst_offense_id
+        stat.team_id
+      end
+    end.compact
+    best_defense_name = @teams_data.find do |team|
+      team.team_id == best_defense_id.join.to_i
+    end
+    best_defense_name.teamName
   end
 
 end

@@ -42,10 +42,11 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_holds_the_game_teams_stats_data
+
     assert_equal 2012030221, @stat_tracker.games_teams_stats[0].game_id
     assert_equal 6, @stat_tracker.games_teams_stats[1].team_id
     assert_equal "away", @stat_tracker.games_teams_stats[2].hoA
-    assert_equal "FALSE", @stat_tracker.games_teams_stats[3].won
+    assert_equal "TRUE", @stat_tracker.games_teams_stats[3].won
     assert_equal "REG", @stat_tracker.games_teams_stats[4].settled_in
   end
 
@@ -132,14 +133,14 @@ class StatTrackerTest < MiniTest::Test
 
   def test_we_can_arrange_teams_by_goals
 
-    expected_hash = {3=>4, 6=>4, 5=>0, 17=>1, 16=>6, 9=>4, 8=>2}
+    expected_hash = {3=>4, 6=>9, 5=>0, 17=>2, 16=>6, 9=>4, 8=>2}
 
     assert_equal expected_hash, @stat_tracker.teams_by_goals
   end
 
   def test_it_has_best_offense_id
 
-    assert_equal 16, @stat_tracker.best_offense_id
+    assert_equal 6, @stat_tracker.best_offense_id
   end
 
   def test_it_has_worst_offense_id
@@ -149,7 +150,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_best_offense_name
 
-    assert_equal "Blackhawks", @stat_tracker.best_offense
+    assert_equal "Bruins", @stat_tracker.best_offense
   end
 
   def test_it_has_worst_offense_name
@@ -158,7 +159,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_best_defense_name
-skip
+
     assert_equal "Bruins", @stat_tracker.best_defense
   end
 
