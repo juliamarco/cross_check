@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/stat_tracker.rb": [
+      "/Users/noahflint/turing/1module/projects/cross_check/cross_check/lib/stat_tracker.rb": [
         1,
         1,
         1,
@@ -72,7 +72,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/games_data.rb": [
+      "/Users/noahflint/turing/1module/projects/cross_check/cross_check/lib/games_data.rb": [
         1,
         null,
         1,
@@ -112,7 +112,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/teams_data.rb": [
+      "/Users/noahflint/turing/1module/projects/cross_check/cross_check/lib/teams_data.rb": [
         1,
         null,
         1,
@@ -133,7 +133,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/games_teams_stats.rb": [
+      "/Users/noahflint/turing/1module/projects/cross_check/cross_check/lib/games_teams_stats.rb": [
         1,
         null,
         1,
@@ -174,7 +174,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/game_statistics.rb": [
+      "/Users/noahflint/turing/1module/projects/cross_check/cross_check/lib/game_statistics.rb": [
         1,
         null,
         1,
@@ -300,19 +300,8 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/league_statistics.rb": [
+      "/Users/noahflint/turing/1module/projects/cross_check/cross_check/lib/league_statistics.rb": [
         1,
-        null,
-        1,
-        1,
-        7,
-        null,
-        1,
-        1,
-        15,
-        null,
-        1,
-        null,
         null,
         1,
         1,
@@ -391,12 +380,21 @@
         1,
         null,
         null,
+        1,
+        1,
+        7,
+        null,
+        1,
+        1,
+        15,
+        null,
+        1,
         null,
         null,
         null,
         null
       ]
     },
-    "timestamp": 1545840123
+    "timestamp": 1545936910
   }
 }

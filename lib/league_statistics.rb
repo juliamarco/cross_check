@@ -1,4 +1,4 @@
-module LeagueStatistics
+git module LeagueStatistics
 
   def count_of_teams
     @teams_data.count

@@ -187,4 +187,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Wild", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_it_has_highest_scoring_home_team
+
+    assert_equal "Penguins", @stat_tracker.highest_scoring_visitor
+  end
+
 end
