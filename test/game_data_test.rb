@@ -2,33 +2,56 @@ require 'simplecov'
 SimpleCov.start
 
 require './lib/games_data'
-require './lib/stat_tracker'
+require 'csv'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
 
 class GameDataTest < MiniTest::Test
 
-  # stattracker is a loader, whereas a test could potentially have instances of games & attributes... move this stuff to stattracker?
-  def setup
-    @games_path = './data/game_sample.csv'
-    @teams_path = './data/team_info_sample.csv'
-    @games_teams_path = './data/game_teams_stats_sample.csv'
-    @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
-  end
-
   def test_it_exists
-    row = 2012030221,20122013,"P","2013-05-16",3,6,2,3,"home win OT","left","TD Garden","/api/v1/venues/null","America/New_York",-4,"EDT"
-    games_data = GameData.new(row)
+    games_data = CSV.read('./data/game_sample.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      GameData.new({:game_id => row[0],
+                    :season => row[1],
+                    :type => row[2],
+                    :date_time => row[3],
+                    :away_team_id => row[4],
+                    :home_team_id => row[5],
+                    :away_goals => row[6],
+                    :home_goals => row[7],
+                    :outcome => row[8],
+                    :home_rink_side_start => row[9],
+                    :venue => row[10],
+                    :venue_link => row[11],
+                    :venue_time_zone_id => row[12],
+                    :venue_time_zone_offset => row[13],
+                    :venue_time_zone_tz => row[14]})
+    end
 
-    assert_instance_of GameData, games_data
+    assert_instance_of GameData, games_data[0]
   end
 
   def test_it_has_attributes
-    row = 2012030221,20122013,"P","2013-05-16",3,6,2,3,"home win OT","left","TD Garden","/api/v1/venues/null","America/New_York",-4,"EDT"
-    games_data = GameData.new(row)
+    games_data = CSV.read('./data/game_sample.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      GameData.new({:game_id => row[0],
+                    :season => row[1],
+                    :type => row[2],
+                    :date_time => row[3],
+                    :away_team_id => row[4],
+                    :home_team_id => row[5],
+                    :away_goals => row[6],
+                    :home_goals => row[7],
+                    :outcome => row[8],
+                    :home_rink_side_start => row[9],
+                    :venue => row[10],
+                    :venue_link => row[11],
+                    :venue_time_zone_id => row[12],
+                    :venue_time_zone_offset => row[13],
+                    :venue_time_zone_tz => row[14]})
+    end
 
-    assert_equal 2012030221, games_data.game_id
+    assert_equal 2012030221, games_data[0].game_id
+    assert_equal 20122013, games_data[1].season
   end
 
 end
