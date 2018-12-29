@@ -248,5 +248,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Rangers", @stat_tracker.best_fans
   end
 
+  def test_it_has_worst_fans
+
+    assert_equal ["Canadiens", "Senators"], @stat_tracker.worst_fans
+  end
+
+
 
 end
