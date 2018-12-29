@@ -1,4 +1,4 @@
-git module LeagueStatistics
+module LeagueStatistics
 
   def count_of_teams
     @teams_data.count
@@ -92,14 +92,13 @@ git module LeagueStatistics
   end
 
   def highest_scoring_visitor
-    away_team = @games_data.find do |game|
-      game.away_goals + game.home_goals == highest_total_score
+    highest_scoring = average_goals_by_visitor.max_by do |k,v|
+      v
     end
-    away_team_id = away_team.away_team_id
     team = @teams_data.find do |team|
-      team.team_id == away_team_id
+      team.team_id == highest_scoring[0]
     end
-    team.teamName
+    return team.teamName
   end
 
   def highest_scoring_home_team
