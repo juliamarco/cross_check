@@ -148,5 +148,22 @@ module LeagueStatistics
     return percentages
   end
 
+  def winningest_team
+    team_wins = Hash.new(0)
+    @games_teams_stats.each do |stat|
+      if team_wins.has_key?(stat.team_id)
+        team_wins[stat.team_id].push(stat.won)
+      else
+        team_wins[stat.team_id] = [stat.won]
+      end
+    end
+    percentages = calculate_percentages(team_wins)
+    winningest = percentages.max_by {|k,v| v}
+    team = @teams_data.find do |team|
+      team.team_id == winningest[0]
+    end
+    return team.teamName
+  end
+
 
 end
