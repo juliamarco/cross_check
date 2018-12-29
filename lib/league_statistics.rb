@@ -193,5 +193,11 @@ module LeagueStatistics
     calculate_percentages(away_team_wins)
   end
 
+  def away_and_home_percentages
+    with_both_values = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|
+      [oldval, newval]
+    end
+  end
+
 
 end
