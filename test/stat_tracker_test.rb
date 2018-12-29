@@ -231,4 +231,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.home_wins_percentages
   end
 
+  def test_away_win_percentages
+
+    expected_hash = {3=>0.0, 5=>0.0, 17=>33.33, 9=>100.0, 6=>50.0, 8=>100.0, 16=>0.0}
+    assert_equal expected_hash, @stat_tracker.away_win_percentages
+  end
+
+
 end
