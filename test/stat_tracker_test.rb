@@ -220,4 +220,9 @@ class StatTrackerTest < MiniTest::Test
      assert_equal expected_hash, @stat_tracker.calculate_percentages(original_hash)
    end
 
+  def test_it_has_a_winningest_team
+
+    assert_equal "Bruins", @stat_tracker.winningest_team
+  end
+
 end
