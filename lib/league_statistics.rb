@@ -88,5 +88,10 @@ git module LeagueStatistics
     team.teamName
   end
 
+  def highest_scoring_home_team
+
+
+  end
+
 
 end
