@@ -135,5 +135,18 @@ module LeagueStatistics
     return team.teamName
   end
 
+  def calculate_percentages(hash)
+    values = hash.values
+    won_outcomes = values.map {|value| value.count("TRUE")}
+    total_outcomes = values.map {|value| value.count}
+    percentages = Hash.new
+    hash.each do |key, value|
+      percentages[key] = (won_outcomes[0].to_f / total_outcomes[0].to_f * 100).round(2)
+      won_outcomes.shift
+      total_outcomes.shift
+    end
+    return percentages
+  end
+
 
 end
