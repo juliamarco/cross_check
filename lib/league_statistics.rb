@@ -25,19 +25,20 @@ module LeagueStatistics
     end
     return worst_offense_id[0]
   end
+  
+  def team_id_name(id)
+    team = @teams_data.find do |team|
+      team.team_id == id
+    end
+    return team.teamName
+  end
 
   def best_offense
-    best_offense = @teams_data.find do |team|
-      team.team_id == best_offense_id
-    end
-    return best_offense.teamName
+    team_id_name(best_offense_id)
   end
 
   def worst_offense
-    worst_offense = @teams_data.find do |team|
-      team.team_id == worst_offense_id
-    end
-    return worst_offense.teamName
+    team_id_name(worst_offense_id)
   end
 
   def teams_by_goals_allowed
@@ -64,17 +65,11 @@ module LeagueStatistics
   end
 
   def best_defense
-    best_defense_team = @teams_data.find do |team|
-      team.team_id == best_defense_id
-    end
-    return best_defense_team.teamName
+    team_id_name(best_defense_id)
   end
 
   def worst_defense
-    worst_defense_team = @teams_data.find do |team|
-      team.team_id == worst_defense_id
-    end
-    return worst_defense_team.teamName
+    team_id_name(worst_defense_id)
   end
 
   def average_goals_by_visitor
@@ -90,17 +85,7 @@ module LeagueStatistics
       games[key] = value.sum.to_f / value.count.to_f
     end
   end
-
-  def highest_scoring_visitor
-    highest_scoring = average_goals_by_visitor.max_by do |k,v|
-      v
-    end
-    team = @teams_data.find do |team|
-      team.team_id == highest_scoring[0]
-    end
-    return team.teamName
-  end
-
+  
   def average_goals_by_home_team
     games = Hash.new(0)
     @games_data.each do |game|
@@ -115,24 +100,32 @@ module LeagueStatistics
     end
   end
 
+  def highest_scoring_visitor
+    highest_scoring = average_goals_by_visitor.max_by do |k,v|
+      v
+    end
+    team_id_name(highest_scoring[0])
+  end
+
+  def highest_scoring_home_team
+    highest_scoring = average_goals_by_home_team.max_by do |k,v|
+      v
+    end
+    team_id_name(highest_scoring[0])
+  end
+
   def lowest_scoring_visitor
     highest_scoring = average_goals_by_visitor.min_by do |k,v|
       v
     end
-    team = @teams_data.find do |team|
-      team.team_id == highest_scoring[0]
-    end
-    return team.teamName
+    team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_home_team
     highest_scoring = average_goals_by_home_team.min_by do |k,v|
       v
     end
-    team = @teams_data.find do |team|
-      team.team_id == highest_scoring[0]
-    end
-    return team.teamName
+    team_id_name(highest_scoring[0])
   end
 
   def calculate_percentages(hash)
@@ -159,10 +152,7 @@ module LeagueStatistics
     end
     percentages = calculate_percentages(team_wins)
     winningest = percentages.max_by {|k,v| v}
-    team = @teams_data.find do |team|
-      team.team_id == winningest[0]
-    end
-    return team.teamName
+    team_id_name(winningest[0])
   end
 
   def home_wins_percentages
@@ -203,10 +193,7 @@ module LeagueStatistics
     team_id = away_and_home_percentages.max_by do |key, value|
       value[0] - value[1]
     end[0]
-    team = @teams_data.find do |team|
-      team.team_id == team_id
-    end
-    return team.teamName
+    team_id_name(team_id)
   end
 
   def worst_fans
