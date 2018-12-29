@@ -214,4 +214,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Rangers", @stat_tracker.lowest_scoring_home_team
   end
 
+  def test_it_can_calculate_percentages
+     original_hash = {3=>["FALSE", "TRUE"], 6=>["TRUE", "TRUE", "FALSE"], 5=>["FALSE"], 17=>["FALSE", "FALSE"], 16=>["TRUE", "TRUE"], 9=>["TRUE"], 8=>["FALSE"]}
+     expected_hash = {3=>50.0, 6=>66.67, 5=>0.0, 17=>0.0, 16=>100.0, 9=>100.0, 8=>0.0}
+     assert_equal expected_hash, @stat_tracker.calculate_percentages(original_hash)
+   end
+
 end
