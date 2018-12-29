@@ -243,5 +243,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.away_and_home_percentages
   end
 
+  def test_it_has_best_fans
+
+    assert_equal "Rangers", @stat_tracker.best_fans
+  end
+
 
 end
