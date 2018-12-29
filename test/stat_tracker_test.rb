@@ -204,5 +204,9 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_it_has_a_lowest_scoring_visitor
+
+    assert_equal "Lightning", @stat_tracker.lowest_scoring_visitor
+  end
 
 end
