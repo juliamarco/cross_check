@@ -199,5 +199,15 @@ module LeagueStatistics
     end
   end
 
+  def best_fans
+    team_id = away_and_home_percentages.max_by do |key, value|
+      value[0] - value[1]
+    end[0]
+    team = @teams_data.find do |team|
+      team.team_id == team_id
+    end
+    return team.teamName
+  end
+
 
 end
