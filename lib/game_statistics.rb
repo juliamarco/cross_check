@@ -68,7 +68,6 @@ module GameStatistics
    home_wins.to_f / outcomes.length.to_f * 100.0
  end
 
-  #another helper method without a test?
  def count_of_games_by_season
    counts = Hash.new(0)
    @games_data.each do |game|

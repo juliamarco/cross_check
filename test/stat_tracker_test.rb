@@ -12,7 +12,7 @@ class StatTrackerTest < MiniTest::Test
 
   def setup
     @games_path = './data/game_sample.csv'
-    @teams_path = './data/team_info_sample.csv'
+    @teams_path = './data/team_info.csv'
     @games_teams_path = './data/game_teams_stats_sample.csv'
     @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
     @stat_tracker = StatTracker.from_csv(@locations)
@@ -39,6 +39,15 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Los Angeles", @stat_tracker.teams_data[2].shortName
     assert_equal "Lightning", @stat_tracker.teams_data[3].teamName
     assert_equal "BOS", @stat_tracker.teams_data[4].abbreviation
+  end
+
+  def test_it_holds_the_game_teams_stats_data
+
+    assert_equal 2012030221, @stat_tracker.games_teams_stats[0].game_id
+    assert_equal 6, @stat_tracker.games_teams_stats[1].team_id
+    assert_equal "away", @stat_tracker.games_teams_stats[2].hoA
+    assert_equal "TRUE", @stat_tracker.games_teams_stats[3].won
+    assert_equal "REG", @stat_tracker.games_teams_stats[4].settled_in
   end
 
   def test_it_has_a_highest_total_score
@@ -112,9 +121,138 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
+
+  def test_it_can_count_number_of_teams
+
+    assert_equal 33, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_arrange_teams_by_goals_scored
+
+    expected_hash = {3=>8, 6=>15, 5=>0, 17=>8, 16=>9, 9=>5, 8=>4}
+
+    assert_equal expected_hash, @stat_tracker.teams_by_goals_scored
+  end
+
+
+  def test_it_has_best_offense_id
+
+    assert_equal 6, @stat_tracker.best_offense_id
+  end
+
+  def test_it_has_worst_offense_id
+
+    assert_equal 5, @stat_tracker.worst_offense_id
+  end
+
+  def test_it_has_best_offense_name
+
+    assert_equal "Bruins", @stat_tracker.best_offense
+  end
+
+  def test_it_has_worst_offense_name
+
+    assert_equal "Penguins", @stat_tracker.worst_offense
+  end
+
+  def test_it_can_arrange_teams_by_goals_allowed
+
+    expected_hash = {3=>22, 6=>10, 19=>5, 16=>1, 30=>9, 21=>4, 14=>2, 5=>3, 25=>0}
+
+    assert_equal expected_hash, @stat_tracker.teams_by_goals_allowed
+  end
+
+  def test_it_has_best_defense_id
+
+    assert_equal 25, @stat_tracker.best_defense_id
+  end
+
+  def test_it_has_worst_defense_id
+
+    assert_equal 3, @stat_tracker.worst_defense_id
+  end
+
+  def test_it_has_best_defense_name
+
+    assert_equal "Stars", @stat_tracker.best_defense
+  end
+
+  def test_it_has_worst_defense_name
+
+    assert_equal "Rangers", @stat_tracker.worst_defense
+  end
+
+  def test_it_has_average_goals_by_visitor
+
+   expected_hash = {3=>2.0, 6=>2.5, 19=>1.0, 30=>2.0, 14=>0.0}
+   assert_equal expected_hash, @stat_tracker.average_goals_by_visitor
+  end
+
   def test_it_has_a_highest_scoring_visitor
 
-    assert_equal "Wild", @stat_tracker.highest_scoring_visitor
+    assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
+
+  def test_it_has_average_goals_by_home_team
+
+    expected_hash = {6=>3.6666666666666665, 3=>2.5, 16=>3.5, 21=>5.0, 5=>6.0, 25=>4.0}
+    assert_equal expected_hash, @stat_tracker.average_goals_by_home_team
+  end
+
+  def test_it_has_highest_scoring_home_team
+
+    assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_has_a_lowest_scoring_visitor
+
+    assert_equal "Lightning", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_has_a_lowest_scoring_home_team
+
+    assert_equal "Rangers", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_can_calculate_percentages
+     original_hash = {3=>["FALSE", "TRUE"], 6=>["TRUE", "TRUE", "FALSE"], 5=>["FALSE"], 17=>["FALSE", "FALSE"], 16=>["TRUE", "TRUE"], 9=>["TRUE"], 8=>["FALSE"]}
+     expected_hash = {3=>50.0, 6=>66.67, 5=>0.0, 17=>0.0, 16=>100.0, 9=>100.0, 8=>0.0}
+     assert_equal expected_hash, @stat_tracker.calculate_percentages(original_hash)
+   end
+
+  def test_it_has_a_winningest_team
+
+    assert_equal "Bruins", @stat_tracker.winningest_team
+  end
+
+  def test_home_wins_percentages
+
+    expected_hash = {6=>100.0, 16=>66.67, 8=>0.0, 3=>100.0, 5=>0.0, 9=>0.0, 17=>100.0}
+    assert_equal expected_hash, @stat_tracker.home_wins_percentages
+  end
+
+  def test_away_win_percentages
+
+    expected_hash = {3=>0.0, 5=>0.0, 17=>33.33, 9=>100.0, 6=>50.0, 8=>100.0, 16=>0.0}
+    assert_equal expected_hash, @stat_tracker.away_win_percentages
+  end
+
+  def test_it_can_merge_away_and_win_percentages
+
+    expected_hash = {6=>[100.0, 50.0], 16=>[66.67, 0.0], 8=>[0.0, 100.0], 3=>[100.0, 0.0], 5=>[0.0, 0.0], 9=>[0.0, 100.0], 17=>[100.0, 33.33]}
+    assert_equal expected_hash, @stat_tracker.away_and_home_percentages
+  end
+
+  def test_it_has_best_fans
+
+    assert_equal "Rangers", @stat_tracker.best_fans
+  end
+
+  def test_it_has_worst_fans
+
+    assert_equal ["Canadiens", "Senators"], @stat_tracker.worst_fans
+  end
+
+
 
 end

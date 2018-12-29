@@ -5,26 +5,35 @@ require './lib/teams_data'
 require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/stat_tracker'
+require 'csv'
 
 class TeamsDataTest < MiniTest::Test
 
-  def setup
-    @games_path = './data/game_sample.csv'
-    @teams_path = './data/team_info_sample.csv'
-    @games_teams_path = './data/game_teams_stats_sample.csv'
-    @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
-    @stat_tracker = StatTracker.from_csv(@locations)
-  end
-
   def test_it_exists
+    teams_data = CSV.read('./data/team_info.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      TeamsData.new(:team_id => row[0],
+                     :franchiseId => row[1],
+                     :shortName => row[2],
+                     :teamName => row[3],
+                     :abbreviation => row[4],
+                     :link => row[5])
+    end
 
-    assert_instance_of TeamsData, @stat_tracker.teams_data[0]
+    assert_instance_of TeamsData, teams_data[0]
   end
 
   def test_it_has_attributes
+    teams_data = CSV.read('./data/team_info.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+      TeamsData.new(:team_id => row[0],
+                     :franchiseId => row[1],
+                     :shortName => row[2],
+                     :teamName => row[3],
+                     :abbreviation => row[4],
+                     :link => row[5])
+    end
 
-    assert_equal 1, @stat_tracker.teams_data[0].team_id
-    assert_equal "Philadelphia", @stat_tracker.teams_data[1].shortName
+    assert_equal 1, teams_data[0].team_id
+    assert_equal "Philadelphia", teams_data[1].shortName
   end
+
 end
