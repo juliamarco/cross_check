@@ -115,5 +115,15 @@ module LeagueStatistics
     end
   end
 
+  def lowest_scoring_visitor
+  highest_scoring = average_goals_by_visitor.min_by do |k,v|
+    v
+  end
+  team = @teams_data.find do |team|
+    team.team_id == highest_scoring[0]
+  end
+  return team.teamName
+end
+
 
 end
