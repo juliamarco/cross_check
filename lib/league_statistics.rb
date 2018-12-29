@@ -165,5 +165,19 @@ module LeagueStatistics
     return team.teamName
   end
 
+  def home_wins_percentages
+    home_team_wins = Hash.new(0)
+    @games_teams_stats.each do |stat|
+      if stat.hoA == "home"
+        if home_team_wins.has_key?(stat.team_id)
+          home_team_wins[stat.team_id].push(stat.won)
+        else
+          home_team_wins[stat.team_id] = [stat.won]
+        end
+      end
+    end
+    calculate_percentages(home_team_wins)
+  end
+
 
 end
