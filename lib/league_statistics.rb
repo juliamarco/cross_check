@@ -77,6 +77,20 @@ git module LeagueStatistics
     return worst_defense_team.teamName
   end
 
+  def average_goals_by_visitor
+    games = Hash.new(0)
+    @games_data.each do |game|
+      if games.has_key?(game.away_team_id)
+        games[game.away_team_id].push(game.away_goals)
+      else
+      games[game.away_team_id] = [game.away_goals]
+      end
+    end
+    games.each do |key, value|
+      games[key] = value.sum.to_f / value.count.to_f
+    end
+  end
+
   def highest_scoring_visitor
     away_team = @games_data.find do |game|
       game.away_goals + game.home_goals == highest_total_score
