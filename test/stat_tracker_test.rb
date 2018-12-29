@@ -193,9 +193,16 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Wild", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_it_has_average_goals_by_home_team
+
+    expected_hash = {6=>3.6666666666666665, 3=>2.5, 16=>3.5, 21=>5.0, 5=>6.0, 25=>4.0}
+    assert_equal expected_hash, @stat_tracker.average_goals_by_home_team
+  end
+
   def test_it_has_highest_scoring_home_team
 
     assert_equal "Penguins", @stat_tracker.highest_scoring_visitor
   end
+
 
 end
