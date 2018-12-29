@@ -237,5 +237,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.away_win_percentages
   end
 
+  def test_it_can_merge_away_and_win_percentages
+
+    expected_hash = {6=>[100.0, 50.0], 16=>[66.67, 0.0], 8=>[0.0, 100.0], 3=>[100.0, 0.0], 5=>[0.0, 0.0], 9=>[0.0, 100.0], 17=>[100.0, 33.33]}
+    assert_equal expected_hash, @stat_tracker.away_and_home_percentages
+  end
+
 
 end
