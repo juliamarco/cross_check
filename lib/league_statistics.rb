@@ -101,9 +101,18 @@ module LeagueStatistics
     return team.teamName
   end
 
-  def highest_scoring_home_team
-
-
+  def average_goals_by_home_team
+    games = Hash.new(0)
+    @games_data.each do |game|
+      if games.has_key?(game.home_team_id)
+        games[game.home_team_id].push(game.home_goals)
+      else
+      games[game.home_team_id] = [game.home_goals]
+      end
+    end
+    games.each do |key, value|
+      games[key] = value.sum.to_f / value.count.to_f
+    end
   end
 
 

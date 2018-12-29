@@ -129,7 +129,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_arrange_teams_by_goals_scored
 
-    expected_hash = {3=>4, 6=>9, 5=>0, 17=>2, 16=>6, 9=>4, 8=>2}
+    expected_hash = {3=>8, 6=>15, 5=>0, 17=>8, 16=>9, 9=>5, 8=>4}
 
     assert_equal expected_hash, @stat_tracker.teams_by_goals_scored
   end
@@ -190,7 +190,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_a_highest_scoring_visitor
 
-    assert_equal "Wild", @stat_tracker.highest_scoring_visitor
+    assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
 
   def test_it_has_average_goals_by_home_team
@@ -201,7 +201,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_highest_scoring_home_team
 
-    assert_equal "Penguins", @stat_tracker.highest_scoring_visitor
+    assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
 
 
