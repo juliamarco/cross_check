@@ -209,5 +209,20 @@ module LeagueStatistics
     return team.teamName
   end
 
+  def worst_fans
+    worst = away_and_home_percentages.find_all do |key, value|
+      value[1] > value[0]
+    end.flatten
+    team_id = worst.find_all {|num| num.is_a?(Integer)}
+    final_array = team_id.map do |id|
+      @teams_data.find do |team|
+        team.team_id == id
+      end
+    end
+    final_array.map do |team|
+      team.teamName
+    end
+  end
+
 
 end

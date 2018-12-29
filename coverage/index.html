@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-29T15:35:46-07:00">2018-12-29T15:35:46-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-29T15:37:15-07:00">2018-12-29T15:37:15-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         125.03
+         121.79
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>6</b> files in total.
-    <b>269</b> relevant lines. 
-    <span class="green"><b>269</b> lines covered</span> and
+    <b>278</b> relevant lines. 
+    <span class="green"><b>278</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -83,11 +83,11 @@
       <tr>
         <td class="strong"><a href="#50c53d5470a33dabcea7841c85280cab5ae4d92a" class="src_link" title="lib/league_statistics.rb">lib/league_statistics.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>213</td>
-        <td>126</td>
-        <td>126</td>
+        <td>228</td>
+        <td>135</td>
+        <td>135</td>
         <td>0</td>
-        <td>20.5</td>
+        <td>20.8</td>
       </tr>
       
       <tr>
@@ -1394,8 +1394,8 @@
     <h3>lib/league_statistics.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>126</b> relevant lines. 
-      <span class="green"><b>126</b> lines covered</span> and
+      <b>135</b> relevant lines. 
+      <span class="green"><b>135</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -2231,50 +2231,50 @@
           <code class="ruby">  def calculate_percentages(hash)</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="139">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="10" data-linenumber="139">
+          <span class="hits">10</span>
           
           <code class="ruby">    values = hash.values</code>
         </li>
       
-        <li class="covered" data-hits="64" data-linenumber="140">
-          <span class="hits">64</span>
+        <li class="covered" data-hits="80" data-linenumber="140">
+          <span class="hits">80</span>
           
           <code class="ruby">    won_outcomes = values.map {|value| value.count(&quot;TRUE&quot;)}</code>
         </li>
       
-        <li class="covered" data-hits="64" data-linenumber="141">
-          <span class="hits">64</span>
+        <li class="covered" data-hits="80" data-linenumber="141">
+          <span class="hits">80</span>
           
           <code class="ruby">    total_outcomes = values.map {|value| value.count}</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="142">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="10" data-linenumber="142">
+          <span class="hits">10</span>
           
           <code class="ruby">    percentages = Hash.new</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="143">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="10" data-linenumber="143">
+          <span class="hits">10</span>
           
           <code class="ruby">    hash.each do |key, value|</code>
         </li>
       
-        <li class="covered" data-hits="56" data-linenumber="144">
-          <span class="hits">56</span>
+        <li class="covered" data-hits="70" data-linenumber="144">
+          <span class="hits">70</span>
           
           <code class="ruby">      percentages[key] = (won_outcomes[0].to_f / total_outcomes[0].to_f * 100).round(2)</code>
         </li>
       
-        <li class="covered" data-hits="56" data-linenumber="145">
-          <span class="hits">56</span>
+        <li class="covered" data-hits="70" data-linenumber="145">
+          <span class="hits">70</span>
           
           <code class="ruby">      won_outcomes.shift</code>
         </li>
       
-        <li class="covered" data-hits="56" data-linenumber="146">
-          <span class="hits">56</span>
+        <li class="covered" data-hits="70" data-linenumber="146">
+          <span class="hits">70</span>
           
           <code class="ruby">      total_outcomes.shift</code>
         </li>
@@ -2285,8 +2285,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="148">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="10" data-linenumber="148">
+          <span class="hits">10</span>
           
           <code class="ruby">    return percentages</code>
         </li>
@@ -2411,32 +2411,32 @@
           <code class="ruby">  def home_wins_percentages</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="169">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="169">
+          <span class="hits">4</span>
           
           <code class="ruby">    home_team_wins = Hash.new(0)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="170">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="170">
+          <span class="hits">4</span>
           
           <code class="ruby">    @games_teams_stats.each do |stat|</code>
         </li>
       
-        <li class="covered" data-hits="66" data-linenumber="171">
-          <span class="hits">66</span>
+        <li class="covered" data-hits="88" data-linenumber="171">
+          <span class="hits">88</span>
           
           <code class="ruby">      if stat.hoA == &quot;home&quot;</code>
         </li>
       
-        <li class="covered" data-hits="33" data-linenumber="172">
-          <span class="hits">33</span>
+        <li class="covered" data-hits="44" data-linenumber="172">
+          <span class="hits">44</span>
           
           <code class="ruby">        if home_team_wins.has_key?(stat.team_id)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="173">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="16" data-linenumber="173">
+          <span class="hits">16</span>
           
           <code class="ruby">          home_team_wins[stat.team_id].push(stat.won)</code>
         </li>
@@ -2447,8 +2447,8 @@
           <code class="ruby">        else</code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="175">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="28" data-linenumber="175">
+          <span class="hits">28</span>
           
           <code class="ruby">          home_team_wins[stat.team_id] = [stat.won]</code>
         </li>
@@ -2471,8 +2471,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="179">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="179">
+          <span class="hits">4</span>
           
           <code class="ruby">    calculate_percentages(home_team_wins)</code>
         </li>
@@ -2495,32 +2495,32 @@
           <code class="ruby">  def away_win_percentages</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="183">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="183">
+          <span class="hits">4</span>
           
           <code class="ruby">    away_team_wins = Hash.new(0)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="184">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="184">
+          <span class="hits">4</span>
           
           <code class="ruby">    @games_teams_stats.each do |stat|</code>
         </li>
       
-        <li class="covered" data-hits="66" data-linenumber="185">
-          <span class="hits">66</span>
+        <li class="covered" data-hits="88" data-linenumber="185">
+          <span class="hits">88</span>
           
           <code class="ruby">      if stat.hoA == &quot;away&quot;</code>
         </li>
       
-        <li class="covered" data-hits="33" data-linenumber="186">
-          <span class="hits">33</span>
+        <li class="covered" data-hits="44" data-linenumber="186">
+          <span class="hits">44</span>
           
           <code class="ruby">        if away_team_wins.has_key?(stat.team_id)</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="187">
-          <span class="hits">12</span>
+        <li class="covered" data-hits="16" data-linenumber="187">
+          <span class="hits">16</span>
           
           <code class="ruby">          away_team_wins[stat.team_id].push(stat.won)</code>
         </li>
@@ -2531,8 +2531,8 @@
           <code class="ruby">        else</code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="189">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="28" data-linenumber="189">
+          <span class="hits">28</span>
           
           <code class="ruby">          away_team_wins[stat.team_id] = [stat.won]</code>
         </li>
@@ -2555,8 +2555,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="193">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="4" data-linenumber="193">
+          <span class="hits">4</span>
           
           <code class="ruby">    calculate_percentages(away_team_wins)</code>
         </li>
@@ -2579,14 +2579,14 @@
           <code class="ruby">  def away_and_home_percentages</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="197">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="197">
+          <span class="hits">3</span>
           
           <code class="ruby">    with_both_values = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="198">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="21" data-linenumber="198">
+          <span class="hits">21</span>
           
           <code class="ruby">      [oldval, newval]</code>
         </li>
@@ -2669,13 +2669,103 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="212">
+        <li class="covered" data-hits="1" data-linenumber="212">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def worst_fans</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="213">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    worst = away_and_home_percentages.find_all do |key, value|</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="214">
+          <span class="hits">7</span>
+          
+          <code class="ruby">      value[1] &gt; value[0]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="215">
+          
+          
+          <code class="ruby">    end.flatten</code>
+        </li>
+      
+        <li class="covered" data-hits="7" data-linenumber="216">
+          <span class="hits">7</span>
+          
+          <code class="ruby">    team_id = worst.find_all {|num| num.is_a?(Integer)}</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="217">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    final_array = team_id.map do |id|</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="218">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      @teams_data.find do |team|</code>
+        </li>
+      
+        <li class="covered" data-hits="27" data-linenumber="219">
+          <span class="hits">27</span>
+          
+          <code class="ruby">        team.team_id == id</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="220">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="221">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="222">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    final_array.map do |team|</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="223">
+          <span class="hits">2</span>
+          
+          <code class="ruby">      team.teamName</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="224">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="225">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="226">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="213">
+        <li class="never" data-hits="" data-linenumber="227">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="228">
           
           
           <code class="ruby">end</code>
