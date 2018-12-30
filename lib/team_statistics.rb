@@ -86,5 +86,53 @@ module TeamStatistics
     all_team_goals(team_id).min
   end
 
+  def collect_home_games(team_id, hash)
+    @games_data.each do |game|
+      if game.home_team_id == team_id
+        if hash.has_key?(game.away_team_id)
+          hash[game.away_team_id] << game.game_id
+        else
+          hash[game.away_team_id] = [game.game_id]
+        end
+      end
+    end
+  end
+
+  def collect_away_games(team_id, hash)
+    @games_data.each do |game|
+      if game.away_team_id == team_id
+        if hash.has_key?(game.home_team_id)
+          hash[game.home_team_id] << game.game_id
+        else
+          hash[game.home_team_id] = [game.game_id]
+        end
+      end
+    end
+  end
+
+  def team_id_name(id)
+    team = @teams_data.find do |team|
+      team.team_id == id
+    end
+    return team.teamName
+  end
+
+  def favorite_opponent(team_id)
+    hash = Hash.new
+    collect_home_games(team_id, hash)
+    collect_away_games(team_id, hash)
+    hash.each do |k,v|
+      values = @games_teams_stats.map do |stat|
+        if k == stat.team_id && v.include?(stat.game_id)
+          stat.won
+        end
+      end.compact
+    hash[k] = values
+    end
+    team = calculate_percentages(hash).min_by{|k,v| v}[0]
+    team_id_name(team)
+  end
+
+
 
 end

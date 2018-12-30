@@ -320,4 +320,9 @@ skip
     assert_equal 2, @stat_tracker.fewest_goals_scored(24)
   end
 
+  def test_it_has_a_favorite_opponent
+
+    assert_equal "Bruins", @stat_tracker.favorite_opponent(3)
+  end
+
 end
