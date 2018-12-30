@@ -19,12 +19,12 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_exists
-
+    skip
     assert_instance_of StatTracker, @stat_tracker
   end
 
   def test_it_holds_the_games_data
-
+    skip
     assert_equal 2, @stat_tracker.games_data[0].away_goals
     assert_equal 2012030222, @stat_tracker.games_data[1].game_id
     assert_equal 20122013, @stat_tracker.games_data[2].season
@@ -33,7 +33,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_holds_the_teams_data
-
+    skip
     assert_equal 1, @stat_tracker.teams_data[0].team_id
     assert_equal 16, @stat_tracker.teams_data[1].franchiseId
     assert_equal "Los Angeles", @stat_tracker.teams_data[2].shortName
@@ -42,7 +42,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_holds_the_game_teams_stats_data
-
+    skip
     assert_equal 2012030221, @stat_tracker.games_teams_stats[0].game_id
     assert_equal 6, @stat_tracker.games_teams_stats[1].team_id
     assert_equal "away", @stat_tracker.games_teams_stats[2].hoA
@@ -51,17 +51,17 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_a_highest_total_score
-
+    skip
     assert_equal 9, @stat_tracker.highest_total_score
   end
 
   def test_it_has_a_lowest_total_score
-
+    skip
     assert_equal 2, @stat_tracker.lowest_total_score
   end
 
   def test_it_has_a_biggest_blowout
-
+    skip
     assert_equal 4, @stat_tracker.biggest_blowout
   end
 
@@ -74,22 +74,22 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_a_most_popular_venue
-
+    skip
     assert_equal "TD Garden", @stat_tracker.most_popular_venue
   end
 
   def test_it_has_a_least_popular_venue
-
+    skip
     assert_equal "Pepsi Center", @stat_tracker.least_popular_venue
   end
 
   def test_season_with_most_games
-
+    skip
     assert_equal "20122013", @stat_tracker.season_with_most_games
   end
 
   def test_season_with_fewest_games
-
+    skip
     assert_equal "20142015", @stat_tracker.season_with_fewest_games
   end
 
@@ -129,7 +129,7 @@ class StatTrackerTest < MiniTest::Test
 
 
   def test_it_can_count_number_of_teams
-
+    skip
     assert_equal 33, @stat_tracker.count_of_teams
   end
 
@@ -141,23 +141,13 @@ skip
   end
 
 
-  def test_it_has_best_offense_id
-
-    assert_equal 6, @stat_tracker.best_offense_id
-  end
-
-  def test_it_has_worst_offense_id
-
-    assert_equal 5, @stat_tracker.worst_offense_id
-  end
-
-  def test_it_has_best_offense_name
-
+  def test_it_has_best_offense
+    skip
     assert_equal "Bruins", @stat_tracker.best_offense
   end
 
-  def test_it_has_worst_offense_name
-
+  def test_it_has_worst_offense
+    skip
     assert_equal "Penguins", @stat_tracker.worst_offense
   end
 
@@ -169,22 +159,12 @@ skip
     assert_equal expected_hash, @stat_tracker.teams_by_goals_allowed
   end
 
-  def test_it_has_best_defense_id
-
-    assert_equal 25, @stat_tracker.best_defense_id
-  end
-
-  def test_it_has_worst_defense_id
-skip
-    assert_equal 3, @stat_tracker.worst_defense_id
-  end
-
-  def test_it_has_best_defense_name
+  def test_it_has_best_defense
 skip
     assert_equal "Stars", @stat_tracker.best_defense
   end
 
-  def test_it_has_worst_defense_name
+  def test_it_has_worst_defense
 skip
     assert_equal "Rangers", @stat_tracker.worst_defense
   end
@@ -265,25 +245,32 @@ skip
     assert_equal ["Canadiens", "Senators"], @stat_tracker.worst_fans
   end
 
+  def test_it_can_group_games_by_season
+skip
+    expected_hash = [2013030166, 2013030151, 2013020674, 2013020177, 2013021085, 2013021036]
+    assert_equal expected_hash, @stat_tracker.games_by_season(20132014)
+  end
+
   def test_it_can_get_games_by_season_type
+skip
+    expected = [2013020674, 2013020177, 2013021085, 2013021036]
 
-    expected = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225, 2013030166, 2013030151, 2014030416, 2015030145, 2015030151]
+    preseason = [2013030166, 2013030151]
 
-    regular + [2013020674, 2013020177, 2012020225, 2012020577, 2013021085, 2012020122, 2012020387, 2013021036, 2012020510]
-
-    assert_equal expected, @stat_tracker.game_by_type("R")
+    assert_equal expected, @stat_tracker.game_by_type(20132014,"R")
   end
 
   def test_it_has_wins_percentage
 
-    # assert_equal 3, @stat_tracker.wins_percentage("R")
-    assert_equal 4, @stat_tracker.wins_percentage("P")
+    expected = {3=>20.0, 6=>80.0}
+    assert_equal expected, @stat_tracker.wins_percentage(20122013, "P")
   end
+
+# {3=>[20.0, 0.0], 6=>[80.0, 100.0]}
 
   def test_it_has_biggest_bust
 
-
+    assert_equal "Rangers", @stat_tracker.biggest_bust(20122013)
   end
-
 
 end

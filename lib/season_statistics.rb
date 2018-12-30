@@ -1,17 +1,18 @@
 module SeasonStatistics
 
-  def game_by_type(type)
-    games = []
-    @games_data.each do |game|
-      if game.type == type
-        games << game.game_id
+  def game_by_type(season, type)
+    games = games_by_season(season)
+    games = @games_data.map do |game|
+      if games.include?(game.game_id)
+        if game.type == type
+          game.game_id
+        end
       end
-    end
-    games
+    end.compact
   end
 
-  def wins_percentage(type)
-    games = game_by_type(type)
+  def wins_percentage(season, type)
+    games = game_by_type(season, type)
     hash = Hash.new(0)
     @games_teams_stats.each do |stat|
       if games.include?(stat.game_id)
@@ -39,13 +40,35 @@ module SeasonStatistics
   end
 
 
-  def biggest_bust
+  def games_by_season(season)
+    games = @games_data.find_all do |game|
+      game.season == season
+    end
+    games.map do |game|
+      game.game_id
+    end
   end
 
-  def biggest_surprise
+  def biggest_bust(season)
+    preseason = wins_percentage(season, "P")
+    regular = wins_percentage(season, "R")
+    arr = {}
+    max = regular.each do |key, value|
+      if preseason.has_key?(key)
+        arr[key] = (preseason[key] -= value)
+      end
+    end
+    biggest = arr.max_by {|k,v| v}
+    team_id_name(biggest[0])
   end
 
-  def season_summary
+#helper method, maybe create a module for these?
+  def team_id_name(id)
+    team = @teams_data.find do |team|
+      team.team_id == id
+    end
+    return team.teamName
   end
+
 
 end
