@@ -261,7 +261,7 @@ skip
   end
 
   def test_it_has_wins_percentage
-
+skip
     expected = {3=>20.0, 6=>80.0}
     assert_equal expected, @stat_tracker.wins_percentage(20122013, "P")
   end
@@ -272,7 +272,7 @@ skip
   end
 
   def test_it_has_a_biggest_surprise
-
+skip
     assert_equal "Bruins", @stat_tracker.biggest_surprise(20122013)
   end
 
@@ -346,4 +346,24 @@ skip
     assert_equal expected, @stat_tracker.head_to_head(6, 3)
   end
 
+  def test_it_has_a_seasonal_summary
+
+    expected_hash = {20122013 =>
+                      {:preseason =>
+                        {:win_percentage => 0.0, :total_goals_scored => 1, :total_goals_against => 2, :average_goals_scored => 1, :average_goals_against => 2},
+                      :regular_season =>
+                        {:win_percentage => 100.0, :total_goals_scored => 3, :total_goals_against => 3, :average_goals_scored => 3, :average_goals_against => 3}},
+                    20132014 =>
+                      {:preseason =>
+                        {:win_percentage => 0.0, :total_goals_scored => 4, :total_goals_against => 5, :average_goals_scored => 4, :average_goals_against => 5},
+                      :regular_season=>
+                        {:win_percentage => 100.0, :total_goals_scored => 1, :total_goals_against => 1, :average_goals_scored => 1, :average_goals_against => 1}},
+                    20152016 =>
+                       {:preseason =>
+                         {:win_percentage => 0.0, :total_goals_scored => 0, :total_goals_against => 4, :average_goals_scored => 0, :average_goals_against => 4},
+                       :regular_season =>
+                         {:win_percentage => 100.0, :total_goals_scored => 5, :total_goals_against => 2, :average_goals_scored => 5, :average_goals_against => 2}},
+                    }
+    assert_equal expected_hash, @stat_tracker.seasonal_summary(30)
+  end
 end

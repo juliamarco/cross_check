@@ -189,5 +189,125 @@ module TeamStatistics
     hash
   end
 
+#method copied from season statistic
+  def wins_percentage(season, type)
+    games = game_by_type(season, type)
+    hash = Hash.new(0)
+    @games_teams_stats.each do |stat|
+      if games.include?(stat.game_id)
+        if hash.has_key?(stat.team_id)
+          hash[stat.team_id].push(stat.won)
+        else
+          hash[stat.team_id] = [stat.won]
+        end
+      end
+    end
+    calculate_percentages(hash)
+  end
+
+  #method copied from season statistic
+  def away_goals_allowed(games, team_id)
+    away_goals_allowed = 0
+    @games_data.each do |game|
+      if games.include?(game.game_id)
+        if game.away_team_id == team_id
+          away_goals_allowed += game.home_goals
+        end
+      end
+    end
+    return away_goals_allowed
+  end
+
+  #method copied from season statistic
+  def home_goals_scored(games, team_id)
+    home_goals_scored = 0
+    @games_data.each do |game|
+      if games.include?(game.game_id)
+        if game.home_team_id == team_id
+          home_goals_scored += game.home_goals
+        end
+      end
+    end
+    return home_goals_scored
+  end
+
+
+  def seasonal_summary(team_id)
+    seasons_played = @games_data.map do |game|
+      if game.away_team_id == team_id || game.home_team_id == team_id
+        game.season
+      end
+    end.compact.uniq
+    hash = Hash.new
+    seasons_played.each do |season|
+      hash[season] = {:preseason => {:win_percentage => 0, :total_goals_scored => 0, :total_goals_against => 0, :average_goals_scored => 0, :average_goals_against => 0}, :regular_season => {:win_percentage => 0, :total_goals_scored => 0, :total_goals_against => 0, :average_goals_scored => 0, :average_goals_against => 0}}
+    end
+    seasons_played.each do |season|
+      percent_preseason = wins_percentage(season,"P").find {|k,v| k == team_id}[1]
+      percent_regseason = wins_percentage(season,"R").find {|k,v| k == team_id}[1]
+      hash[season][:preseason][:win_percentage] = percent_preseason
+      hash[season][:regular_season][:win_percentage] = percent_regseason
+    end
+    preseason_games = games_by_team_type_and_season(team_id, "P", seasons_played)
+    regseason_games = games_by_team_type_and_season(team_id, "R", seasons_played)
+    preseason_games.each do |k, v|
+      @games_teams_stats.each do |game|
+        if v[0] == game.game_id && game.team_id == team_id
+          hash[k][:preseason][:total_goals_scored] += game.goals
+        elsif v[0] == game.game_id && game.team_id != team_id
+          hash[k][:preseason][:total_goals_against] += game.goals
+        end
+      end
+    end
+    regseason_games.each do |k, v|
+      @games_teams_stats.each do |game|
+        if v[0] == game.game_id && game.team_id == team_id
+          hash[k][:regular_season][:total_goals_scored] += game.goals
+        elsif v[0] == game.game_id && game.team_id != team_id
+          hash[k][:regular_season][:total_goals_against] += game.goals
+        end
+      end
+    end
+    preseason_games.each do |k,v|
+      total = v.count
+      goals_scored = hash[k][:preseason][:total_goals_scored]
+      unless goals_scored.zero?
+        hash[k][:preseason][:average_goals_scored] = goals_scored / total
+      end
+      goals_against = hash[k][:preseason][:total_goals_against]
+      unless goals_against.zero?
+        hash[k][:preseason][:average_goals_against] = goals_against / total
+      end
+    end
+    regseason_games.each do |k, v|
+      total = v.count
+      goals_scored = hash[k][:regular_season][:total_goals_scored]
+      unless goals_scored.zero?
+        hash[k][:regular_season][:average_goals_scored] = goals_scored / total
+      end
+      goals_against = hash[k][:regular_season][:total_goals_against]
+      unless goals_against.zero?
+        hash[k][:regular_season][:average_goals_against] = goals_against / total
+      end
+    end
+  return hash
+end
+
+  def games_by_team_type_and_season(team_id, type, seasons)
+    games = {}
+    seasons.each do |season|
+      @games_data.each do |game|
+        if game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
+          if games.has_key?(games[season])
+            games[season] << game.game_id
+          else
+            games[season] = [game.game_id]
+          end
+        end
+      end
+    end
+    return games
+  end
+
 
 end
