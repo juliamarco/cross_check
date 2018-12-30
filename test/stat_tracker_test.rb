@@ -305,5 +305,10 @@ skip
     assert_equal 20132014, @stat_tracker.worst_season(24)
   end
 
+  def test_it_has_an_average_win_percentage
+
+    assert_equal 75.0, @stat_tracker.average_win_percentage(24)
+  end
+
 
 end

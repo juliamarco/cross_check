@@ -64,5 +64,11 @@ module TeamStatistics
     calculate_percentages(games).min_by {|k,v| v}[0]
   end
 
+  def average_win_percentage(team_id)
+    games = games_won_by_season(team_id)
+    percentages = calculate_percentages(games)
+    (percentages.sum {|k,v| v}) / percentages.count
+  end
+
 
 end
