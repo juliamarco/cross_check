@@ -288,6 +288,13 @@ skip
     assert_equal expected_hash, @stat_tracker.team_info(1)
   end
 
+  def test_it_has_games_won_by_season
+
+    expected = {20122013=>["TRUE"], 20132014=>["TRUE", "FALSE"]}
+    assert_equal expected, @stat_tracker.games_won_by_season(24)
+  end
+
+
   def test_it_has_a_best_season
 
     assert_equal 20122013, @stat_tracker.best_season(24)
