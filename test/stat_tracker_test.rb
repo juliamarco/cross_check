@@ -266,11 +266,21 @@ skip
     assert_equal expected, @stat_tracker.wins_percentage(20122013, "P")
   end
 
-# {3=>[20.0, 0.0], 6=>[80.0, 100.0]}
-
   def test_it_has_biggest_bust
 
     assert_equal "Rangers", @stat_tracker.biggest_bust(20122013)
   end
+
+  def test_it_has_a_biggest_surprise
+
+    assert_equal "Bruins", @stat_tracker.biggest_surprise(20122013)
+  end
+
+  def test_it_has_a_season_summary
+
+    expected_hash = {:preseason => {:win_percentage => 80.0, :goals_scored => 16, :goals_against => 10} , :regular_season => {:win_percentage => 100.0, :goals_scored => 6, :goals_against => 2}}
+    assert_equal expected_hash, @stat_tracker.season_summary(20122013, 6)
+  end
+
 
 end
