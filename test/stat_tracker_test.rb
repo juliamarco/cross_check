@@ -66,6 +66,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_count_venues_occurrences
+    skip
 
     expected = {"TD Garden"=>3, "Madison Square Garden"=>2, "United Center"=>2, "Pepsi Center"=>1, "CONSOL Energy Center"=>1, "American Airlines Center"=>1}
 
@@ -93,16 +94,19 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_show_percentage_of_home_wins
+    skip
 
     assert_equal 90, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_show_percentage_of_visitor_wins
+    skip
 
     assert_equal 10, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_show_count_of_games_by_season
+    skip
 
     expected = {20122013=>5, 20132014=>2, 20142015=>1, 20152016=>2}
 
@@ -110,11 +114,13 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_show_average_goals_per_game
+    skip
 
     assert_equal 5.6, @stat_tracker.average_goals_per_game
   end
 
   def test_average_goals_by_season
+    skip
 
     expected_hash = {20122013 => 2.6, 20132014 => 3.8, 20142015 => 1.0, 20152016 => 3.3}
 
@@ -128,7 +134,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_arrange_teams_by_goals_scored
-
+skip
     expected_hash = {3=>8, 6=>15, 5=>0, 17=>8, 16=>9, 9=>5, 8=>4}
 
     assert_equal expected_hash, @stat_tracker.teams_by_goals_scored
@@ -156,6 +162,7 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_can_arrange_teams_by_goals_allowed
+    skip
 
     expected_hash = {3=>22, 6=>10, 19=>5, 16=>1, 30=>9, 21=>4, 14=>2, 5=>3, 25=>0}
 
@@ -168,104 +175,115 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_has_worst_defense_id
-
+skip
     assert_equal 3, @stat_tracker.worst_defense_id
   end
 
   def test_it_has_best_defense_name
-
+skip
     assert_equal "Stars", @stat_tracker.best_defense
   end
 
   def test_it_has_worst_defense_name
-
+skip
     assert_equal "Rangers", @stat_tracker.worst_defense
   end
 
   def test_it_has_average_goals_by_visitor
-
+    skip
    expected_hash = {3=>2.0, 6=>2.5, 19=>1.0, 30=>2.0, 14=>0.0}
    assert_equal expected_hash, @stat_tracker.average_goals_by_visitor
   end
 
   def test_it_has_a_highest_scoring_visitor
+    skip
 
     assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
 
   def test_it_has_average_goals_by_home_team
+    skip
 
     expected_hash = {6=>3.6666666666666665, 3=>2.5, 16=>3.5, 21=>5.0, 5=>6.0, 25=>4.0}
     assert_equal expected_hash, @stat_tracker.average_goals_by_home_team
   end
 
   def test_it_has_highest_scoring_home_team
+    skip
 
     assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
 
   def test_it_has_a_lowest_scoring_visitor
-
+skip
     assert_equal "Lightning", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_has_a_lowest_scoring_home_team
+    skip
 
     assert_equal "Rangers", @stat_tracker.lowest_scoring_home_team
   end
 
   def test_it_can_calculate_percentages
+    skip
      original_hash = {3=>["FALSE", "TRUE"], 6=>["TRUE", "TRUE", "FALSE"], 5=>["FALSE"], 17=>["FALSE", "FALSE"], 16=>["TRUE", "TRUE"], 9=>["TRUE"], 8=>["FALSE"]}
      expected_hash = {3=>50.0, 6=>66.67, 5=>0.0, 17=>0.0, 16=>100.0, 9=>100.0, 8=>0.0}
      assert_equal expected_hash, @stat_tracker.calculate_percentages(original_hash)
    end
 
   def test_it_has_a_winningest_team
-
+skip
     assert_equal "Bruins", @stat_tracker.winningest_team
   end
 
   def test_home_wins_percentages
-
+skip
     expected_hash = {6=>100.0, 16=>66.67, 8=>0.0, 3=>100.0, 5=>0.0, 9=>0.0, 17=>100.0}
     assert_equal expected_hash, @stat_tracker.home_wins_percentages
   end
 
   def test_away_win_percentages
-
+skip
     expected_hash = {3=>0.0, 5=>0.0, 17=>33.33, 9=>100.0, 6=>50.0, 8=>100.0, 16=>0.0}
     assert_equal expected_hash, @stat_tracker.away_win_percentages
   end
 
   def test_it_can_merge_away_and_win_percentages
-
+skip
     expected_hash = {6=>[100.0, 50.0], 16=>[66.67, 0.0], 8=>[0.0, 100.0], 3=>[100.0, 0.0], 5=>[0.0, 0.0], 9=>[0.0, 100.0], 17=>[100.0, 33.33]}
     assert_equal expected_hash, @stat_tracker.away_and_home_percentages
   end
 
   def test_it_has_best_fans
-
+skip
     assert_equal "Rangers", @stat_tracker.best_fans
   end
 
   def test_it_has_worst_fans
-
+skip
     assert_equal ["Canadiens", "Senators"], @stat_tracker.worst_fans
   end
 
   def test_it_can_get_games_by_season_type
 
     expected = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225, 2013030166, 2013030151, 2014030416, 2015030145, 2015030151]
-    assert_equal expected, @stat_tracker.game_by_type("P")
+
+    regular + [2013020674, 2013020177, 2012020225, 2012020577, 2013021085, 2012020122, 2012020387, 2013021036, 2012020510]
+
+    assert_equal expected, @stat_tracker.game_by_type("R")
   end
 
-  def test_it_has_preseason_wins_percentage
+  def test_it_has_wins_percentage
 
-    expected = {3 => ["FALSE", "FALSE", "TRUE"], 6 => ["TRUE", "TRUE", "FALSE"]}
-    assert_equal expected, @stat_tracker.preseason_wins_percentage
+    # assert_equal 3, @stat_tracker.wins_percentage("R")
+    assert_equal 4, @stat_tracker.wins_percentage("P")
   end
 
+  def test_it_has_biggest_bust
 
+
+  end
 
 
 end
