@@ -27,8 +27,7 @@ module TeamStatistics
     return percentages
   end
 
-
-  def best_season(team_id)
+  def games_won_by_season(team_id)
     hash = @games_data.group_by do |game|
       game.season
     end
@@ -53,7 +52,11 @@ module TeamStatistics
         end
         new_hash[key] = values
       end
-      calculate_percentages(new_hash).max_by {|k,v| v}[0]
+  end
+
+  def best_season(team_id)
+    games = games_won_by_season(team_id)
+    calculate_percentages(games).max_by {|k,v| v}[0]
   end
 
 
