@@ -282,5 +282,16 @@ skip
     assert_equal expected_hash, @stat_tracker.season_summary(20122013, 6)
   end
 
+  def test_it_has_team_info
+
+    expected_hash = {"team_id" => 1, "franchiseId" => 23, "shortName" => "New Jersey", "teamName" => "Devils", "abbreviation" => "NJD", "link" => "/api/v1/teams/1"}
+    assert_equal expected_hash, @stat_tracker.team_info(1)
+  end
+
+  def test_it_has_a_best_season
+
+    assert_equal 20122013, @stat_tracker.best_season(24)
+  end
+
 
 end
