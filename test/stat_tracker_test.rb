@@ -259,6 +259,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.game_by_type("P")
   end
 
+  def test_it_has_preseason_wins_percentage
+
+    expected = {3 => ["FALSE", "FALSE", "TRUE"], 6 => ["TRUE", "TRUE", "FALSE"]}
+    assert_equal expected, @stat_tracker.preseason_wins_percentage
+  end
 
 
 
