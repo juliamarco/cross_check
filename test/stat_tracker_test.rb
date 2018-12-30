@@ -310,5 +310,9 @@ skip
     assert_equal 75.0, @stat_tracker.average_win_percentage(24)
   end
 
+  def test_it_has_most_goals_scored
+
+    assert_equal 3, @stat_tracker.most_goals_scored(24)
+  end
 
 end
