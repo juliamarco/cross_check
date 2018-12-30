@@ -4,10 +4,12 @@ require './lib/games_teams_stats'
 require 'csv'
 require './lib/game_statistics'
 require './lib/league_statistics'
+require './lib/season_statistics'
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
+  include SeasonStatistics
 
   attr_reader :games_data,
               :teams_data,

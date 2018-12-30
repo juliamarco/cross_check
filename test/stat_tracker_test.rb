@@ -253,6 +253,14 @@ class StatTrackerTest < MiniTest::Test
     assert_equal ["Canadiens", "Senators"], @stat_tracker.worst_fans
   end
 
+  def test_it_can_get_games_by_season_type
+
+    expected = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225, 2013030166, 2013030151, 2014030416, 2015030145, 2015030151]
+    assert_equal expected, @stat_tracker.game_by_type("P")
+  end
+
+
+
 
 
 end
