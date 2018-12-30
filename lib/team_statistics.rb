@@ -59,5 +59,10 @@ module TeamStatistics
     calculate_percentages(games).max_by {|k,v| v}[0]
   end
 
+  def worst_season(team_id)
+    games = games_won_by_season(team_id)
+    calculate_percentages(games).min_by {|k,v| v}[0]
+  end
+
 
 end

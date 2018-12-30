@@ -300,5 +300,10 @@ skip
     assert_equal 20122013, @stat_tracker.best_season(24)
   end
 
+  def test_it_has_a_worst_season
+
+    assert_equal 20132014, @stat_tracker.worst_season(24)
+  end
+
 
 end
