@@ -117,8 +117,7 @@ module TeamStatistics
     return team.teamName
   end
 
-  def favorite_opponent(team_id)
-    hash = Hash.new
+  def get_opponents_results(team_id, hash)
     collect_home_games(team_id, hash)
     collect_away_games(team_id, hash)
     hash.each do |k,v|
@@ -129,7 +128,19 @@ module TeamStatistics
       end.compact
     hash[k] = values
     end
+  end
+
+  def favorite_opponent(team_id)
+    hash = Hash.new
+    get_opponents_results(team_id, hash)
     team = calculate_percentages(hash).min_by{|k,v| v}[0]
+    team_id_name(team)
+  end
+
+  def rival(team_id)
+    hash = Hash.new
+    get_opponents_results(team_id, hash)
+    team = calculate_percentages(hash).max_by{|k,v| v}[0]
     team_id_name(team)
   end
 

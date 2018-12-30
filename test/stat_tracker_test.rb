@@ -325,4 +325,9 @@ skip
     assert_equal "Bruins", @stat_tracker.favorite_opponent(3)
   end
 
+  def test_it_has_a_rival
+
+    assert_equal "Jets", @stat_tracker.rival(3)
+  end
+
 end
