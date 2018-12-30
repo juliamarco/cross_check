@@ -144,6 +144,19 @@ module TeamStatistics
     team_id_name(team)
   end
 
+  def biggest_team_blowout(team_id)
+    games_won = @games_teams_stats.map do |stat|
+      if stat.team_id == team_id && stat.won == "TRUE"
+        stat.game_id
+      end
+    end.compact
+    differences = @games_data.map do |game|
+      if games_won.include?(game.game_id)
+        (game.away_goals - game.home_goals).abs
+      end
+    end.compact
+    differences.max
+  end
 
 
 end

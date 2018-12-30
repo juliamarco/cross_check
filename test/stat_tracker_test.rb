@@ -330,4 +330,9 @@ skip
     assert_equal "Jets", @stat_tracker.rival(3)
   end
 
+  def test_it_has_a_biggest_team_blowout
+
+    assert_equal 4, @stat_tracker.biggest_team_blowout(6)
+  end
+
 end
