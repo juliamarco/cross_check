@@ -14,26 +14,26 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-30T09:50:01-07:00">2018-12-30T09:50:01-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-30T09:50:55-07:00">2018-12-30T09:50:55-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">60.19%</span></span>
+    (<span class="covered_percent"><span class="red">60.39%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         151.48
+         150.86
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>8</b> files in total.
-    <b>412</b> relevant lines. 
-    <span class="green"><b>248</b> lines covered</span> and
+    <b>414</b> relevant lines. 
+    <span class="green"><b>250</b> lines covered</span> and
     <span class="red"><b>164</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -113,11 +113,11 @@
       <tr>
         <td class="strong"><a href="#5902c18be4427ee73badffae04749e46fae6981f" class="src_link" title="lib/team_statistics.rb">lib/team_statistics.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>87</td>
-        <td>55</td>
-        <td>55</td>
+        <td>90</td>
+        <td>57</td>
+        <td>57</td>
         <td>0</td>
-        <td>18.5</td>
+        <td>18.7</td>
       </tr>
       
       <tr>
@@ -3973,8 +3973,8 @@
     <h3>lib/team_statistics.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>55</b> relevant lines. 
-      <span class="green"><b>55</b> lines covered</span> and
+      <b>57</b> relevant lines. 
+      <span class="green"><b>57</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -4426,14 +4426,14 @@
           <code class="ruby">    @games_teams_stats.map do |stat|</code>
         </li>
       
-        <li class="covered" data-hits="40" data-linenumber="75">
-          <span class="hits">40</span>
+        <li class="covered" data-hits="80" data-linenumber="75">
+          <span class="hits">80</span>
           
           <code class="ruby">      if stat.team_id == team_id</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="76">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="6" data-linenumber="76">
+          <span class="hits">6</span>
           
           <code class="ruby">        stat.goals</code>
         </li>
@@ -4444,8 +4444,8 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="78">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="78">
+          <span class="hits">2</span>
           
           <code class="ruby">    end.compact</code>
         </li>
@@ -4462,43 +4462,61 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="82">
+        <li class="covered" data-hits="1" data-linenumber="81">
           <span class="hits">1</span>
           
           <code class="ruby">  def most_goals_scored(team_id)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="83">
+        <li class="covered" data-hits="1" data-linenumber="82">
           <span class="hits">1</span>
           
           <code class="ruby">    all_team_goals(team_id).max</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="84">
+        <li class="never" data-hits="" data-linenumber="83">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="85">
+        <li class="never" data-hits="" data-linenumber="84">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="86">
+        <li class="covered" data-hits="1" data-linenumber="85">
+          <span class="hits">1</span>
           
+          <code class="ruby">  def fewest_goals_scored(team_id)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="86">
+          <span class="hits">1</span>
           
-          <code class="ruby"></code>
+          <code class="ruby">    all_team_goals(team_id).min</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="87">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="88">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="89">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="90">
           
           
           <code class="ruby">end</code>

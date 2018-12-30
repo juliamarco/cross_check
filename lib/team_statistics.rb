@@ -78,9 +78,12 @@ module TeamStatistics
     end.compact
   end
 
-
   def most_goals_scored(team_id)
     all_team_goals(team_id).max
+  end
+
+  def fewest_goals_scored(team_id)
+    all_team_goals(team_id).min
   end
 
 
