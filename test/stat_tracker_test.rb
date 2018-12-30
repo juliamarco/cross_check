@@ -315,4 +315,9 @@ skip
     assert_equal 3, @stat_tracker.most_goals_scored(24)
   end
 
+  def test_it_has_fewest_goals_scored
+
+    assert_equal 2, @stat_tracker.fewest_goals_scored(24)
+  end
+
 end

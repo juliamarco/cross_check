@@ -70,13 +70,17 @@ module TeamStatistics
     (percentages.sum {|k,v| v}) / percentages.count
   end
 
-  def most_goals_scored(team_id)
-    goals = @games_teams_stats.map do |stat|
+  def all_team_goals(team_id)
+    @games_teams_stats.map do |stat|
       if stat.team_id == team_id
         stat.goals
       end
     end.compact
-    goals.max
+  end
+
+
+  def most_goals_scored(team_id)
+    all_team_goals(team_id).max
   end
 
 
