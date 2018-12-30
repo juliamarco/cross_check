@@ -170,5 +170,24 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
+  def head_to_head(team_id, opponent_id)
+    games_played = @games_data.map do |game|
+      if game.away_team_id == team_id && game.home_team_id == opponent_id ||game.home_team_id == team_id && game.away_team_id == opponent_id
+        game.game_id
+      end
+    end.compact
+    hash = {win: 0, loss: 0}
+    @games_teams_stats.each do |stat|
+      if games_played.include?(stat.game_id) && stat.team_id == team_id
+        if stat.won == "TRUE"
+          hash[:win] += 1
+        else
+          hash[:loss] += 1
+        end
+      end
+    end
+    hash
+  end
+
 
 end

@@ -340,4 +340,10 @@ skip
     assert_equal 1, @stat_tracker.worst_loss(6)
   end
 
+  def test_it_has_a_head_to_head
+    games = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225]
+    expected = {win: 4, loss: 1}
+    assert_equal expected, @stat_tracker.head_to_head(6, 3)
+  end
+
 end
