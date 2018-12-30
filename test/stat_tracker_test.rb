@@ -335,4 +335,9 @@ skip
     assert_equal 4, @stat_tracker.biggest_team_blowout(6)
   end
 
+  def test_it_has_a_worst_loss
+
+    assert_equal 1, @stat_tracker.worst_loss(6)
+  end
+
 end
