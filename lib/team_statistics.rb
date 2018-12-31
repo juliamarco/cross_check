@@ -1,6 +1,6 @@
 module TeamStatistics
 
-  def team_info(team_id)
+  def team_info(team_id) #tested line 264
     team = @teams_data.find do |team|
       team.team_id == team_id
     end
@@ -27,7 +27,7 @@ module TeamStatistics
     return percentages
   end
 
-  def games_won_by_season(team_id)
+  def games_won_by_season(team_id) #tested line 270
     hash = @games_data.group_by do |game|
       game.season
     end
@@ -54,17 +54,17 @@ module TeamStatistics
       end
   end
 
-  def best_season(team_id)
+  def best_season(team_id) #tested line 277
     games = games_won_by_season(team_id)
     calculate_percentages(games).max_by {|k,v| v}[0]
   end
 
-  def worst_season(team_id)
+  def worst_season(team_id) #tested line 282
     games = games_won_by_season(team_id)
     calculate_percentages(games).min_by {|k,v| v}[0]
   end
 
-  def average_win_percentage(team_id)
+  def average_win_percentage(team_id) #tested line 287
     games = games_won_by_season(team_id)
     percentages = calculate_percentages(games)
     (percentages.sum {|k,v| v}) / percentages.count
@@ -78,11 +78,11 @@ module TeamStatistics
     end.compact
   end
 
-  def most_goals_scored(team_id)
+  def most_goals_scored(team_id) #tested line 292
     all_team_goals(team_id).max
   end
 
-  def fewest_goals_scored(team_id)
+  def fewest_goals_scored(team_id) #tested line 297
     all_team_goals(team_id).min
   end
 
@@ -130,14 +130,14 @@ module TeamStatistics
     end
   end
 
-  def favorite_opponent(team_id)
+  def favorite_opponent(team_id) #tested line 302
     hash = Hash.new
     get_opponents_results(team_id, hash)
     team = calculate_percentages(hash).min_by{|k,v| v}[0]
     team_id_name(team)
   end
 
-  def rival(team_id)
+  def rival(team_id) #tested line 307
     hash = Hash.new
     get_opponents_results(team_id, hash)
     team = calculate_percentages(hash).max_by{|k,v| v}[0]
@@ -152,7 +152,7 @@ module TeamStatistics
     end.compact
   end
 
-  def biggest_team_blowout(team_id)
+  def biggest_team_blowout(team_id) #tested line 312
     games_won = @games_teams_stats.map do |stat|
       if stat.team_id == team_id && stat.won == "TRUE"
         stat.game_id
@@ -161,7 +161,7 @@ module TeamStatistics
     get_goals_blowout(games_won).max
   end
 
-  def worst_loss(team_id)
+  def worst_loss(team_id) #tested line 317
     games_lost = @games_teams_stats.map do |stat|
       if stat.team_id == team_id && stat.won == "FALSE"
         stat.game_id
@@ -170,7 +170,7 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
-  def head_to_head(team_id, opponent_id)
+  def head_to_head(team_id, opponent_id) #tested line 322
     games_played = @games_data.map do |game|
       if game.away_team_id == team_id && game.home_team_id == opponent_id ||game.home_team_id == team_id && game.away_team_id == opponent_id
         game.game_id
@@ -238,7 +238,7 @@ module TeamStatistics
     end
   end
 
-  def seasonal_summary(team_id)
+  def seasonal_summary(team_id) #tested line 329
     seasons_played = @games_data.map do |game|
       if game.away_team_id == team_id || game.home_team_id == team_id
         game.season

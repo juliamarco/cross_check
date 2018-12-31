@@ -18,13 +18,6 @@ module LeagueStatistics
     end
     return team.teamName
   end
-  
-  def team_id_name(id)
-    team = @teams_data.find do |team|
-      team.team_id == id
-    end
-    return team.teamName
-  end
 
   def best_offense
     best_offense_id = teams_by_goals_scored.max_by do |team_id, goal|

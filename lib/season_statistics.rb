@@ -1,6 +1,6 @@
 module SeasonStatistics
 
-  def game_by_type(season, type)
+  def game_by_type(season, type) #tested line 236
     games = games_by_season(season)
     games = @games_data.map do |game|
       if games.include?(game.game_id)
@@ -11,7 +11,7 @@ module SeasonStatistics
     end.compact
   end
 
-  def wins_percentage(season, type)
+  def wins_percentage(season, type) #tested line 242
     games = game_by_type(season, type)
     hash = Hash.new(0)
     @games_teams_stats.each do |stat|
@@ -40,7 +40,7 @@ module SeasonStatistics
   end
 
 
-  def games_by_season(season)
+  def games_by_season(season) #tested line 230
     games = @games_data.find_all do |game|
       game.season == season
     end
@@ -49,7 +49,7 @@ module SeasonStatistics
     end
   end
 
-  def biggest_bust(season)
+  def biggest_bust(season) #tested line 248
     preseason = wins_percentage(season, "P")
     regular = wins_percentage(season, "R")
     arr = {}
@@ -62,7 +62,7 @@ module SeasonStatistics
     team_id_name(biggest[0])
   end
 
-  def biggest_surprise(season)
+  def biggest_surprise(season) #tested line 253
     preseason = wins_percentage(season, "P")
     regular = wins_percentage(season, "R")
     arr = {}
@@ -76,10 +76,15 @@ module SeasonStatistics
   end
 
 #helper method, maybe create a module for these?
+  # def team_id_name(id)
+  #   team = @teams_data.find do |team|
+  #     team.team_id == id
+  #   end
+  #   return team.teamName
+  # end
+
   def team_id_name(id)
-    team = @teams_data.find do |team|
-      team.team_id == id
-    end
+    team = @teams_data.find { |team| team.team_id == id }
     return team.teamName
   end
 
@@ -131,7 +136,7 @@ module SeasonStatistics
     return home_goals_allowed
   end
 
-  def season_summary(season, team_id)
+  def season_summary(season, team_id) #tested line 258
     summary = {:preseason => {}, :regular_season => {}}
     summary[:preseason][:win_percentage] = wins_percentage(season, "P").find {|k,v| k == team_id}[1]
     summary[:regular_season][:win_percentage] = wins_percentage(season, "R").find {|k,v| k == team_id}[1]
