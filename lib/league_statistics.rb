@@ -18,6 +18,13 @@ module LeagueStatistics
     end
     return team.teamName
   end
+  
+  def team_id_name(id)
+    team = @teams_data.find do |team|
+      team.team_id == id
+    end
+    return team.teamName
+  end
 
   def best_offense
     best_offense_id = teams_by_goals_scored.max_by do |team_id, goal|
@@ -89,6 +96,20 @@ module LeagueStatistics
     games.each do |key, value|
       games[key] = value.sum.to_f / value.count.to_f
     end
+  end
+
+  def highest_scoring_visitor
+    highest_scoring = average_goals_by_visitor.max_by do |k,v|
+      v
+    end
+    team_id_name(highest_scoring[0])
+  end
+
+  def highest_scoring_home_team
+    highest_scoring = average_goals_by_home_team.max_by do |k,v|
+      v
+    end
+    team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_visitor
