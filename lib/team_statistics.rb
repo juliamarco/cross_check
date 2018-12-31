@@ -111,9 +111,7 @@ module TeamStatistics
   end
 
   def team_id_name(id)
-    team = @teams_data.find do |team|
-      team.team_id == id
-    end
+    team = @teams_data.find { |team| team.team_id == id }
     return team.teamName
   end
 
