@@ -55,7 +55,7 @@ module GameStatistics
    home_wins = outcomes.count do |outcome|
      outcome.include?("home")
    end
-   home_wins.to_f / outcomes.length.to_f * 100.0
+   (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
  def percentage_visitor_wins
@@ -65,7 +65,7 @@ module GameStatistics
    home_wins = outcomes.count do |outcome|
      outcome.include?("away")
    end
-   home_wins.to_f / outcomes.length.to_f * 100.0
+   (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
  def count_of_games_by_season

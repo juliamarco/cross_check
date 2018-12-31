@@ -12,18 +12,11 @@ module LeagueStatistics
     return teams
   end
 
-  def best_offense_id
-    best_offense_id = teams_by_goals_scored.max_by do |team_id, goal|
-    goal
+  def team_id_name(id)
+    team = @teams_data.find do |team|
+      team.team_id == id
     end
-    return best_offense_id[0]
-  end
-
-  def worst_offense_id
-    worst_offense_id = teams_by_goals_scored.min_by do |team_id, goal|
-    goal
-    end
-    return worst_offense_id[0]
+    return team.teamName
   end
   
   def team_id_name(id)
@@ -34,11 +27,17 @@ module LeagueStatistics
   end
 
   def best_offense
-    team_id_name(best_offense_id)
+    best_offense_id = teams_by_goals_scored.max_by do |team_id, goal|
+      goal
+    end
+    team_id_name(best_offense_id[0])
   end
 
   def worst_offense
-    team_id_name(worst_offense_id)
+    worst_offense_id = teams_by_goals_scored.min_by do |team_id, goal|
+      goal
+    end
+    team_id_name(worst_offense_id[0])
   end
 
   def teams_by_goals_allowed
@@ -50,26 +49,18 @@ module LeagueStatistics
     return games
   end
 
-  def best_defense_id
+  def best_defense
     best_defense_id = teams_by_goals_allowed.min_by do |team_id, goals|
       goals
     end
-    return best_defense_id[0]
-  end
-
-  def worst_defense_id
-    worst_defense_id = teams_by_goals_allowed.max_by do |team_id, goals|
-      goals
-    end
-    return worst_defense_id[0]
-  end
-
-  def best_defense
-    team_id_name(best_defense_id)
+    team_id_name(best_defense_id[0])
   end
 
   def worst_defense
-    team_id_name(worst_defense_id)
+    worst_defense_id = teams_by_goals_allowed.max_by do |team_id, goals|
+      goals
+    end
+    team_id_name(worst_defense_id[0])
   end
 
   def average_goals_by_visitor
@@ -85,7 +76,14 @@ module LeagueStatistics
       games[key] = value.sum.to_f / value.count.to_f
     end
   end
-  
+
+  def highest_scoring_visitor
+    highest_scoring = average_goals_by_visitor.max_by do |k,v|
+      v
+    end
+     team_id_name(highest_scoring[0])
+  end
+
   def average_goals_by_home_team
     games = Hash.new(0)
     @games_data.each do |game|

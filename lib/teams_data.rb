@@ -16,4 +16,5 @@ class TeamsData
     @link = teams_data[:link]
   end
 
+
 end
