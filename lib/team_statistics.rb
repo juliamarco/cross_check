@@ -231,6 +231,12 @@ module TeamStatistics
     return home_goals_scored
   end
 
+  def get_wins_percentages_into_hash(seasons_played, team_id, hash)
+    seasons_played.each do |season|
+      hash[season][:preseason][:win_percentage] = wins_percentage(season,"P").find {|k,v| k == team_id}[1]
+      hash[season][:regular_season][:win_percentage] = wins_percentage(season,"R").find {|k,v| k == team_id}[1]
+    end
+  end
 
   def seasonal_summary(team_id)
     seasons_played = @games_data.map do |game|
@@ -238,21 +244,15 @@ module TeamStatistics
         game.season
       end
     end.compact.uniq
-    hash = Hash.new
+    hash = Hash.new(0)
     seasons_played.each do |season|
       hash[season] = {:preseason => {:win_percentage => 0, :total_goals_scored => 0, :total_goals_against => 0, :average_goals_scored => 0, :average_goals_against => 0}, :regular_season => {:win_percentage => 0, :total_goals_scored => 0, :total_goals_against => 0, :average_goals_scored => 0, :average_goals_against => 0}}
     end
-    seasons_played.each do |season|
-      percent_preseason = wins_percentage(season,"P").find {|k,v| k == team_id}[1]
-      percent_regseason = wins_percentage(season,"R").find {|k,v| k == team_id}[1]
-      hash[season][:preseason][:win_percentage] = percent_preseason
-      hash[season][:regular_season][:win_percentage] = percent_regseason
-    end
+    get_wins_percentages_into_hash(seasons_played, team_id, hash)
     preseason_games = games_by_team_type_and_season(team_id, "P", seasons_played)
     regseason_games = games_by_team_type_and_season(team_id, "R", seasons_played)
     preseason_games.each do |k, v|
       @games_teams_stats.each do |game|
-        # binding.pry
         if v.include?(game.game_id) && game.team_id == team_id
           hash[k][:preseason][:total_goals_scored] += game.goals
         elsif v.include?(game.game_id) && game.team_id != team_id
@@ -260,8 +260,6 @@ module TeamStatistics
         end
       end
     end
-
-
     regseason_games.each do |k, v|
       @games_teams_stats.each do |game|
         if v.include?(game.game_id)&& game.team_id == team_id

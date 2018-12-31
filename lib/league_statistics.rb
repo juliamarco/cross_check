@@ -74,7 +74,6 @@ module LeagueStatistics
     highest_scoring = average_goals_by_visitor.max_by do |k,v|
       v
     end
-    binding.pry
      team_id_name(highest_scoring[0])
   end
 
