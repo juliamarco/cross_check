@@ -172,7 +172,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected_hash, @stat_tracker.average_goals_by_home_team
   end
 
-  def test_it_has_highest_scoring_home_team
+  def test_it_has_highest_scoring_visitor
 
     assert_equal "Flyers", @stat_tracker.highest_scoring_visitor
   end
@@ -336,5 +336,9 @@ class StatTrackerTest < MiniTest::Test
   def test_it_has_team_id_name
 
     assert_equal "Bruins", @stat_tracker.team_id_name(6)
+  end
+
+  def test_highest_scoring_visitor
+
   end
 end

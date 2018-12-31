@@ -75,7 +75,7 @@ module SeasonStatistics
     team_id_name(biggest[0])
   end
 
-  def team_id_name(id)
+  def team_id_name(id) #tested line 336
     team = @teams_data.find { |team| team.team_id == id }
     return team.teamName
   end
