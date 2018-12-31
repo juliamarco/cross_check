@@ -75,14 +75,6 @@ module SeasonStatistics
     team_id_name(biggest[0])
   end
 
-#helper method, maybe create a module for these?
-  # def team_id_name(id)
-  #   team = @teams_data.find do |team|
-  #     team.team_id == id
-  #   end
-  #   return team.teamName
-  # end
-
   def team_id_name(id)
     team = @teams_data.find { |team| team.team_id == id }
     return team.teamName
