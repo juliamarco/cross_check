@@ -267,7 +267,7 @@ skip
   end
 
   def test_it_has_biggest_bust
-
+skip
     assert_equal "Rangers", @stat_tracker.biggest_bust(20122013)
   end
 
@@ -277,70 +277,71 @@ skip
   end
 
   def test_it_has_a_season_summary
-
+skip
     expected_hash = {:preseason => {:win_percentage => 80.0, :goals_scored => 16, :goals_against => 10} , :regular_season => {:win_percentage => 100.0, :goals_scored => 6, :goals_against => 2}}
     assert_equal expected_hash, @stat_tracker.season_summary(20122013, 6)
   end
 
   def test_it_has_team_info
-
+skip
     expected_hash = {"team_id" => 1, "franchiseId" => 23, "shortName" => "New Jersey", "teamName" => "Devils", "abbreviation" => "NJD", "link" => "/api/v1/teams/1"}
     assert_equal expected_hash, @stat_tracker.team_info(1)
   end
 
   def test_it_has_games_won_by_season
-
+skip
     expected = {20122013=>["TRUE"], 20132014=>["TRUE", "FALSE"]}
     assert_equal expected, @stat_tracker.games_won_by_season(24)
   end
 
 
   def test_it_has_a_best_season
-
+skip
     assert_equal 20122013, @stat_tracker.best_season(24)
   end
 
   def test_it_has_a_worst_season
-
+skip
     assert_equal 20132014, @stat_tracker.worst_season(24)
   end
 
   def test_it_has_an_average_win_percentage
-
+skip
     assert_equal 75.0, @stat_tracker.average_win_percentage(24)
   end
 
   def test_it_has_most_goals_scored
-
+skip
     assert_equal 3, @stat_tracker.most_goals_scored(24)
   end
 
   def test_it_has_fewest_goals_scored
-
+skip
     assert_equal 2, @stat_tracker.fewest_goals_scored(24)
   end
 
   def test_it_has_a_favorite_opponent
-
+skip
     assert_equal "Bruins", @stat_tracker.favorite_opponent(3)
   end
 
   def test_it_has_a_rival
-
+skip
     assert_equal "Jets", @stat_tracker.rival(3)
   end
 
   def test_it_has_a_biggest_team_blowout
-
+skip
     assert_equal 4, @stat_tracker.biggest_team_blowout(6)
   end
 
   def test_it_has_a_worst_loss
-
+skip
     assert_equal 1, @stat_tracker.worst_loss(6)
   end
 
   def test_it_has_a_head_to_head
+    skip
     games = [2012030221, 2012030222, 2012030223, 2012030224, 2012030225]
     expected = {win: 4, loss: 1}
     assert_equal expected, @stat_tracker.head_to_head(6, 3)
@@ -366,4 +367,7 @@ skip
                     }
     assert_equal expected_hash, @stat_tracker.seasonal_summary(30)
   end
+
+
+
 end

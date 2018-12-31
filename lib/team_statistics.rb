@@ -252,18 +252,21 @@ module TeamStatistics
     regseason_games = games_by_team_type_and_season(team_id, "R", seasons_played)
     preseason_games.each do |k, v|
       @games_teams_stats.each do |game|
-        if v[0] == game.game_id && game.team_id == team_id
+        # binding.pry
+        if v.include?(game.game_id) && game.team_id == team_id
           hash[k][:preseason][:total_goals_scored] += game.goals
-        elsif v[0] == game.game_id && game.team_id != team_id
+        elsif v.include?(game.game_id) && game.team_id != team_id
           hash[k][:preseason][:total_goals_against] += game.goals
         end
       end
     end
+
+
     regseason_games.each do |k, v|
       @games_teams_stats.each do |game|
-        if v[0] == game.game_id && game.team_id == team_id
+        if v.include?(game.game_id)&& game.team_id == team_id
           hash[k][:regular_season][:total_goals_scored] += game.goals
-        elsif v[0] == game.game_id && game.team_id != team_id
+        elsif v.include?(game.game_id) && game.team_id != team_id
           hash[k][:regular_season][:total_goals_against] += game.goals
         end
       end
@@ -272,22 +275,22 @@ module TeamStatistics
       total = v.count
       goals_scored = hash[k][:preseason][:total_goals_scored]
       unless goals_scored.zero?
-        hash[k][:preseason][:average_goals_scored] = goals_scored / total
+        hash[k][:preseason][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
       end
       goals_against = hash[k][:preseason][:total_goals_against]
       unless goals_against.zero?
-        hash[k][:preseason][:average_goals_against] = goals_against / total
+        hash[k][:preseason][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
       end
     end
     regseason_games.each do |k, v|
       total = v.count
       goals_scored = hash[k][:regular_season][:total_goals_scored]
       unless goals_scored.zero?
-        hash[k][:regular_season][:average_goals_scored] = goals_scored / total
+        hash[k][:regular_season][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
       end
       goals_against = hash[k][:regular_season][:total_goals_against]
       unless goals_against.zero?
-        hash[k][:regular_season][:average_goals_against] = goals_against / total
+        hash[k][:regular_season][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
       end
     end
   return hash
@@ -298,7 +301,7 @@ end
     seasons.each do |season|
       @games_data.each do |game|
         if game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
-          if games.has_key?(games[season])
+          if games.has_key?(game.season)
             games[season] << game.game_id
           else
             games[season] = [game.game_id]
