@@ -338,7 +338,8 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Bruins", @stat_tracker.team_id_name(6)
   end
 
-  def test_highest_scoring_visitor
+  def test_highest_scoring_home_team
 
+    assert_equal "Capitals", @stat_tracker.highest_scoring_home_team
   end
 end
