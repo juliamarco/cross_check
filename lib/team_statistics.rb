@@ -70,7 +70,7 @@ module TeamStatistics
     (percentages.sum {|k,v| v}) / percentages.count
   end
 
-  def all_team_goals(team_id)
+  def all_team_goals(team_id) #tested line 346
     @games_teams_stats.map do |stat|
       if stat.team_id == team_id
         stat.goals

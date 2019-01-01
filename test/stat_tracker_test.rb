@@ -347,6 +347,4 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal [3, 5, 2, 3, 3], @stat_tracker.all_team_goals(6)
   end
-
-
 end
