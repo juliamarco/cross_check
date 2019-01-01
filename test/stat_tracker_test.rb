@@ -342,4 +342,11 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal "Capitals", @stat_tracker.highest_scoring_home_team
   end
+
+  def test_all_team_goals
+
+    assert_equal [3, 5, 2, 3, 3], @stat_tracker.all_team_goals(6)
+  end
+
+
 end

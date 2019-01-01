@@ -26,7 +26,7 @@ module SeasonStatistics
     calculate_percentages(hash)
   end
 
-  def calculate_percentages(hash)
+  def calculate_percentages(hash) #tested line 190
     values = hash.values
     won_outcomes = values.map {|value| value.count("TRUE")}
     total_outcomes = values.map {|value| value.count}
@@ -83,6 +83,7 @@ module SeasonStatistics
   def away_goals_scored(games, team_id)
     away_goals_scored = 0
     @games_data.each do |game|
+
       if games.include?(game.game_id)
         if game.away_team_id == team_id
           away_goals_scored += game.away_goals

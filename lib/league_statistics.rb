@@ -96,7 +96,7 @@ module LeagueStatistics
     team_id_name(highest_scoring[0])
   end
 
-  def highest_scoring_home_team
+  def highest_scoring_home_team #tested line 341
     highest_scoring = average_goals_by_home_team.max_by do |k,v|
       v
     end

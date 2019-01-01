@@ -14,7 +14,7 @@ module TeamStatistics
     return new
   end
 
-  def calculate_percentages(hash)
+  def calculate_percentages(hash) #tested line 190
     values = hash.values
     won_outcomes = values.map {|value| value.count("TRUE")}
     total_outcomes = values.map {|value| value.count}
