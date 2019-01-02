@@ -4,42 +4,53 @@ module LeagueStatistics
     @teams_data.count
   end
 
-# Helper Method
-  def teams_by_goals_scored #tested line 126
+]
+  def count_games_by_team(team_id)
+    @games_teams_stats.count do |stat|
+      stat.team_id == team_id
+    end
+  end
+
+ # Helper Method
+  def teams_by_average_goals_scored #tested line 126
     teams = Hash.new(0)
     @games_teams_stats.each do |stat|
       teams[stat.team_id] += stat.goals
     end
-    return teams
+    teams.each do |k,v|
+      teams[k] = (v.to_f / count_games_by_team(k).to_f).round(1)
+    end
   end
 
   def best_offense #tested line 137
-    best_offense_id = teams_by_goals_scored.max_by { |team_id, goal| goal }
+    best_offense_id = teams_by_average_goals_scored.max_by { |team_id, goal| goal }
     team_id_name(best_offense_id[0])
   end
 
   def worst_offense #tested line 142
-    worst_offense_id = teams_by_goals_scored.min_by { |team_id, goal| goal }
+    worst_offense_id = teams_by_average_goals_scored.min_by { |team_id, goal| goal }
     team_id_name(worst_offense_id[0])
   end
 
-# Helper Method
-  def teams_by_goals_allowed #tested line 147
+  def teams_by_average_goals_allowed #tested line 147
     games = Hash.new(0)
     @games_data.each do |game|
       games[game.away_team_id] += game.home_goals
       games[game.home_team_id] += game.away_goals
     end
+    games.each do |k,v|
+      games[k] = (v.to_f / count_games_by_team(k).to_f).round(1)
+    end
     return games
   end
 
   def best_defense #tested line 153
-    best_defense_id = teams_by_goals_allowed.min_by { |team_id, goals| goals }
+    best_defense_id = teams_by_average_goals_allowed.min_by { |team_id, goals| goals }
     team_id_name(best_defense_id[0])
   end
 
   def worst_defense #tested line 158
-    worst_defense_id = teams_by_goals_allowed.max_by { |team_id, goals| goals }
+    worst_defense_id = teams_by_average_goals_allowed.max_by { |team_id, goals| goals }
     team_id_name(worst_defense_id[0])
   end
 
