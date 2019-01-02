@@ -11,7 +11,7 @@ module LeagueStatistics
   end
 
  # Helper Method
-  def teams_by_average_goals_scored #tested line 126
+  def average_goals_scored #tested line 126
     teams = Hash.new(0)
     @games_teams_stats.each do |stat|
       teams[stat.team_id] += stat.goals
@@ -22,16 +22,16 @@ module LeagueStatistics
   end
 
   def best_offense #tested line 137
-    best_offense_id = teams_by_average_goals_scored.max_by { |team_id, goal| goal }
+    best_offense_id = average_goals_scored.max_by { |team_id, goal| goal }
     team_id_name(best_offense_id[0])
   end
 
   def worst_offense #tested line 142
-    worst_offense_id = teams_by_average_goals_scored.min_by { |team_id, goal| goal }
+    worst_offense_id = average_goals_scored.min_by { |team_id, goal| goal }
     team_id_name(worst_offense_id[0])
   end
 
-  def teams_by_average_goals_allowed #tested line 147
+  def average_goals_allowed #tested line 147
     games = Hash.new(0)
     @games_data.each do |game|
       games[game.away_team_id] += game.home_goals
@@ -44,12 +44,12 @@ module LeagueStatistics
   end
 
   def best_defense #tested line 153
-    best_defense_id = teams_by_average_goals_allowed.min_by { |team_id, goals| goals }
+    best_defense_id = average_goals_allowed.min_by { |team_id, goals| goals }
     team_id_name(best_defense_id[0])
   end
 
   def worst_defense #tested line 158
-    worst_defense_id = teams_by_average_goals_allowed.max_by { |team_id, goals| goals }
+    worst_defense_id = average_goals_allowed.max_by { |team_id, goals| goals }
     team_id_name(worst_defense_id[0])
   end
 

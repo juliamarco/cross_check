@@ -126,7 +126,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_arrange_teams_by_average_goals_scored
 
     expected_hash = {3=>2, 6=>3.2, 29=>2, 24=>2.7, 26=>2.5, 30=>2.7, 21=>2.7, 4=>3, 15=>3.5, 25=>4, 16=>2, 23=>2}
-    assert_equal expected_hash, @stat_tracker.teams_by_average_goals_scored
+    assert_equal expected_hash, @stat_tracker.average_goals_scored
   end
 
   def test_it_has_team_id_name
@@ -147,7 +147,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_arrange_teams_by_average_goals_allowed
 
     expected_hash = {3=>3.2, 6=>2.0, 29=>3.5, 24=>2.3, 26=>2.5, 30=>2.8, 21=>2.7, 4=>4.0, 15=>3.0, 25=>1.0, 16=>3.0, 23=>3.5}
-    assert_equal expected_hash, @stat_tracker.teams_by_average_goals_allowed
+    assert_equal expected_hash, @stat_tracker.average_goals_allowed
   end
 
   def test_it_has_best_defense
