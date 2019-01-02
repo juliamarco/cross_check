@@ -73,10 +73,7 @@ module LeagueStatistics
   end
 
   def highest_scoring_visitor #tested line 169
-    highest_scoring = average_goals_by_visitor.max_by do |k,v|
-      v
-    end
-     team_id_name(highest_scoring[0])
+    highest_scoring = average_goals_by_visitor.max_by { |k,v| v }
   end
 
 # Helper Method
