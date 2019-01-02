@@ -1,15 +1,12 @@
 module GameStatistics
 
   def highest_total_score #tested line 53
-   highest = @games_data.max_by do |game|
-     game.away_goals + game.home_goals
-   end
+   highest = @games_data.max_by { |game| game.away_goals + game.home_goals }
    return highest.home_goals + highest.away_goals
  end
 
  def lowest_total_score #tested line 58
-   lowest = @games_data.min_by do |game|
-     game.away_goals + game.home_goals
+   lowest = @games_data.min_by { |game| game.away_goals + game.home_goals }
    end
    return lowest.home_goals + lowest.away_goals
  end

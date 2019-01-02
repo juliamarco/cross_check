@@ -1,7 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/games_data.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/games_data.rb": [
         1,
         null,
         1,
@@ -41,7 +41,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/test/games_teams_stats_test.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/test/games_teams_stats_test.rb": [
         1,
         1,
         null,
@@ -100,7 +100,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/games_teams_stats.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/games_teams_stats.rb": [
         1,
         null,
         1,
@@ -141,7 +141,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/test/stat_tracker_test.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/test/stat_tracker_test.rb": [
         1,
         1,
         null,
@@ -665,7 +665,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/stat_tracker.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/stat_tracker.rb": [
         1,
         1,
         1,
@@ -742,7 +742,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/teams_data.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/teams_data.rb": [
         1,
         null,
         1,
@@ -764,7 +764,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/game_statistics.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/game_statistics.rb": [
         1,
         null,
         1,
@@ -890,7 +890,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/league_statistics.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/league_statistics.rb": [
         1,
         null,
         1,
@@ -1076,7 +1076,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/season_statistics.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/season_statistics.rb": [
         1,
         null,
         1,
@@ -1168,7 +1168,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/team_statistics.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/team_statistics.rb": [
         1,
         null,
         1,
@@ -1424,7 +1424,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/lib/helper_methods.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/lib/helper_methods.rb": [
         1,
         null,
         1,
@@ -1486,7 +1486,7 @@
         null,
         null
       ],
-      "/Users/juliamarcooteros/turing/1module/projects/cross_check/test/teams_data_test.rb": [
+      "/Users/martinmercer/turing/1module/projects/cross_check/test/teams_data_test.rb": [
         1,
         1,
         null,
@@ -1528,6 +1528,6 @@
         null
       ]
     },
-    "timestamp": 1546399890
+    "timestamp": 1546442060
   }
 }

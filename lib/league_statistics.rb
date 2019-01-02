@@ -168,7 +168,7 @@ module LeagueStatistics
       value[1] > value[0]
     end.flatten
     if worst.empty?
-      return "There's none!"
+      return "There are no worst fans!"
     end
     team_id = worst.find_all {|num| num.is_a?(Integer)}
     final_array = team_id.map do |id|
