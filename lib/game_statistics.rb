@@ -20,8 +20,7 @@ module GameStatistics
    end
    num = all_nums.max_by do |num|
      num.abs
-   end
-   return num.abs
+   end.abs
  end
 
  def counts_venues_occurrences #tested line 68
@@ -55,7 +54,7 @@ module GameStatistics
    home_wins = outcomes.count do |outcome|
      outcome.include?("home")
    end
-   (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
+   (home_wins.to_f / outcomes.length.to_f).round(2)
  end
 
  def percentage_visitor_wins #tested line 89
@@ -65,14 +64,12 @@ module GameStatistics
    home_wins = outcomes.count do |outcome|
      outcome.include?("away")
    end
-   (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
+   (home_wins.to_f / outcomes.length.to_f).round(2)
  end
 
  def season_with_most_games #tested line 90
    counts = count_of_games_by_season
-   max = counts.max_by do |key, value|
-     value
-   end
+   max = counts.max_by {|key, value| value}
    return max[0]
  end
 
@@ -87,7 +84,7 @@ module GameStatistics
  def count_of_games_by_season #tested line 104
    counts = Hash.new(0)
    @games_data.each do |game|
-     counts[game.season] += 1
+     counts[game.season.to_s] += 1
    end
    return counts
  end
@@ -96,17 +93,17 @@ module GameStatistics
    total_scores = @games_data.map do |game|
      game.away_goals.to_f + game.home_goals.to_f
    end
-   (total_scores.sum / total_scores.count).round(1)
+   (total_scores.sum / total_scores.count).round(2)
  end
 
  def average_goals_by_season #tested line 115
       average = Hash.new(0)
       @games_data.each do |game|
         average_goals = (game.home_goals.to_f + game.away_goals.to_f) / 2.0
-        if average.has_key?(game.season)
-          average[game.season].push(average_goals)
+        if average.has_key?(game.season.to_s)
+          average[game.season.to_s].push(average_goals)
         else
-          average[game.season] = [average_goals]
+          average[game.season.to_s] = [average_goals]
         end
       end
       all_values = average.map do |key, value|

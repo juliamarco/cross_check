@@ -14,7 +14,7 @@ class StatTrackerTest < MiniTest::Test
     @games_path = './data/game_sample.csv'
     @teams_path = './data/team_info.csv'
     @games_teams_path = './data/game_teams_stats_sample.csv'
-    @locations = {games: @games_path, teams: @teams_path, games_teams: @games_teams_path}
+    @locations = {games: @games_path, teams: @teams_path, game_teams: @games_teams_path}
     @stat_tracker = StatTracker.from_csv(@locations)
   end
 
@@ -83,27 +83,27 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_show_percentage_of_home_wins
 
-    assert_equal 61.11, @stat_tracker.percentage_home_wins
+    assert_equal 0.61, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_show_percentage_of_visitor_wins
 
-    assert_equal 38.89, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.39, @stat_tracker.percentage_visitor_wins
   end
 
   def test_season_with_most_games
 
-    assert_equal 20122013, @stat_tracker.season_with_most_games
+    assert_equal "20122013", @stat_tracker.season_with_most_games
   end
 
   def test_season_with_fewest_games
 
-    assert_equal 20142015, @stat_tracker.season_with_fewest_games
+    assert_equal "20142015", @stat_tracker.season_with_fewest_games
   end
 
   def test_it_can_show_count_of_games_by_season
 
-    expected = {20122013=>9, 20132014=>6, 20152016=>2, 20142015=>1}
+    expected = {"20122013"=>9, "20132014"=>6, "20152016"=>2, "20142015"=>1}
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
@@ -114,7 +114,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_average_goals_by_season
 
-    expected_hash = {20122013=>2.6, 20132014=>2.9, 20152016=>2.8, 20142015=>3.0}
+    expected_hash = {"20122013"=>2.6, "20132014"=>2.9, "20152016"=>2.8, "20142015"=>3.0}
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
 
@@ -123,10 +123,10 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 33, @stat_tracker.count_of_teams
   end
 
-  def test_it_can_arrange_teams_by_goals_scored
+  def test_it_can_arrange_teams_by_average_goals_scored
 
-    expected_hash = {3=>10, 6=>16, 29=>4, 24=>8, 26=>5, 30=>16, 21=>8, 4=>6, 15=>7, 25=>8, 16=>4, 23=>4}
-    assert_equal expected_hash, @stat_tracker.teams_by_goals_scored
+    expected_hash = {3=>2, 6=>3.2, 29=>2, 24=>2.7, 26=>2.5, 30=>2.7, 21=>2.7, 4=>3, 15=>3.5, 25=>4, 16=>2, 23=>2}
+    assert_equal expected_hash, @stat_tracker.teams_by_average_goals_scored
   end
 
   def test_it_has_team_id_name
@@ -136,18 +136,18 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_best_offense
 
-    assert_equal "Bruins", @stat_tracker.best_offense
+    assert_equal "Stars", @stat_tracker.best_offense
   end
 
   def test_it_has_worst_offense
 
-    assert_equal "Blue Jackets", @stat_tracker.worst_offense
+    assert_equal "Rangers", @stat_tracker.worst_offense
   end
 
-  def test_it_can_arrange_teams_by_goals_allowed
+  def test_it_can_arrange_teams_by_average_goals_allowed
 
-    expected_hash = {3=>16, 6=>10, 29=>7, 24=>7, 26=>5, 30=>17, 21=>8, 4=>8, 15=>6, 25=>2, 16=>6, 23=>7}
-    assert_equal expected_hash, @stat_tracker.teams_by_goals_allowed
+    expected_hash = {3=>3.2, 6=>2.0, 29=>3.5, 24=>2.3, 26=>2.5, 30=>2.8, 21=>2.7, 4=>4.0, 15=>3.0, 25=>1.0, 16=>3.0, 23=>3.5}
+    assert_equal expected_hash, @stat_tracker.teams_by_average_goals_allowed
   end
 
   def test_it_has_best_defense
@@ -157,7 +157,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_worst_defense
 
-    assert_equal "Wild", @stat_tracker.worst_defense
+    assert_equal "Flyers", @stat_tracker.worst_defense
   end
 
   def test_it_has_average_goals_by_visitor
