@@ -38,8 +38,7 @@ module LeagueStatistics
   end
 
   def best_defense #tested line 153
-    best_defense_id = teams_by_goals_allowed.min_by do |team_id, goals|
-      goals
+    best_defense_id = teams_by_goals_allowed.min_by { |team_id, goals| goals }
     end
     team_id_name(best_defense_id[0])
   end
