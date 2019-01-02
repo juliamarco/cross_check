@@ -1,9 +1,7 @@
 module TeamStatistics
 
   def team_info(team_id) #tested line 293
-    team = @teams_data.find do |team|
-      team.team_id == team_id
-    end
+    team = @teams_data.find { |team| team.team_id == team_id }
     new = Hash.new(0)
     new["team_id"] = team.team_id
     new["franchiseId"] = team.franchiseId
@@ -34,9 +32,7 @@ module TeamStatistics
         end
       end
       new_hash.each do |key,values|
-        values = values.select do |v|
-          v.is_a?(String)
-        end
+        values = values.select { |v| v.is_a?(String) }
         new_hash[key] = values
       end
   end
@@ -203,7 +199,16 @@ module TeamStatistics
     end.compact.uniq
     hash = Hash.new(0)
     seasons_played.each do |season|
-      hash[season] = {:preseason => {:win_percentage => 0, :total_goals_scored => 0, :total_goals_against => 0, :average_goals_scored => 0, :average_goals_against => 0}, :regular_season => {:win_percentage => 0, :total_goals_scored => 0, :total_goals_against => 0, :average_goals_scored => 0, :average_goals_against => 0}}
+      hash[season] = {:preseason => {:win_percentage => 0,
+                                     :total_goals_scored => 0,
+                                     :total_goals_against => 0,
+                                     :average_goals_scored => 0,
+                                     :average_goals_against => 0},
+                      :regular_season => {:win_percentage => 0,
+                                          :total_goals_scored => 0,
+                                          :total_goals_against => 0,
+                                          :average_goals_scored => 0,
+                                          :average_goals_against => 0}}
     end
     get_wins_percentages_into_hash(seasons_played, team_id, hash)
     preseason_games = games_by_team_type_and_season(team_id, "P", seasons_played)

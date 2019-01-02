@@ -7,68 +7,46 @@ module GameStatistics
 
  def lowest_total_score #tested line 58
    lowest = @games_data.min_by { |game| game.away_goals + game.home_goals }
-   end
    return lowest.home_goals + lowest.away_goals
  end
 
  def biggest_blowout #tested line 63
-   all_nums = @games_data.map do |game|
-     game.away_goals - game.home_goals
-   end
-   num = all_nums.max_by do |num|
-     num.abs
-   end
-   return num.abs
+   all_nums = @games_data.map { |game| game.away_goals - game.home_goals }
+   num = all_nums.max_by { |num| num.abs}.abs
  end
 
  def counts_venues_occurrences #tested line 68
    counts = Hash.new(0)
-   @games_data.each do |game|
-     counts[game.venue] += 1
-   end
+   @games_data.each { |game| counts[game.venue] += 1 }
    return counts
  end
 
  def most_popular_venue #tested line 74
-   counts = counts_venues_occurrences
-   max = counts.max_by do |key, value|
-    value
-   end
+   max = counts_venues_occurrences.max_by { |key, value| value }
    return max[0]
  end
 
  def least_popular_venue #tested line 79
    counts = counts_venues_occurrences
-   min = counts.min_by do |key, value|
-       value
-   end
+   min = counts.min_by { |key, value| value }
    return min[0]
  end
 
  def percentage_home_wins #tested line 84
-   outcomes = @games_data.map do |game|
-      game.outcome
-   end
-   home_wins = outcomes.count do |outcome|
-     outcome.include?("home")
-   end
+   outcomes = @games_data.map { |game| game.outcome }
+   home_wins = outcomes.count { |outcome| outcome.include?("home") }
    (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
  def percentage_visitor_wins #tested line 89
-   outcomes = @games_data.map do |game|
-      game.outcome
-   end
-   home_wins = outcomes.count do |outcome|
-     outcome.include?("away")
-   end
+   outcomes = @games_data.map { |game| game.outcome }
+   home_wins = outcomes.count { |outcome| outcome.include?("away") }
    (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
  def season_with_most_games #tested line 90
    counts = count_of_games_by_season
-   max = counts.max_by do |key, value|
-     value
+   max = counts.max_by do |key, value| value
    end
    return max[0]
  end

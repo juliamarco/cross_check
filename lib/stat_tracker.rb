@@ -1,12 +1,13 @@
-require './lib/games_data'
-require './lib/teams_data'
-require './lib/games_teams_stats'
+require_relative './games_data'
+require_relative './teams_data'
+require_relative './games_teams_stats'
+require_relative './game_statistics'
+require_relative './league_statistics'
+require_relative './season_statistics'
+require_relative './team_statistics'
+require_relative './helper_methods'
+require 'pry'
 require 'csv'
-require './lib/game_statistics'
-require './lib/league_statistics'
-require './lib/season_statistics'
-require './lib/team_statistics'
-require './lib/helper_methods'
 
 class StatTracker
   include GameStatistics
@@ -51,7 +52,7 @@ class StatTracker
                      :abbreviation => row[4],
                      :link => row[5])
     end
-    games_teams_stats = CSV.read(locations[:games_teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
+    games_teams_stats = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       GamesTeamsStats.new(:game_id => row[0],
                     :team_id => row[1],
                     :HoA => row[2],
