@@ -100,9 +100,7 @@ module LeagueStatistics
   end
 
   def lowest_scoring_visitor #tested line 185
-    highest_scoring = average_goals_by_visitor.min_by do |k,v|
-      v
-    end
+    highest_scoring = average_goals_by_visitor.min_by { |k,v| v }
     team_id_name(highest_scoring[0])
   end
 
