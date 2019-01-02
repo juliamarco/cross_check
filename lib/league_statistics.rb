@@ -45,9 +45,7 @@ module LeagueStatistics
   end
 
   def worst_defense #tested line 158
-    worst_defense_id = teams_by_goals_allowed.max_by do |team_id, goals|
-      goals
-    end
+    worst_defense_id = teams_by_goals_allowed.max_by { |team_id, goals| goals }
     team_id_name(worst_defense_id[0])
   end
 
