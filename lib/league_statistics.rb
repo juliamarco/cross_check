@@ -4,7 +4,7 @@ module LeagueStatistics
     @teams_data.count
   end
 
-]
+
   def count_games_by_team(team_id)
     @games_teams_stats.count do |stat|
       stat.team_id == team_id
