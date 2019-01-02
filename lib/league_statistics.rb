@@ -4,12 +4,14 @@ module LeagueStatistics
     @teams_data.count
   end
 
+]
   def count_games_by_team(team_id)
     @games_teams_stats.count do |stat|
       stat.team_id == team_id
     end
   end
 
+ # Helper Method
   def teams_by_average_goals_scored #tested line 126
     teams = Hash.new(0)
     @games_teams_stats.each do |stat|
@@ -21,16 +23,12 @@ module LeagueStatistics
   end
 
   def best_offense #tested line 137
-    best_offense_id = teams_by_average_goals_scored.max_by do |team_id, goal|
-      goal
-    end
+    best_offense_id = teams_by_average_goals_scored.max_by { |team_id, goal| goal }
     team_id_name(best_offense_id[0])
   end
 
   def worst_offense #tested line 142
-    worst_offense_id = teams_by_average_goals_scored.min_by do |team_id, goal|
-      goal
-    end
+    worst_offense_id = teams_by_average_goals_scored.min_by { |team_id, goal| goal }
     team_id_name(worst_offense_id[0])
   end
 
@@ -47,19 +45,16 @@ module LeagueStatistics
   end
 
   def best_defense #tested line 153
-    best_defense_id = teams_by_average_goals_allowed.min_by do |team_id, goals|
-      goals
-    end
+    best_defense_id = teams_by_average_goals_allowed.min_by { |team_id, goals| goals }
     team_id_name(best_defense_id[0])
   end
 
   def worst_defense #tested line 158
-    worst_defense_id = teams_by_average_goals_allowed.max_by do |team_id, goals|
-      goals
-    end
+    worst_defense_id = teams_by_average_goals_allowed.max_by { |team_id, goals| goals }
     team_id_name(worst_defense_id[0])
   end
 
+# Helper Method
   def get_averages(hash)
     hash.each do |key, value|
       hash[key] = (value.sum.to_f / value.count.to_f).round(1)
@@ -67,6 +62,7 @@ module LeagueStatistics
     return hash
   end
 
+# Helper Method
   def average_goals_by_visitor #tested line 163
     games = Hash.new(0)
     @games_data.each do |game|
@@ -80,12 +76,11 @@ module LeagueStatistics
   end
 
   def highest_scoring_visitor #tested line 169
-    highest_scoring = average_goals_by_visitor.max_by do |k,v|
-      v
-    end
-     team_id_name(highest_scoring[0])
+    highest_scoring = average_goals_by_visitor.max_by { |k,v| v }
+    team_id_name(highest_scoring[0])
   end
 
+# Helper Method
   def average_goals_by_home_team #tested line 174
     games = Hash.new(0)
     @games_data.each do |game|
@@ -99,23 +94,17 @@ module LeagueStatistics
   end
 
   def highest_scoring_home_team #tested line 180
-    highest_scoring = average_goals_by_home_team.max_by do |k,v|
-      v
-    end
+    highest_scoring = average_goals_by_home_team.max_by { |k,v| v }
     team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_visitor #tested line 185
-    highest_scoring = average_goals_by_visitor.min_by do |k,v|
-      v
-    end
+    highest_scoring = average_goals_by_visitor.min_by { |k,v| v }
     team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_home_team #tested line 190
-    highest_scoring = average_goals_by_home_team.min_by do |k,v|
-      v
-    end
+    highest_scoring = average_goals_by_home_team.min_by { |k,v| v }
     team_id_name(highest_scoring[0])
   end
 
@@ -133,6 +122,7 @@ module LeagueStatistics
     team_id_name(winningest[0])
   end
 
+# Helper Method
   def home_wins_percentages #tested line 207
     home_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
@@ -147,6 +137,7 @@ module LeagueStatistics
     calculate_percentages(home_team_wins)
   end
 
+# Helper Method
   def away_win_percentages #tested line 213
     away_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
@@ -162,7 +153,7 @@ module LeagueStatistics
   end
 
   def away_and_home_percentages #tested line 219
-    with_both_values = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|
+    both = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|
       [oldval, newval]
     end
   end
@@ -181,15 +172,12 @@ module LeagueStatistics
     if worst.empty?
       return "There are no worst fans!"
     end
-    team_id = worst.find_all {|num| num.is_a?(Integer)}
+    team_id = worst.find_all { |num| num.is_a?(Integer) }
     final_array = team_id.map do |id|
       @teams_data.find do |team|
         team.team_id == id
       end
     end
-    final_array.map do |team|
-      team.teamName
-    end
+    final_array.map { |team| team.teamName }
   end
-
 end

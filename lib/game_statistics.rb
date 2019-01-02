@@ -1,70 +1,48 @@
 module GameStatistics
 
   def highest_total_score #tested line 53
-   highest = @games_data.max_by do |game|
-     game.away_goals + game.home_goals
-   end
+   highest = @games_data.max_by { |game| game.away_goals + game.home_goals }
    return highest.home_goals + highest.away_goals
  end
 
  def lowest_total_score #tested line 58
-   lowest = @games_data.min_by do |game|
-     game.away_goals + game.home_goals
-   end
+   lowest = @games_data.min_by { |game| game.away_goals + game.home_goals }
    return lowest.home_goals + lowest.away_goals
  end
 
  def biggest_blowout #tested line 63
-   all_nums = @games_data.map do |game|
-     game.away_goals - game.home_goals
-   end
-   num = all_nums.max_by do |num|
-     num.abs
-   end.abs
+   all_nums = @games_data.map { |game| game.away_goals - game.home_goals }
+   num = all_nums.max_by { |num| num.abs}.abs
  end
 
+# Helper Method
  def counts_venues_occurrences #tested line 68
    counts = Hash.new(0)
-   @games_data.each do |game|
-     counts[game.venue] += 1
-   end
+   @games_data.each { |game| counts[game.venue] += 1 }
    return counts
  end
 
  def most_popular_venue #tested line 74
-   counts = counts_venues_occurrences
-   max = counts.max_by do |key, value|
-    value
-   end
+   max = counts_venues_occurrences.max_by { |key, value| value }
    return max[0]
  end
 
  def least_popular_venue #tested line 79
    counts = counts_venues_occurrences
-   min = counts.min_by do |key, value|
-       value
-   end
+   min = counts.min_by { |key, value| value }
    return min[0]
  end
 
  def percentage_home_wins #tested line 84
-   outcomes = @games_data.map do |game|
-      game.outcome
-   end
-   home_wins = outcomes.count do |outcome|
-     outcome.include?("home")
-   end
-   (home_wins.to_f / outcomes.length.to_f).round(2)
+   outcomes = @games_data.map { |game| game.outcome }
+   home_wins = outcomes.count { |outcome| outcome.include?("home") }
+   (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
  def percentage_visitor_wins #tested line 89
-   outcomes = @games_data.map do |game|
-      game.outcome
-   end
-   home_wins = outcomes.count do |outcome|
-     outcome.include?("away")
-   end
-   (home_wins.to_f / outcomes.length.to_f).round(2)
+   outcomes = @games_data.map { |game| game.outcome }
+   home_wins = outcomes.count { |outcome| outcome.include?("away") }
+   (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
  def season_with_most_games #tested line 90

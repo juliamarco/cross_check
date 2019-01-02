@@ -1,12 +1,8 @@
 module SeasonStatistics
 
   def games_by_season(season) #tested line 235
-    games = @games_data.find_all do |game|
-      game.season == season
-    end
-    games.map do |game|
-      game.game_id
-    end
+    games = @games_data.find_all { |game| game.season == season }
+    games.map { |game| game.game_id }
   end
 
   def game_by_type(season, type) #tested line 241
@@ -29,7 +25,7 @@ module SeasonStatistics
         arr[key] = (preseason[key] -= value)
       end
     end
-    biggest = arr.max_by {|k,v| v}
+    biggest = arr.max_by { |k,v| v }
     team_id_name(biggest[0])
   end
 
@@ -42,7 +38,7 @@ module SeasonStatistics
         arr[key] = (preseason[key] -= value)
       end
     end
-    biggest = arr.min_by {|k,v| v}
+    biggest = arr.min_by { |k,v| v }
     team_id_name(biggest[0])
   end
 
@@ -72,7 +68,7 @@ module SeasonStatistics
 
   def season_summary(season, team_id) #tested line 287
     summary = {:preseason => {}, :regular_season => {}}
-    summary[:preseason][:win_percentage] = wins_percentage(season, "P").find {|k,v| k == team_id}[1]
+    summary[:preseason][:win_percentage] = wins_percentage(season, "P").find { |k,v| k == team_id }[1]
     summary[:regular_season][:win_percentage] = wins_percentage(season, "R").find {|k,v| k == team_id}[1]
     preseason_games = game_by_type(season, "P")
     p_goals_scored = away_goals_scored(preseason_games, team_id) + home_goals_scored(preseason_games, team_id)
