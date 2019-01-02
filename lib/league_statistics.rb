@@ -14,9 +14,7 @@ module LeagueStatistics
   end
 
   def best_offense #tested line 137
-    best_offense_id = teams_by_goals_scored.max_by do |team_id, goal|
-      goal
-    end
+    best_offense_id = teams_by_goals_scored.max_by { |team_id, goal| goal }
     team_id_name(best_offense_id[0])
   end
 
