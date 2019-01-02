@@ -6,12 +6,14 @@ require './lib/game_statistics'
 require './lib/league_statistics'
 require './lib/season_statistics'
 require './lib/team_statistics'
+require './lib/helper_methods'
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
   include SeasonStatistics
   include TeamStatistics
+  include HelperMethods
 
   attr_reader :games_data,
               :teams_data,
