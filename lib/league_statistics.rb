@@ -183,8 +183,7 @@ module LeagueStatistics
         team.team_id == id
       end
     end
-    final_array.map do |team|
-      team.teamName
+    final_array.map { |team| team.teamName }
     end
   end
 
