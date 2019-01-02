@@ -142,13 +142,15 @@ module LeagueStatistics
   end
 
   def away_and_home_percentages #tested line 219
-    with_both_values = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|
+    both = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|
       [oldval, newval]
     end
   end
 
   def best_fans #tested line 225
-    team_id = away_and_home_percentages.max_by { |key, value| value[0] - value[1] }[0]
+    team_id = away_and_home_percentages.max_by do |key, value|
+      value[0] - value[1]
+    end[0]
     team_id_name(team_id)
   end
 
