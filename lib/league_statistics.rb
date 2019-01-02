@@ -21,9 +21,7 @@ module LeagueStatistics
   end
 
   def worst_offense #tested line 142
-    worst_offense_id = teams_by_goals_scored.min_by do |team_id, goal|
-      goal
-    end
+    worst_offense_id = teams_by_goals_scored.min_by { |team_id, goal| goal }
     team_id_name(worst_offense_id[0])
   end
 
