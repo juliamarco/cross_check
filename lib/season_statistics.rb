@@ -1,10 +1,12 @@
 module SeasonStatistics
 
+# Helper Method
   def games_by_season(season) #tested line 235
     games = @games_data.find_all { |game| game.season == season }
     games.map { |game| game.game_id }
   end
 
+# Helper Method
   def game_by_type(season, type) #tested line 241
     games = games_by_season(season)
     games = @games_data.map do |game|
@@ -42,6 +44,7 @@ module SeasonStatistics
     team_id_name(biggest[0])
   end
 
+# Helper Method
   def away_goals_scored(games, team_id) #tested line 263
     away_goals_scored = 0
     @games_data.each do |game|
@@ -54,6 +57,7 @@ module SeasonStatistics
     return away_goals_scored
   end
 
+# Helper Method
   def home_goals_allowed(games, team_id) #tested line 281
     home_goals_allowed = 0
     @games_data.each do |game|
