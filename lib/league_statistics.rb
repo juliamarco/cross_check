@@ -35,7 +35,6 @@ module LeagueStatistics
 
   def best_defense #tested line 153
     best_defense_id = teams_by_goals_allowed.min_by { |team_id, goals| goals }
-    end
     team_id_name(best_defense_id[0])
   end
 
@@ -67,6 +66,7 @@ module LeagueStatistics
 
   def highest_scoring_visitor #tested line 169
     highest_scoring = average_goals_by_visitor.max_by { |k,v| v }
+    team_id_name(highest_scoring[0])
   end
 
 # Helper Method
@@ -167,5 +167,4 @@ module LeagueStatistics
     end
     final_array.map { |team| team.teamName }
   end
-
 end
