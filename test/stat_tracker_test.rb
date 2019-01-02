@@ -162,7 +162,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_average_goals_by_visitor
 
-   expected_hash = {3=>1.6666666666666667, 6=>2.5, 29=>2.0, 26=>3.0, 30=>2.5, 24=>3.0, 15=>3.0, 16=>2.0, 21=>2.0, 4=>4.0, 25=>4.0, 23=>3.0}
+   expected_hash = {3=>1.7, 6=>2.5, 29=>2.0, 26=>3.0, 30=>2.5, 24=>3.0, 15=>3.0, 16=>2.0, 21=>2.0, 4=>4.0, 25=>4.0, 23=>3.0}
    assert_equal expected_hash, @stat_tracker.average_goals_by_visitor
   end
 
@@ -173,7 +173,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_average_goals_by_home_team
 
-    expected_hash = {6=>3.6666666666666665, 3=>2.5, 24=>2.5, 30=>3.0, 21=>3.0, 4=>2.0, 25=>4.0, 23=>2.0, 26=>3.0, 15=>5.0, 29=>2.0, 16=>2.0}
+    expected_hash = {6=>3.7, 3=>2.5, 24=>2.5, 30=>3.0, 21=>3.0, 4=>2.0, 25=>4.0, 23=>2.0, 26=>3.0, 15=>5.0, 29=>2.0, 16=>2.0}
     assert_equal expected_hash, @stat_tracker.average_goals_by_home_team
   end
 
@@ -191,11 +191,11 @@ class StatTrackerTest < MiniTest::Test
 
     assert_equal "Flyers", @stat_tracker.lowest_scoring_home_team
   end
-
+  #
   def test_it_can_calculate_percentages
 
      original_hash = {3=>["FALSE", "TRUE"], 6=>["TRUE", "TRUE", "FALSE"], 5=>["FALSE"], 17=>["FALSE", "FALSE"], 16=>["TRUE", "TRUE"], 9=>["TRUE"], 8=>["FALSE"]}
-     expected_hash = {3=>50.0, 6=>66.67, 5=>0.0, 17=>0.0, 16=>100.0, 9=>100.0, 8=>0.0}
+     expected_hash = {3=>50.0, 6=>66.7, 5=>0.0, 17=>0.0, 16=>100.0, 9=>100.0, 8=>0.0}
      assert_equal expected_hash, @stat_tracker.calculate_percentages(original_hash)
    end
 

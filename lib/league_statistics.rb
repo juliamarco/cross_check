@@ -49,6 +49,13 @@ module LeagueStatistics
     team_id_name(worst_defense_id[0])
   end
 
+  def get_averages(hash)
+    hash.each do |key, value|
+      hash[key] = (value.sum.to_f / value.count.to_f).round(1)
+    end
+    return hash
+  end
+
   def average_goals_by_visitor #tested line 163
     games = Hash.new(0)
     @games_data.each do |game|
@@ -58,9 +65,7 @@ module LeagueStatistics
       games[game.away_team_id] = [game.away_goals]
       end
     end
-    games.each do |key, value|
-      games[key] = value.sum.to_f / value.count.to_f
-    end
+    get_averages(games)
   end
 
   def highest_scoring_visitor #tested line 169
@@ -79,9 +84,7 @@ module LeagueStatistics
       games[game.home_team_id] = [game.home_goals]
       end
     end
-    games.each do |key, value|
-      games[key] = value.sum.to_f / value.count.to_f
-    end
+    get_averages(games)
   end
 
   def highest_scoring_home_team #tested line 180
@@ -164,6 +167,9 @@ module LeagueStatistics
     worst = away_and_home_percentages.find_all do |key, value|
       value[1] > value[0]
     end.flatten
+    if worst.empty?
+      return "There's none!"
+    end
     team_id = worst.find_all {|num| num.is_a?(Integer)}
     final_array = team_id.map do |id|
       @teams_data.find do |team|

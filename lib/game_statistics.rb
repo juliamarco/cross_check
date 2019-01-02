@@ -96,7 +96,7 @@ module GameStatistics
    total_scores = @games_data.map do |game|
      game.away_goals.to_f + game.home_goals.to_f
    end
-   (total_scores.sum / total_scores.count)
+   (total_scores.sum / total_scores.count).round(1)
  end
 
  def average_goals_by_season #tested line 115
