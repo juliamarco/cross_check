@@ -164,9 +164,7 @@ module LeagueStatistics
   end
 
   def best_fans #tested line 225
-    team_id = away_and_home_percentages.max_by do |key, value|
-      value[0] - value[1]
-    end[0]
+    team_id = away_and_home_percentages.max_by { |key, value| value[0] - value[1] }[0]
     team_id_name(team_id)
   end
 
@@ -177,14 +175,13 @@ module LeagueStatistics
     if worst.empty?
       return "There are no worst fans!"
     end
-    team_id = worst.find_all {|num| num.is_a?(Integer)}
+    team_id = worst.find_all { |num| num.is_a?(Integer) }
     final_array = team_id.map do |id|
       @teams_data.find do |team|
         team.team_id == id
       end
     end
     final_array.map { |team| team.teamName }
-    end
   end
 
 end
