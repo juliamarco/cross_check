@@ -48,7 +48,7 @@ module GameStatistics
    return min[0]
  end
 
- def percentage_home_wins #tested line 94
+ def percentage_home_wins #tested line 84
    outcomes = @games_data.map do |game|
       game.outcome
    end
@@ -58,7 +58,7 @@ module GameStatistics
    (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
- def percentage_visitor_wins #tested line 99
+ def percentage_visitor_wins #tested line 89
    outcomes = @games_data.map do |game|
       game.outcome
    end
@@ -68,28 +68,28 @@ module GameStatistics
    (home_wins.to_f / outcomes.length.to_f * 100.0).round(2)
  end
 
+ def season_with_most_games #tested line 90
+   counts = count_of_games_by_season
+   max = counts.max_by do |key, value|
+     value
+   end
+   return max[0]
+ end
+
+ def season_with_fewest_games #tested line 99
+   counts = count_of_games_by_season
+   min = counts.min_by do |key, value|
+     value
+   end
+   return min[0]
+ end
+
  def count_of_games_by_season #tested line 104
    counts = Hash.new(0)
    @games_data.each do |game|
      counts[game.season] += 1
    end
    return counts
- end
-
- def season_with_most_games #tested line 84
-   counts = count_of_games_by_season
-   max = counts.max_by do |key, value|
-     value
-   end
-   return max[0].to_s
- end
-
- def season_with_fewest_games #tested line 89
-   counts = count_of_games_by_season
-   min = counts.min_by do |key, value|
-     value
-   end
-   return min[0].to_s
  end
 
  def average_goals_per_game #tested line 110
