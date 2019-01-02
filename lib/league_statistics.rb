@@ -4,6 +4,7 @@ module LeagueStatistics
     @teams_data.count
   end
 
+# Helper Method
   def teams_by_goals_scored #tested line 126
     teams = Hash.new(0)
     @games_teams_stats.each do |stat|
@@ -26,6 +27,7 @@ module LeagueStatistics
     team_id_name(worst_offense_id[0])
   end
 
+# Helper Method
   def teams_by_goals_allowed #tested line 147
     games = Hash.new(0)
     @games_data.each do |game|
@@ -49,6 +51,7 @@ module LeagueStatistics
     team_id_name(worst_defense_id[0])
   end
 
+# Helper Method
   def get_averages(hash)
     hash.each do |key, value|
       hash[key] = (value.sum.to_f / value.count.to_f).round(1)
@@ -56,6 +59,7 @@ module LeagueStatistics
     return hash
   end
 
+# Helper Method
   def average_goals_by_visitor #tested line 163
     games = Hash.new(0)
     @games_data.each do |game|
@@ -75,6 +79,7 @@ module LeagueStatistics
      team_id_name(highest_scoring[0])
   end
 
+# Helper Method
   def average_goals_by_home_team #tested line 174
     games = Hash.new(0)
     @games_data.each do |game|
@@ -122,6 +127,7 @@ module LeagueStatistics
     team_id_name(winningest[0])
   end
 
+# Helper Method
   def home_wins_percentages #tested line 207
     home_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
@@ -136,6 +142,7 @@ module LeagueStatistics
     calculate_percentages(home_team_wins)
   end
 
+# Helper Method
   def away_win_percentages #tested line 213
     away_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|

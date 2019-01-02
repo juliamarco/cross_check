@@ -25,7 +25,7 @@ module SeasonStatistics
         arr[key] = (preseason[key] -= value)
       end
     end
-    biggest = arr.max_by {|k,v| v}
+    biggest = arr.max_by { |k,v| v }
     team_id_name(biggest[0])
   end
 
