@@ -14,6 +14,7 @@ module TeamStatistics
     return new
   end
 
+# Helper Method
   def games_won_by_season(team_id) #tested line 299
     team_id = team_id.to_i
     games_by_season = @games_data.group_by { |game| game.season }
@@ -62,6 +63,7 @@ module TeamStatistics
     (total_games_won.to_f / total_games_played.to_f).round(2)
   end
 
+# Helper Method
   def all_team_goals(team_id) #tested line 320
     @games_teams_stats.map do |stat|
       if stat.team_id == team_id
@@ -78,6 +80,7 @@ module TeamStatistics
     all_team_goals(team_id.to_i).min
   end
 
+# Helper Method
   def collect_home_games_opponents(team_id, hash) #tested line 335
     @games_data.each do |game|
       if game.home_team_id == team_id
@@ -91,6 +94,7 @@ module TeamStatistics
   return hash
   end
 
+# Helper Method
   def collect_away_games_opponents(team_id, hash) #tested line 341
     @games_data.each do |game|
       if game.away_team_id == team_id
@@ -104,6 +108,7 @@ module TeamStatistics
     return hash
   end
 
+# Helper Method
   def get_opponents_results(team_id, hash) #tested line 347
     collect_home_games_opponents(team_id, hash)
     collect_away_games_opponents(team_id, hash)
@@ -131,6 +136,7 @@ module TeamStatistics
     team_id_name(team)
   end
 
+# Helper Method
   def get_goals_blowout(games) #tested lines 363
     @games_data.map do |game|
       if games.include?(game.game_id)
@@ -194,6 +200,7 @@ module TeamStatistics
     return head_to_head
   end
 
+# Helper Method
   def get_wins_percentages_into_hash(seasons_played, team_id, hash) #tested 386
     seasons_played.each do |season|
       hash[season][:preseason][:win_percentage] = wins_percentage(season,"P").find do |id,percent|
