@@ -2,7 +2,6 @@ module TeamStatistics
 
   def team_info(team_id) #tested line 293
     team = @teams_data.find do |team|
-      # binding.pry
       team.team_id == team_id.to_i
     end
     new = Hash.new(0)
@@ -57,9 +56,10 @@ module TeamStatistics
   end
 
   def average_win_percentage(team_id) #tested line 315
-    games = games_won_by_season(team_id)
-    percentages = calculate_percentages(games)
-    (percentages.sum { |k,v| v }) / percentages.count
+    team_id = team_id.to_i
+    total_games_played = @games_teams_stats.count {|stat| stat.team_id == team_id}
+    total_games_won = @games_teams_stats.count {|stat| stat.team_id == team_id && stat.won == "TRUE"}
+    (total_games_won.to_f / total_games_played.to_f).round(2)
   end
 
   def all_team_goals(team_id) #tested line 320
@@ -71,11 +71,11 @@ module TeamStatistics
   end
 
   def most_goals_scored(team_id) #tested line 325
-    all_team_goals(team_id).max
+    all_team_goals(team_id.to_i).max
   end
 
   def fewest_goals_scored(team_id) #tested line 330
-    all_team_goals(team_id).min
+    all_team_goals(team_id.to_i).min
   end
 
   def collect_home_games_opponents(team_id, hash) #tested line 335
@@ -119,14 +119,14 @@ module TeamStatistics
 
   def favorite_opponent(team_id) #tested line 353
     hash = Hash.new
-    get_opponents_results(team_id, hash)
+    get_opponents_results(team_id.to_i, hash)
     team = calculate_percentages(hash).min_by { |k,v| v }[0]
     team_id_name(team)
   end
 
   def rival(team_id) #tested line 358
     hash = Hash.new
-    get_opponents_results(team_id, hash)
+    get_opponents_results(team_id.to_i, hash)
     team = calculate_percentages(hash).max_by { |k,v| v }[0]
     team_id_name(team)
   end
@@ -140,6 +140,7 @@ module TeamStatistics
   end
 
   def biggest_team_blowout(team_id) #tested line 369
+    team_id = team_id.to_i
     games_won = @games_teams_stats.map do |stat|
       if stat.team_id == team_id && stat.won == "TRUE"
         stat.game_id
@@ -149,6 +150,7 @@ module TeamStatistics
   end
 
   def worst_loss(team_id) #tested line 374
+    team_id = team_id.to_i
     games_lost = @games_teams_stats.map do |stat|
       if stat.team_id == team_id && stat.won == "FALSE"
         stat.game_id
@@ -179,37 +181,32 @@ module TeamStatistics
 
   def get_wins_percentages_into_hash(seasons_played, team_id, hash) #tested 386
     seasons_played.each do |season|
-      hash[season][:preseason][:win_percentage] = wins_percentage(season,"P").find { |k,v| k == team_id }[1]
-      hash[season][:regular_season][:win_percentage] = wins_percentage(season,"R").find { |k,v| k == team_id }[1]
+      hash[season][:preseason][:win_percentage] = wins_percentage(season,"P").find do |id,percent|
+        id == team_id
+      end[1]
+      hash[season][:regular_season][:win_percentage] = wins_percentage(season,"R").find do |id,percent|
+        id == team_id
+      end[1]
     end
     return hash
   end
 
-  def games_by_team_type_and_season(team_id, type, seasons) #tested 471
-    games = {}
-    seasons.each do |season|
-      @games_data.each do |game|
-        if game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
-          if games.has_key?(game.season)
-            games[season] << game.game_id
-          else
-            games[season] = [game.game_id]
-          end
-        end
+  def games_by_team_type_and_season(team_id, type, season) #tested 471
+      @games_data.find_all do |game|
+        game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
       end
-    end
-    return games
   end
 
   def seasonal_summary(team_id) #tested line 477
+    team_id = team_id.to_i
     seasons_played = @games_data.map do |game|
       if game.away_team_id == team_id || game.home_team_id == team_id
         game.season
       end
     end.compact.uniq
-    hash = Hash.new(0)
+    seasonal_summary = {}
     seasons_played.each do |season|
-      hash[season] = {:preseason => {:win_percentage => 0,
+      seasonal_summary[season] = {:preseason => {:win_percentage => 0,
                                      :total_goals_scored => 0,
                                      :total_goals_against => 0,
                                      :average_goals_scored => 0,
@@ -220,51 +217,60 @@ module TeamStatistics
                                           :average_goals_scored => 0,
                                           :average_goals_against => 0} }
     end
-    get_wins_percentages_into_hash(seasons_played, team_id, hash)
+    seasons_played.each do |season|
+      wins_percent_p = wins_percentage(season,"P").find do |id,percent|
+        id == team_id
+      end[1]
+      wins_percent_r = wins_percentage(season,"R").find do |id,percent|
+        id == team_id
+      end[1]
+      seasonal_summary[season][:preseason][:win_percentage] = wins_percent_p
+      seasonal_summary[season][:regular_season][:win_percentage] = wins_percent_r
+    end
+    get_wins_percentages_into_hash(seasons_played, team_id, seasonal_summary)
     preseason_games = games_by_team_type_and_season(team_id, "P", seasons_played)
     regseason_games = games_by_team_type_and_season(team_id, "R", seasons_played)
     preseason_games.each do |k, v|
       @games_teams_stats.each do |game|
         if v.include?(game.game_id) && game.team_id == team_id
-          hash[k][:preseason][:total_goals_scored] += game.goals
+          seasonal_summary[k][:preseason][:total_goals_scored] += game.goals
         elsif v.include?(game.game_id) && game.team_id != team_id
-          hash[k][:preseason][:total_goals_against] += game.goals
+          seasonal_summary[k][:preseason][:total_goals_against] += game.goals
         end
       end
     end
     regseason_games.each do |k, v|
       @games_teams_stats.each do |game|
         if v.include?(game.game_id)&& game.team_id == team_id
-          hash[k][:regular_season][:total_goals_scored] += game.goals
+          seasonal_summary[k][:regular_season][:total_goals_scored] += game.goals
         elsif v.include?(game.game_id) && game.team_id != team_id
-          hash[k][:regular_season][:total_goals_against] += game.goals
+          seasonal_summary[k][:regular_season][:total_goals_against] += game.goals
         end
       end
     end
     preseason_games.each do |k,v|
       total = v.count
-      goals_scored = hash[k][:preseason][:total_goals_scored]
+      goals_scored = seasonal_summary[k][:preseason][:total_goals_scored]
       unless goals_scored.zero?
-        hash[k][:preseason][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
+        seasonal_summary[k][:preseason][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
       end
-      goals_against = hash[k][:preseason][:total_goals_against]
+      goals_against = seasonal_summary[k][:preseason][:total_goals_against]
       unless goals_against.zero?
-        hash[k][:preseason][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
+        seasonal_summary[k][:preseason][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
       end
     end
     regseason_games.each do |k, v|
       total = v.count
-      goals_scored = hash[k][:regular_season][:total_goals_scored]
+      goals_scored = seasonal_summary[k][:regular_season][:total_goals_scored]
       unless goals_scored.zero?
-        hash[k][:regular_season][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
+        seasonal_summary[k][:regular_season][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
       end
-      goals_against = hash[k][:regular_season][:total_goals_against]
+      goals_against = seasonal_summary[k][:regular_season][:total_goals_against]
       unless goals_against.zero?
-        hash[k][:regular_season][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
+        seasonal_summary[k][:regular_season][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
       end
     end
-    binding.binding.pry
-    return hash
+    return seasonal_summary
   end
 
 end

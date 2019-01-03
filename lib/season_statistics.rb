@@ -1,6 +1,7 @@
 module SeasonStatistics
 
   def games_by_season(season) #tested line 235
+    season = season.to_i
     games = @games_data.find_all { |game| game.season == season }
     games.map { |game| game.game_id }
   end
@@ -17,8 +18,9 @@ module SeasonStatistics
   end
 
   def biggest_bust(season) #tested line 253
-    preseason = wins_percentage(season.to_i, "P")
-    regular = wins_percentage(season.to_i, "R")
+    season = season.to_i
+    preseason = wins_percentage(season, "P")
+    regular = wins_percentage(season, "R")
     arr = {}
     regular.each do |key, value|
       if preseason.has_key?(key)
@@ -82,5 +84,6 @@ module SeasonStatistics
     summary[:regular_season][:goals_against] = r_goals_allowed
     return summary
   end
+
 
 end
