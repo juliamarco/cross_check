@@ -17,8 +17,8 @@ module SeasonStatistics
   end
 
   def biggest_bust(season) #tested line 253
-    preseason = wins_percentage(season, "P")
-    regular = wins_percentage(season, "R")
+    preseason = wins_percentage(season.to_i, "P")
+    regular = wins_percentage(season.to_i, "R")
     arr = {}
     regular.each do |key, value|
       if preseason.has_key?(key)
@@ -30,8 +30,8 @@ module SeasonStatistics
   end
 
   def biggest_surprise(season) #tested line 258
-    preseason = wins_percentage(season, "P")
-    regular = wins_percentage(season, "R")
+    preseason = wins_percentage(season.to_i, "P")
+    regular = wins_percentage(season.to_i, "R")
     arr = {}
     regular.each do |key, value|
       if preseason.has_key?(key)

@@ -1,49 +1,59 @@
 module TeamStatistics
 
   def team_info(team_id) #tested line 293
-    team = @teams_data.find { |team| team.team_id == team_id }
+    team = @teams_data.find do |team|
+      # binding.pry
+      team.team_id == team_id.to_i
+    end
     new = Hash.new(0)
-    new["team_id"] = team.team_id
-    new["franchiseId"] = team.franchiseId
-    new["shortName"] = team.shortName
-    new["teamName"] = team.teamName
+    new["team_id"] = team.team_id.to_s
+    new["franchise_id"] = team.franchise_id.to_s
+    new["short_name"] = team.short_name
+    new["team_name"] = team.team_name
     new["abbreviation"] = team.abbreviation
     new["link"] = team.link
     return new
   end
 
   def games_won_by_season(team_id) #tested line 299
-    hash = @games_data.group_by { |game| game.season }
-    new_hash = Hash.new(0)
-      hash.each do |k,v|
-        all = v.find_all { |game|
-          game.home_team_id == team_id || game.away_team_id == team_id }
-        new_hash[k] = all.map { |game| game.game_id }
+    team_id = team_id.to_i
+    games_by_season = @games_data.group_by { |game| game.season }
+      games_by_season.each do |season,games|
+        all_games_played = games.find_all do |game|
+          game.home_team_id == team_id || game.away_team_id == team_id
+        end
+        games_by_season[season] = all_games_played.map { |game| game.game_id }
       end
-      new_hash = new_hash.reject { |k,v| v.empty? }
-      new_hash.each do |k,v|
+      games_by_season = games_by_season.reject { |season,games| games.empty? }
+      games_by_season.each do |season,games|
         @games_teams_stats.map do |stat|
-          if v.include?(stat.game_id)
+          if games.include?(stat.game_id)
             if stat.team_id == team_id
-              new_hash[k] << stat.won
+              games_by_season[season].push(stat.won)
             end
           end
         end
       end
-      new_hash.each do |key,values|
-        values = values.select { |v| v.is_a?(String) }
-        new_hash[key] = values
+      games_by_season.each do |season,games|
+        game_results = games.reject { |game| game.is_a?(Numeric) }
+        games_by_season[season] = game_results
       end
   end
 
   def best_season(team_id) #tested line 305
-    games = games_won_by_season(team_id)
-    calculate_percentages(games).max_by { |k,v| v }[0]
+    games_results = games_won_by_season(team_id)
+    best_season = calculate_percentages(games_results).max_by do
+     |season,outcome| outcome
+    end[0]
+    best_season.to_s
   end
 
   def worst_season(team_id) #tested line 310
-    games = games_won_by_season(team_id)
-    calculate_percentages(games).min_by { |k,v| v }[0]
+    games_results = games_won_by_season(team_id)
+    best_season = calculate_percentages(games_results).min_by do
+     |season,outcome| outcome
+    end[0]
+    best_season.to_s
   end
 
   def average_win_percentage(team_id) #tested line 315

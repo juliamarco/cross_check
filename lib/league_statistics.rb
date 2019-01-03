@@ -57,7 +57,6 @@ module LeagueStatistics
     team_id_name(worst_defense_id[0])
   end
 
-
 # Helper Method
   def get_averages(hash)
     hash.each do |key, value|
@@ -130,7 +129,7 @@ module LeagueStatistics
   def home_wins_percentages #tested line 207
     home_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
-      if stat.hoA == "home"
+      if stat.hoa == "home"
         if home_team_wins.has_key?(stat.team_id)
           home_team_wins[stat.team_id].push(stat.won)
         else
@@ -145,7 +144,7 @@ module LeagueStatistics
   def away_win_percentages #tested line 213
     away_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
-      if stat.hoA == "away"
+      if stat.hoa == "away"
         if away_team_wins.has_key?(stat.team_id)
           away_team_wins[stat.team_id].push(stat.won)
         else
@@ -173,15 +172,12 @@ module LeagueStatistics
     worst = away_and_home_percentages.find_all do |key, value|
       value[1] > value[0]
     end.flatten
-    if worst.empty?
-      return "There are no worst fans!"
-    end
     team_id = worst.find_all { |num| num.is_a?(Integer) }
     final_array = team_id.map do |id|
       @teams_data.find do |team|
         team.team_id == id
       end
     end
-    final_array.map { |team| team.teamName }
+    final_array.map { |team| team.team_name }
   end
 end

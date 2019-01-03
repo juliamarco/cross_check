@@ -46,16 +46,16 @@ class StatTracker
     end
     teams_data = CSV.read(locations[:teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       TeamsData.new(:team_id => row[0],
-                     :franchiseId => row[1],
-                     :shortName => row[2],
-                     :teamName => row[3],
+                     :franchise_id => row[1],
+                     :short_name => row[2],
+                     :team_name => row[3],
                      :abbreviation => row[4],
                      :link => row[5])
     end
     games_teams_stats = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       GamesTeamsStats.new(:game_id => row[0],
                     :team_id => row[1],
-                    :HoA => row[2],
+                    :hoa => row[2],
                     :won => row[3],
                     :settled_in => row[4],
                     :head_coach => row[5],
@@ -63,9 +63,9 @@ class StatTracker
                     :shots => row[7],
                     :hits => row[8],
                     :pim => row[9],
-                    :powerPlayOpportunities => row[10],
-                    :powerPlayGoals => row[11],
-                    :faceOffWinPercentage => row[12],
+                    :power_play_opportunities => row[10],
+                    :power_play_goals => row[11],
+                    :face_of_win_percentage => row[12],
                     :giveaways => row[13],
                     :takeaways => row[14])
   end

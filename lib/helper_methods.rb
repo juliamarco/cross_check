@@ -2,7 +2,7 @@ module HelperMethods
 
   def team_id_name(id) #tested line 132
     team = @teams_data.find { |team| team.team_id == id }
-    return team.teamName
+    return team.team_name
   end
 
   def calculate_percentages(hash) #tested line 190/195
