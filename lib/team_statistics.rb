@@ -155,7 +155,7 @@ module TeamStatistics
 
   def head_to_head(team_id, opponent_id) #tested line 379
     games_played = @games_data.map do |game|
-      if game.away_team_id == team_id && game.home_team_id == opponent_id ||game.home_team_id == team_id && game.away_team_id == opponent_id
+      if game.away_team_id == team_id && game.home_team_id == opponent_id || game.home_team_id == team_id && game.away_team_id == opponent_id
         game.game_id
       end
     end.compact

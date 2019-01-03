@@ -17,19 +17,18 @@ module GameStatistics
 
   # Helper Method
   def counts_venues_occurrences #tested line 68
-   counts = Hash.new(0)
-   @games_data.each { |game| counts[game.venue] += 1 }
-   return counts
+   occurences = Hash.new(0)
+   @games_data.each { |game| occurences[game.venue] += 1 }
+   return occurences
   end
 
   def most_popular_venue #tested line 74
-   max = counts_venues_occurrences.max_by { |key, value| value }
+   max = counts_venues_occurrences.max_by { |venue, occurence| occurence }
    return max[0]
   end
 
   def least_popular_venue #tested line 79
-   counts = counts_venues_occurrences
-   min = counts.min_by { |key, value| value }
+   min = counts_venues_occurrences.min_by { |venue, occurence| occurence }
    return min[0]
   end
 
@@ -46,17 +45,11 @@ module GameStatistics
   end
 
   def season_with_most_games #tested line 90
-   counts = count_of_games_by_season
-   max = counts.max_by {|key, value| value}
-   return max[0]
+    count_of_games_by_season.max_by { |key, value| value}[0]
   end
 
   def season_with_fewest_games #tested line 99
-   counts = count_of_games_by_season
-   min = counts.min_by do |key, value|
-     value
-   end
-   return min[0]
+    min = count_of_games_by_season.min_by { |key, value| value }[0]
   end
 
   def count_of_games_by_season #tested line 104
