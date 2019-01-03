@@ -17,10 +17,13 @@ module HelperMethods
         total_outcomes.shift
       else
         percentages[key] = 0.0
+        won_outcomes.shift
+        total_outcomes.shift
       end
     end
     return percentages
   end
+
 
   def wins_percentage(season, type) #tested line 247
     games = game_by_type(season, type)

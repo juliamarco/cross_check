@@ -220,7 +220,7 @@ module TeamStatistics
   end
 
   def seasonal_summary(team_id) #tested line 477
-    team_id = team_id.to_i
+    #team_id = team_id.to_i
     seasons_played = @games_data.map do |game|
       if game.away_team_id == team_id || game.home_team_id == team_id
         game.season
