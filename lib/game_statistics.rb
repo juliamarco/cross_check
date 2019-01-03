@@ -45,11 +45,11 @@ module GameStatistics
   end
 
   def season_with_most_games #tested line 90
-    count_of_games_by_season.max_by { |key, value| value}[0]
+    count_of_games_by_season.max_by { |key, value| value}[0].to_i
   end
 
   def season_with_fewest_games #tested line 99
-    min = count_of_games_by_season.min_by { |key, value| value }[0]
+    min = count_of_games_by_season.min_by { |key, value| value }[0].to_i
   end
 
   def count_of_games_by_season #tested line 104

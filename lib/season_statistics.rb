@@ -72,21 +72,19 @@ module SeasonStatistics
     return home_goals_allowed
   end
 
-  def season_summary(season, team_id) #tested line 287
-    summary = {:preseason => {}, :regular_season => {}}
-    summary[:preseason][:win_percentage] = wins_percentage(season, "P").find { |k,v| k == team_id }[1]
-    summary[:regular_season][:win_percentage] = wins_percentage(season, "R").find {|k,v| k == team_id}[1]
-    preseason_games = game_by_type(season, "P")
-    p_goals_scored = away_goals_scored(preseason_games, team_id) + home_goals_scored(preseason_games, team_id)
-    summary[:preseason][:goals_scored] = p_goals_scored
-    p_goals_allowed = away_goals_allowed(preseason_games, team_id) + home_goals_allowed(preseason_games, team_id)
-    summary[:preseason][:goals_against] = p_goals_allowed
-    regular_season_games = game_by_type(season, "R")
-    r_goals_scored = away_goals_scored(regular_season_games, team_id) + home_goals_scored(regular_season_games, team_id)
-    summary[:regular_season][:goals_scored] = r_goals_scored
-    r_goals_allowed = away_goals_allowed(regular_season_games, team_id) + home_goals_allowed(regular_season_games, team_id)
-    summary[:regular_season][:goals_against] = r_goals_allowed
-    return summary
+  def team_games(games, team_id)
+    @games_teams_stats.find_all do |game|
+      binding.pry
+      games.include?(game) && game.team_id == team_id
+    end
+  end
+
+  def season_summary(season, team_id)
+    all_preseason_games = game_by_type(season, "P")
+    all_reg_season_games = game_by_type(season, "R")
+    binding.pry
+    team_games(all_preseason_games, team_id)
+    # reg_preseason_games
   end
 
 
