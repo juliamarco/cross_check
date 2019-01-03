@@ -2,7 +2,7 @@ module HelperMethods
 
   def team_id_name(id) #tested line 132
     team = @teams_data.find { |team| team.team_id == id }
-    return team.teamName
+    return team.team_name
   end
 
   def calculate_percentages(hash) #tested line 190/195
@@ -11,9 +11,13 @@ module HelperMethods
     total_outcomes = values.map {|value| value.count}
     percentages = Hash.new
     hash.each do |key, value|
-      percentages[key] = (won_outcomes[0].to_f / total_outcomes[0].to_f * 100).round(1)
-      won_outcomes.shift
-      total_outcomes.shift
+      if value.include?("TRUE")
+        percentages[key] = (won_outcomes[0].to_f / total_outcomes[0].to_f)
+        won_outcomes.shift
+        total_outcomes.shift
+      else
+        percentages[key] = 0.0
+      end
     end
     return percentages
   end
