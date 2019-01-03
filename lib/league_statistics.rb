@@ -60,7 +60,7 @@ module LeagueStatistics
 # Helper Method
   def get_averages(hash)
     hash.each do |key, value|
-      hash[key] = (value.sum.to_f / value.count.to_f).round(1)
+      hash[key] = (value.sum.to_f / value.count.to_f)
     end
     return hash
   end
@@ -79,7 +79,7 @@ module LeagueStatistics
   end
 
   def highest_scoring_visitor #tested line 169
-    highest_scoring = average_goals_by_visitor.max_by { |k,v| v }
+    highest_scoring = average_goals_by_visitor.max_by { |team,goals| goals }
     team_id_name(highest_scoring[0])
   end
 
@@ -97,17 +97,17 @@ module LeagueStatistics
   end
 
   def highest_scoring_home_team #tested line 180
-    highest_scoring = average_goals_by_home_team.max_by { |k,v| v }
+    highest_scoring = average_goals_by_home_team.max_by { |team,goals| goals }
     team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_visitor #tested line 185
-    highest_scoring = average_goals_by_visitor.min_by { |k,v| v }
+    highest_scoring = average_goals_by_visitor.min_by { |team,goals| goals }
     team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_home_team #tested line 190
-    highest_scoring = average_goals_by_home_team.min_by { |k,v| v }
+    highest_scoring = average_goals_by_home_team.min_by { |team,goals| goals }
     team_id_name(highest_scoring[0])
   end
 

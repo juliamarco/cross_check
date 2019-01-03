@@ -159,24 +159,39 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
-  def head_to_head(team_id) #tested line 379
-    hash = {}
-    @games_teams_stats.each do |stat|
-      unless stat.team_id == team_id
-        if hash.has_key?(stat.team_id)
-          hash[stat.team_id] << stat.won
-        else
-          hash[stat.team_id] = [stat.won]
-        end
+  def all_opponents(id)
+    @games_data.map do |game|
+      if game.away_team_id == id
+        game.home_team_id
+      elsif game.home_team_id == id
+        game.away_team_id
       end
+    end.compact.uniq
+  end
+
+  def games_played_against(team_id, opponent)
+    @games_data.count do |game|
+      game.away_team_id == team_id && game.home_team_id == opponent || game.home_team_id == team_id && game.away_team_id == opponent
     end
-    new_hash = {}
-    percentages = calculate_percentages(hash)
-      percentages.each do |team_id,win_percent|
-        team_name = team_id_name(team_id)
-        new_hash[team_name] = (1 - win_percent).round(2)
-      end
-    return new_hash
+  end
+
+  def games_won_against(team_id, opponent)
+    @games_data.count do |game|
+      game.away_team_id == team_id && game.home_team_id == opponent && game.outcome.include?("away") || game.home_team_id == team_id && game.away_team_id == opponent && game.outcome.include?("home")
+    end
+  end
+
+  def head_to_head(team_id) #tested line 379
+    team_id = team_id.to_i
+    head_to_head = {}
+    opponents = all_opponents(team_id)
+    opponents.each do |opponent|
+      games_played = games_played_against(team_id, opponent)
+      games_won = games_won_against(team_id, opponent)
+      percentage = (games_won.to_f / games_played.to_f).round(2)
+      head_to_head[team_id_name(opponent)] = percentage
+    end
+    return head_to_head
   end
 
   def get_wins_percentages_into_hash(seasons_played, team_id, hash) #tested 386
