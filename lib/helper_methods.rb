@@ -11,7 +11,7 @@ module HelperMethods
     total_outcomes = values.map {|value| value.count}
     percentages = Hash.new
     hash.each do |key, value|
-      percentages[key] = (won_outcomes[0].to_f / total_outcomes[0].to_f * 100).round(1)
+      percentages[key] = (won_outcomes[0].to_f / total_outcomes[0].to_f).round(2)
       won_outcomes.shift
       total_outcomes.shift
     end

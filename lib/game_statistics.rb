@@ -74,10 +74,10 @@ module GameStatistics
    (total_scores.sum / total_scores.count).round(2)
   end
 
-  def average_goals_by_season #tested line 115
+  def average_goals_by_season
     average = Hash.new(0)
     @games_data.each do |game|
-      average_goals = (game.home_goals.to_f + game.away_goals.to_f) / 2.0
+      average_goals = (game.home_goals.to_f + game.away_goals.to_f)
       if average.has_key?(game.season.to_s)
         average[game.season.to_s].push(average_goals)
       else
@@ -86,7 +86,7 @@ module GameStatistics
     end
     all_values = average.map do |key, value|
       value = value.sum / value.count
-      value.round(1)
+      value.round(2)
     end
     average.map do |key, value|
       value = all_values[0]
@@ -94,6 +94,7 @@ module GameStatistics
       all_values.shift
     end
     return average
-  end
+end
+
 
 end

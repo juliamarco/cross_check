@@ -147,23 +147,24 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
-  def head_to_head(team_id, opponent_id) #tested line 379
-    games_played = @games_data.map do |game|
-      if game.away_team_id == team_id && game.home_team_id == opponent_id ||game.home_team_id == team_id && game.away_team_id == opponent_id
-        game.game_id
-      end
-    end.compact
-    hash = {win: 0, loss: 0}
+  def head_to_head(team_id) #tested line 379
+    hash = {}
     @games_teams_stats.each do |stat|
-      if games_played.include?(stat.game_id) && stat.team_id == team_id
-        if stat.won == "TRUE"
-          hash[:win] += 1
+      unless stat.team_id == team_id
+        if hash.has_key?(stat.team_id)
+          hash[stat.team_id] << stat.won
         else
-          hash[:loss] += 1
+          hash[stat.team_id] = [stat.won]
         end
       end
     end
-    hash
+    new_hash = {}
+    percentages = calculate_percentages(hash)
+      percentages.each do |team_id,win_percent|
+        team_name = team_id_name(team_id)
+        new_hash[team_name] = (1 - win_percent).round(2)
+      end
+    return new_hash
   end
 
   def get_wins_percentages_into_hash(seasons_played, team_id, hash) #tested 386
@@ -252,6 +253,7 @@ module TeamStatistics
         hash[k][:regular_season][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
       end
     end
+    binding.binding.pry
     return hash
   end
 
