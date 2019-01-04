@@ -6,7 +6,7 @@ module LeagueStatisticsHM
     end
   end
 
-  def goals_scored #tested line 126
+  def goals_scored
     games = Hash.new(0)
     @games_data.each do |game|
       games[game.away_team_id] += game.away_goals
@@ -15,7 +15,7 @@ module LeagueStatisticsHM
     return games
   end
 
-  def goals_allowed #tested line 147
+  def goals_allowed
     games = Hash.new(0)
     @games_data.each do |game|
       games[game.away_team_id] += game.home_goals
@@ -24,14 +24,14 @@ module LeagueStatisticsHM
     return games
   end
 
-  def get_averages(hash)
-    hash.each do |key, value|
-      hash[key] = (value.sum.to_f / value.count.to_f)
+  def get_averages(games)
+    games.each do |team_id, goals|
+      games[team_id] = (goals.sum.to_f / goals.count.to_f)
     end
-    return hash
+    return games
   end
 
-  def average_goals_by_visitor #tested line 163
+  def average_goals_by_visitor
     games = Hash.new(0)
     @games_data.each do |game|
       if games.has_key?(game.away_team_id)
@@ -43,7 +43,7 @@ module LeagueStatisticsHM
     get_averages(games)
   end
 
-  def average_goals_by_home_team #tested line 174
+  def average_goals_by_home_team
     games = Hash.new(0)
     @games_data.each do |game|
       if games.has_key?(game.home_team_id)
@@ -55,7 +55,7 @@ module LeagueStatisticsHM
     get_averages(games)
   end
 
-  def home_wins_percentages #tested line 207
+  def home_wins_percentages
     home_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
       if stat.hoa == "home"
@@ -69,7 +69,7 @@ module LeagueStatisticsHM
     calculate_percentages(home_team_wins)
   end
 
-  def away_win_percentages #tested line 213
+  def away_win_percentages
     away_team_wins = Hash.new(0)
     @games_teams_stats.each do |stat|
       if stat.hoa == "away"
@@ -83,11 +83,10 @@ module LeagueStatisticsHM
     calculate_percentages(away_team_wins)
   end
 
-  def away_and_home_percentages #tested line 219
-    both = home_wins_percentages.merge(away_win_percentages) do |key, oldval, newval|
-      [oldval, newval]
+  def away_and_home_percentages
+    home_wins_percentages.merge(away_win_percentages) do |team_id, h_win_percent, a_win_percent|
+      [h_win_percent, a_win_percent]
     end
   end
-
 
 end
