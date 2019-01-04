@@ -1,7 +1,8 @@
 module SeasonalSummary
 
-  def games_by_team_type_and_season(team_id, type, season)
-      @games_data.find_all do |game|
+  def count_games_by_team_type_and_season(team_id, type, season)
+      @games_data.count do |game|
+        # binding.pry
         game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
       end
   end
@@ -70,8 +71,8 @@ module SeasonalSummary
           pre_goals_against = summary_hash[:preseason][:goals_against]
           reg_goals_scored = summary_hash[:regular_season][:goals_scored]
           reg_goals_against = summary_hash[:regular_season][:goals_against]
-          all_pre_games = games_by_team_type_and_season(team_id, "P", season).count.to_f
-          all_reg_games = games_by_team_type_and_season(team_id, "R", season).count.to_f
+          all_pre_games = count_games_by_team_type_and_season(team_id, "P", season).to_f
+          all_reg_games = count_games_by_team_type_and_season(team_id, "R", season).to_f
           stats[:preseason][:win_percentage] = summary_hash[:preseason][:win_percentage]
           stats[:preseason][:total_goals_scored] = pre_goals_scored
           stats[:preseason][:total_goals_against] = pre_goals_against

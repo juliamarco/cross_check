@@ -78,7 +78,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_a_least_popular_venue
 
-    assert_equal "Wells Fargo Center", @stat_tracker.least_popular_venue
+    assert_equal "Staples Center", @stat_tracker.least_popular_venue
   end
 
   def test_it_can_show_percentage_of_home_wins
@@ -390,8 +390,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_games_by_team_type_and_season
 
-    expected = {20122013=>[2012030153]}
-    assert_equal expected, @stat_tracker.games_by_team_type_and_season("30", "P", ["20122013"])
+    assert_equal 1, @stat_tracker.count_games_by_team_type_and_season(30, "P", 20122013)
   end
 
   def test_it_has_a_seasonal_summary
