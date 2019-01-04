@@ -13,7 +13,7 @@ class GamesTeamsStatsTest < MiniTest::Test
     games_teams_stats = CSV.read('./data/game_teams_stats_sample.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       GamesTeamsStats.new(:game_id => row[0],
                     :team_id => row[1],
-                    :hoA => row[2],
+                    :hoa => row[2],
                     :won => row[3],
                     :settled_in => row[4],
                     :head_coach => row[5],
@@ -21,9 +21,9 @@ class GamesTeamsStatsTest < MiniTest::Test
                     :shots => row[7],
                     :hits => row[8],
                     :pim => row[9],
-                    :powerPlayOpportunities => row[10],
-                    :powerPlayGoals => row[11],
-                    :faceOffWinPercentage => row[12],
+                    :power_play_opportunities => row[10],
+                    :power_play_goals => row[11],
+                    :face_off_win_percentage => row[12],
                     :giveaways => row[13],
                     :takeaways => row[14])
     end
@@ -35,7 +35,7 @@ class GamesTeamsStatsTest < MiniTest::Test
     games_teams_stats = CSV.read('./data/game_teams_stats_sample.csv', headers: true, header_converters: :symbol, converters: :numeric).map do |row|
       GamesTeamsStats.new(:game_id => row[0],
                     :team_id => row[1],
-                    :hoA => row[2],
+                    :hoa => row[2],
                     :won => row[3],
                     :settled_in => row[4],
                     :head_coach => row[5],
@@ -43,9 +43,9 @@ class GamesTeamsStatsTest < MiniTest::Test
                     :shots => row[7],
                     :hits => row[8],
                     :pim => row[9],
-                    :powerPlayOpportunities => row[10],
-                    :powerPlayGoals => row[11],
-                    :faceOffWinPercentage => row[12],
+                    :power_play_opportunities => row[10],
+                    :power_play_goals => row[11],
+                    :face_off_win_percentage => row[12],
                     :giveaways => row[13],
                     :takeaways => row[14])
     end

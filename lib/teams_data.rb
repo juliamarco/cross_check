@@ -1,20 +1,19 @@
 class TeamsData
 
   attr_reader :team_id,
-              :franchiseId,
-              :shortName,
-              :teamName,
+              :franchise_id,
+              :short_name,
+              :team_name,
               :abbreviation,
               :link
 
   def initialize(teams_data)
     @team_id = teams_data[:team_id]
-    @franchiseId = teams_data[:franchiseId]
-    @shortName = teams_data[:shortName]
-    @teamName = teams_data[:teamName]
+    @franchise_id = teams_data[:franchise_id]
+    @short_name = teams_data[:short_name]
+    @team_name = teams_data[:team_name]
     @abbreviation = teams_data[:abbreviation]
     @link = teams_data[:link]
   end
-
 
 end
