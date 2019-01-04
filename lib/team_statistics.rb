@@ -211,7 +211,7 @@ module TeamStatistics
       end
   end
 
-  def seasons_played_by_team(team_id)
+  def seasons_played_by_team(team_id) #tested line 477
     @games_data.map do |game|
       if game.away_team_id == team_id || game.home_team_id == team_id
         game.season
