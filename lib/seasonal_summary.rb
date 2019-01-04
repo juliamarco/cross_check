@@ -15,29 +15,7 @@ module SeasonalSummary
     end.compact.uniq
   end
 
-  def away_goals_allowed(games, team_id) #tested line 269
-    away_goals_allowed = 0
-    @games_data.each do |game|
-      if games.include?(game.game_id)
-        if game.away_team_id == team_id
-          away_goals_allowed += game.home_goals
-        end
-      end
-    end
-    return away_goals_allowed
-  end
 
-  def home_goals_scored(games, team_id) #tested line 275
-    home_goals_scored = 0
-    @games_data.each do |game|
-      if games.include?(game.game_id)
-        if game.home_team_id == team_id
-          home_goals_scored += game.home_goals
-        end
-      end
-    end
-    return home_goals_scored
-  end
 
     def create_seasonal_summary_hash(seasons)
       seasonal_summary = Hash.new(0)

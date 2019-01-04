@@ -160,6 +160,13 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Flyers", @stat_tracker.worst_defense
   end
 
+  def test_it_can_get_averages
+
+    games = {3=>[2, 2, 1], 6=>[2, 3], 29=>[2],26=>[3],16=>[2],21=>[2],30=>[4, 1, 0, 5],24=>[3],15=>[3],4=>[4],23=>[3],25=>[4]}
+    expected = {3=>1.6666666666666667,6=>2.5,29=>2.0,26=>3.0,16=>2.0,21=>2.0,30=>2.5,24=>3.0,15=>3.0,4=>4.0,23=>3.0,25=>4.0}
+    assert_equal expected, @stat_tracker.get_averages(games)
+  end
+
   def test_it_has_average_goals_by_visitor
 
    expected_hash = {3=>1.6666666666666667, 6=>2.5, 29=>2.0, 26=>3.0, 30=>2.5, 24=>3.0, 15=>3.0, 16=>2.0, 21=>2.0, 4=>4.0, 25=>4.0, 23=>3.0}
@@ -282,7 +289,7 @@ class StatTrackerTest < MiniTest::Test
     games = [2012030221, 2012030222]
     assert_equal 4, @stat_tracker.home_goals_allowed(games, 6)
   end
-  #
+
   def test_it_has_a_season_summary
 
     expected_hash = {:preseason=>
