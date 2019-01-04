@@ -82,8 +82,16 @@ module SeasonStatistics
     season = season.to_i
     team_id = team_id.to_i
     summary = {:preseason => {}, :regular_season => {}}
-    summary[:preseason][:win_percentage] = wins_percentage(season, "P").find {|k,v| k == team_id}[1]
-    summary[:regular_season][:win_percentage] = wins_percentage(season, "R").find {|k,v| k == team_id}[1].round(2)
+    pre_wins_percent = wins_percentage(season, "P")
+    reg_wins_percent = wins_percentage(season, "R")
+      if pre_wins_percent.include?(team_id)
+        summary[:preseason][:win_percentage] = pre_wins_percent.find {|team,wins| team == team_id}[1].round(2)
+      else summary[:preseason][:win_percentage] = 0.0
+      end
+      if reg_wins_percent.include?(team_id)
+        summary[:regular_season][:win_percentage] = reg_wins_percent.find {|team,wins| team == team_id}[1].round(2)
+      else summary[:preseason][:win_percentage] = 0.0
+      end
     preseason_games = game_by_type(season, "P")
     p_goals_scored = away_goals_scored(preseason_games, team_id) + home_goals_scored(preseason_games, team_id)
     summary[:preseason][:goals_scored] = p_goals_scored

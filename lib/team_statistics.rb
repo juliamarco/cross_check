@@ -14,9 +14,8 @@ module TeamStatistics
     return new
   end
 
-# Helper Method
-  def games_won_by_season(team_id) #tested line 299
-    team_id = team_id.to_i
+ # Helper Method
+  def games_played_by_season(team_id)
     games_by_season = @games_data.group_by { |game| game.season }
       games_by_season.each do |season,games|
         all_games_played = games.find_all do |game|
@@ -58,8 +57,8 @@ module TeamStatistics
 
   def average_win_percentage(team_id) #tested line 315
     team_id = team_id.to_i
-    total_games_played = @games_teams_stats.count { |stat| stat.team_id == team_id }
-    total_games_won = @games_teams_stats.count { |stat| stat.team_id == team_id && stat.won == "TRUE" }
+    total_games_played = @games_teams_stats.count {|stat| stat.team_id == team_id}
+    total_games_won = @games_teams_stats.count {|stat| stat.team_id == team_id && stat.won == "TRUE"}
     (total_games_won.to_f / total_games_played.to_f).round(2)
   end
 
@@ -165,6 +164,7 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
+ # Helper Method
   def all_opponents(id)
     @games_data.map do |game|
       if game.away_team_id == id
@@ -175,12 +175,14 @@ module TeamStatistics
     end.compact.uniq
   end
 
+ # Helper Method 
   def games_played_against(team_id, opponent)
     @games_data.count do |game|
       game.away_team_id == team_id && game.home_team_id == opponent || game.home_team_id == team_id && game.away_team_id == opponent
     end
   end
 
+ # Helper Method
   def games_won_against(team_id, opponent)
     @games_data.count do |game|
       game.away_team_id == team_id && game.home_team_id == opponent && game.outcome.include?("away") || game.home_team_id == team_id && game.away_team_id == opponent && game.outcome.include?("home")
@@ -200,99 +202,85 @@ module TeamStatistics
     return head_to_head
   end
 
-# Helper Method
-  def get_wins_percentages_into_hash(seasons_played, team_id, hash) #tested 386
-    seasons_played.each do |season|
-      hash[season][:preseason][:win_percentage] = wins_percentage(season,"P").find do |id,percent|
-        id == team_id
-      end[1]
-      hash[season][:regular_season][:win_percentage] = wins_percentage(season,"R").find do |id,percent|
-        id == team_id
-      end[1]
-    end
-    return hash
-  end
-
+ # Helper Method
   def games_by_team_type_and_season(team_id, type, season) #tested 471
       @games_data.find_all do |game|
         game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
       end
   end
-
-  def seasonal_summary(team_id) #tested line 477
-    team_id = team_id.to_i
-    seasons_played = @games_data.map do |game|
+  
+ # Helper Method
+  def seasons_played_by_team(team_id)
+    @games_data.map do |game|
       if game.away_team_id == team_id || game.home_team_id == team_id
         game.season
       end
     end.compact.uniq
-    seasonal_summary = {}
-    seasons_played.each do |season|
-      seasonal_summary[season] = {:preseason => {:win_percentage => 0,
-                                                 :total_goals_scored => 0,
-                                                 :total_goals_against => 0,
-                                                 :average_goals_scored => 0,
-                                                 :average_goals_against => 0},
-                                  :regular_season => {:win_percentage => 0,
-                                                      :total_goals_scored => 0,
-                                                      :total_goals_against => 0,
-                                                      :average_goals_scored => 0,
-                                                      :average_goals_against => 0} }
-    end
-    seasons_played.each do |season|
-      wins_percent_p = wins_percentage(season,"P").find do |id,percent|
-        id == team_id
-      end[1]
-      wins_percent_r = wins_percentage(season,"R").find do |id,percent|
-        id == team_id
-      end[1]
-      seasonal_summary[season][:preseason][:win_percentage] = wins_percent_p
-      seasonal_summary[season][:regular_season][:win_percentage] = wins_percent_r
-    end
-    get_wins_percentages_into_hash(seasons_played, team_id, seasonal_summary)
-    preseason_games = games_by_team_type_and_season(team_id, "P", seasons_played)
-    regseason_games = games_by_team_type_and_season(team_id, "R", seasons_played)
-    preseason_games.each do |k, v|
-      @games_teams_stats.each do |game|
-        if v.include?(game.game_id) && game.team_id == team_id
-          seasonal_summary[k][:preseason][:total_goals_scored] += game.goals
-        elsif v.include?(game.game_id) && game.team_id != team_id
-          seasonal_summary[k][:preseason][:total_goals_against] += game.goals
-        end
-      end
-    end
-    regseason_games.each do |k, v|
-      @games_teams_stats.each do |game|
-        if v.include?(game.game_id)&& game.team_id == team_id
-          seasonal_summary[k][:regular_season][:total_goals_scored] += game.goals
-        elsif v.include?(game.game_id) && game.team_id != team_id
-          seasonal_summary[k][:regular_season][:total_goals_against] += game.goals
-        end
-      end
-    end
-    preseason_games.each do |k,v|
-      total = v.count
-      goals_scored = seasonal_summary[k][:preseason][:total_goals_scored]
-      unless goals_scored.zero?
-        seasonal_summary[k][:preseason][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
-      end
-      goals_against = seasonal_summary[k][:preseason][:total_goals_against]
-      unless goals_against.zero?
-        seasonal_summary[k][:preseason][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
-      end
-    end
-    regseason_games.each do |k, v|
-      total = v.count
-      goals_scored = seasonal_summary[k][:regular_season][:total_goals_scored]
-      unless goals_scored.zero?
-        seasonal_summary[k][:regular_season][:average_goals_scored] = (goals_scored.to_f / total.to_f).round(2)
-      end
-      goals_against = seasonal_summary[k][:regular_season][:total_goals_against]
-      unless goals_against.zero?
-        seasonal_summary[k][:regular_season][:average_goals_against] = (goals_against.to_f / total.to_f).round(2)
-      end
+  end
+
+ # Helper Method
+  def create_seasonal_summary_hash(seasons)
+    seasonal_summary = Hash.new(0)
+    seasons.each do |season|
+      season = season.to_s
+      seasonal_summary[season] = {:preseason =>
+                                    {:win_percentage => 0,
+                                      :total_goals_scored => 0,
+                                      :total_goals_against => 0,
+                                      :average_goals_scored => 0,
+                                      :average_goals_against => 0},
+                                      :regular_season =>
+                                    {:win_percentage => 0,
+                                      :total_goals_scored => 0,
+                                      :total_goals_against => 0,
+                                      :average_goals_scored => 0,
+                                      :average_goals_against => 0}}
     end
     return seasonal_summary
   end
+
+  def seasonal_summary(team_id)
+    team_id = team_id.to_i
+    team = @teams_data.find {|team| team.team_id == team_id}
+    seasons = seasons_played_by_team(team_id)
+    seasonal_summary = create_seasonal_summary_hash(seasons)
+    seasonal_summary.each do |season,stats|
+      season = season.to_i
+      summary_hash = season_summary(season, team_id)
+      pre_goals_scored = summary_hash[:preseason][:goals_scored]
+      pre_goals_against = summary_hash[:preseason][:goals_against]
+      reg_goals_scored = summary_hash[:regular_season][:goals_scored]
+      reg_goals_against = summary_hash[:regular_season][:goals_against]
+      all_pre_games = games_by_team_type_and_season(team_id, "P", season).count.to_f
+      all_reg_games = games_by_team_type_and_season(team_id, "R", season).count.to_f
+      stats[:preseason][:win_percentage] = summary_hash[:preseason][:win_percentage]
+      stats[:preseason][:total_goals_scored] = pre_goals_scored
+      stats[:preseason][:total_goals_against] = pre_goals_against
+      if pre_goals_scored == 0 && all_pre_games == 0
+        stats[:preseason][:average_goals_scored] = 0.0
+      else
+        stats[:preseason][:average_goals_scored] = (pre_goals_scored / all_pre_games).round(2)
+      end
+      if pre_goals_against == 0 && all_pre_games == 0
+        stats[:preseason][:average_goals_against] = 0.0
+      else
+        stats[:preseason][:average_goals_against] = (pre_goals_against / all_pre_games).round(2)
+      end
+      stats[:regular_season][:win_percentage] = summary_hash[:regular_season][:win_percentage]
+      stats[:regular_season][:total_goals_scored] = reg_goals_scored
+      stats[:regular_season][:total_goals_against] = reg_goals_against
+      if reg_goals_scored == 0 && all_reg_games == 0
+        stats[:regular_season][:average_goals_scored] = 0.0
+      else
+        stats[:regular_season][:average_goals_scored] = (reg_goals_scored / all_reg_games).round(2)
+      end
+      if reg_goals_against == 0 && all_reg_games == 0
+        stats[:regular_season][:average_goals_against] = 0.0
+      else
+        stats[:regular_season][:average_goals_against] = (reg_goals_against / all_reg_games).round(2)
+      end
+  end
+  return seasonal_summary
+end
 
 end
