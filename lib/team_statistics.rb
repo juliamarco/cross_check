@@ -58,8 +58,8 @@ module TeamStatistics
 
   def average_win_percentage(team_id) #tested line 315
     team_id = team_id.to_i
-    total_games_played = @games_teams_stats.count {|stat| stat.team_id == team_id}
-    total_games_won = @games_teams_stats.count {|stat| stat.team_id == team_id && stat.won == "TRUE"}
+    total_games_played = @games_teams_stats.count { |stat| stat.team_id == team_id }
+    total_games_won = @games_teams_stats.count { |stat| stat.team_id == team_id && stat.won == "TRUE" }
     (total_games_won.to_f / total_games_played.to_f).round(2)
   end
 
@@ -226,19 +226,18 @@ module TeamStatistics
         game.season
       end
     end.compact.uniq
-    binding.pry
     seasonal_summary = {}
     seasons_played.each do |season|
       seasonal_summary[season] = {:preseason => {:win_percentage => 0,
-                                     :total_goals_scored => 0,
-                                     :total_goals_against => 0,
-                                     :average_goals_scored => 0,
-                                     :average_goals_against => 0},
-                      :regular_season => {:win_percentage => 0,
-                                          :total_goals_scored => 0,
-                                          :total_goals_against => 0,
-                                          :average_goals_scored => 0,
-                                          :average_goals_against => 0} }
+                                                 :total_goals_scored => 0,
+                                                 :total_goals_against => 0,
+                                                 :average_goals_scored => 0,
+                                                 :average_goals_against => 0},
+                                  :regular_season => {:win_percentage => 0,
+                                                      :total_goals_scored => 0,
+                                                      :total_goals_against => 0,
+                                                      :average_goals_scored => 0,
+                                                      :average_goals_against => 0} }
     end
     seasons_played.each do |season|
       wins_percent_p = wins_percentage(season,"P").find do |id,percent|
