@@ -5,16 +5,22 @@ require_relative './teams_data'
 require_relative './games_teams_stats'
 require_relative './game_statistics'
 require_relative './league_statistics'
+require_relative './league_statistics_hm'
 require_relative './season_statistics'
+require_relative './season_statistics_hm'
 require_relative './team_statistics'
-require_relative './helper_methods'
+require_relative './team_statistics_hm'
+require_relative './seasonal_summary'
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
+  include LeagueStatisticsHM
   include SeasonStatistics
+  include SeasonStatisticsHM
   include TeamStatistics
-  include HelperMethods
+  include TeamStatisticsHM
+  include SeasonalSummary
 
   attr_reader :games_data,
               :teams_data,

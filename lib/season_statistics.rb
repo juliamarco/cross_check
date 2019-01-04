@@ -1,24 +1,5 @@
 module SeasonStatistics
 
-# Helper Method
-  def games_by_season(season) #tested line 235
-    season = season.to_i
-    games = @games_data.find_all { |game| game.season == season }
-    games.map { |game| game.game_id }
-  end
-
-# Helper Method
-  def game_by_type(season, type) #tested line 241
-    games = games_by_season(season)
-    games = @games_data.map do |game|
-      if games.include?(game.game_id)
-        if game.type == type
-          game.game_id
-        end
-      end
-    end.compact
-  end
-
   def biggest_bust(season) #tested line 253
     season = season.to_i
     preseason = wins_percentage(season, "P")
@@ -46,64 +27,8 @@ module SeasonStatistics
     team_id_name(biggest[0])
   end
 
-# Helper Method
-  def away_goals_scored(games, team_id) #tested line 263
-    away_goals_scored = 0
-    @games_data.each do |game|
-      if games.include?(game.game_id)
-        if game.away_team_id == team_id
-          away_goals_scored += game.away_goals
-        end
-      end
-    end
-    return away_goals_scored
-  end
 
-# Helper Method
-  def home_goals_allowed(games, team_id) #tested line 281
-    home_goals_allowed = 0
-    @games_data.each do |game|
-      if games.include?(game.game_id)
-        if game.home_team_id == team_id
-          home_goals_allowed += game.away_goals
-        end
-      end
-    end
-    return home_goals_allowed
-  end
 
-  def team_games(games, team_id)
-    @games_teams_stats.find_all do |game|
-      games.include?(game) && game.team_id == team_id
-    end
-  end
-
-  def season_summary(season, team_id) #tested line 287
-    season = season.to_i
-    team_id = team_id.to_i
-    summary = {:preseason => {}, :regular_season => {}}
-    pre_wins_percent = wins_percentage(season, "P")
-    reg_wins_percent = wins_percentage(season, "R")
-      if pre_wins_percent.include?(team_id)
-        summary[:preseason][:win_percentage] = pre_wins_percent.find {|team,wins| team == team_id}[1].round(2)
-      else summary[:preseason][:win_percentage] = 0.0
-      end
-      if reg_wins_percent.include?(team_id)
-        summary[:regular_season][:win_percentage] = reg_wins_percent.find {|team,wins| team == team_id}[1].round(2)
-      else summary[:preseason][:win_percentage] = 0.0
-      end
-    preseason_games = game_by_type(season, "P")
-    p_goals_scored = away_goals_scored(preseason_games, team_id) + home_goals_scored(preseason_games, team_id)
-    summary[:preseason][:goals_scored] = p_goals_scored
-    p_goals_allowed = away_goals_allowed(preseason_games, team_id) + home_goals_allowed(preseason_games, team_id)
-    summary[:preseason][:goals_against] = p_goals_allowed
-    regular_season_games = game_by_type(season, "R")
-    r_goals_scored = away_goals_scored(regular_season_games, team_id) + home_goals_scored(regular_season_games, team_id)
-    summary[:regular_season][:goals_scored] = r_goals_scored
-    r_goals_allowed = away_goals_allowed(regular_season_games, team_id) + home_goals_allowed(regular_season_games, team_id)
-    summary[:regular_season][:goals_against] = r_goals_allowed
-    return summary
-  end
 
 
 

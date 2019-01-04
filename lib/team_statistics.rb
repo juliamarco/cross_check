@@ -14,6 +14,7 @@ module TeamStatistics
     return new
   end
 
+<<<<<<< HEAD
  # Helper Method
   def games_played_by_season(team_id)
     games_by_season = @games_data.group_by { |game| game.season }
@@ -39,6 +40,8 @@ module TeamStatistics
       end
   end
 
+=======
+>>>>>>> ab533da114711cefad79fbcb158a2e7330172ceb
   def best_season(team_id) #tested line 305
     games_results = games_won_by_season(team_id)
     best_season = calculate_percentages(games_results).max_by do
@@ -62,63 +65,12 @@ module TeamStatistics
     (total_games_won.to_f / total_games_played.to_f).round(2)
   end
 
-# Helper Method
-  def all_team_goals(team_id) #tested line 320
-    @games_teams_stats.map do |stat|
-      if stat.team_id == team_id
-        stat.goals
-      end
-    end.compact
-  end
-
   def most_goals_scored(team_id) #tested line 325
     all_team_goals(team_id.to_i).max
   end
 
   def fewest_goals_scored(team_id) #tested line 330
     all_team_goals(team_id.to_i).min
-  end
-
-# Helper Method
-  def collect_home_games_opponents(team_id, hash) #tested line 335
-    @games_data.each do |game|
-      if game.home_team_id == team_id
-        if hash.has_key?(game.away_team_id)
-          hash[game.away_team_id] << game.game_id
-        else
-          hash[game.away_team_id] = [game.game_id]
-        end
-      end
-    end
-  return hash
-  end
-
-# Helper Method
-  def collect_away_games_opponents(team_id, hash) #tested line 341
-    @games_data.each do |game|
-      if game.away_team_id == team_id
-        if hash.has_key?(game.home_team_id)
-          hash[game.home_team_id] << game.game_id
-        else
-          hash[game.home_team_id] = [game.game_id]
-        end
-      end
-    end
-    return hash
-  end
-
-# Helper Method
-  def get_opponents_results(team_id, hash) #tested line 347
-    collect_home_games_opponents(team_id, hash)
-    collect_away_games_opponents(team_id, hash)
-    hash.each do |k,v|
-      values = @games_teams_stats.map do |stat|
-        if k == stat.team_id && v.include?(stat.game_id)
-          stat.won
-        end
-      end.compact
-    hash[k] = values
-    end
   end
 
   def favorite_opponent(team_id) #tested line 353
@@ -133,15 +85,6 @@ module TeamStatistics
     get_opponents_results(team_id.to_i, hash)
     team = calculate_percentages(hash).max_by { |k, v| v }[0]
     team_id_name(team)
-  end
-
-# Helper Method
-  def get_goals_blowout(games) #tested lines 363
-    @games_data.map do |game|
-      if games.include?(game.game_id)
-        (game.away_goals - game.home_goals).abs
-      end
-    end.compact
   end
 
   def biggest_team_blowout(team_id) #tested line 369
@@ -164,6 +107,7 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
+<<<<<<< HEAD
  # Helper Method
   def all_opponents(id)
     @games_data.map do |game|
@@ -189,6 +133,8 @@ module TeamStatistics
     end
   end
 
+=======
+>>>>>>> ab533da114711cefad79fbcb158a2e7330172ceb
   def head_to_head(team_id) #tested line 379
     team_id = team_id.to_i
     head_to_head = {}
@@ -202,6 +148,7 @@ module TeamStatistics
     return head_to_head
   end
 
+<<<<<<< HEAD
  # Helper Method
   def games_by_team_type_and_season(team_id, type, season) #tested 471
       @games_data.find_all do |game|
@@ -283,4 +230,6 @@ module TeamStatistics
   return seasonal_summary
 end
 
+=======
+>>>>>>> ab533da114711cefad79fbcb158a2e7330172ceb
 end

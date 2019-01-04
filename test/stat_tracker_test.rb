@@ -78,7 +78,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_a_least_popular_venue
 
-    assert_equal "Wells Fargo Center", @stat_tracker.least_popular_venue
+    assert_equal "Staples Center", @stat_tracker.least_popular_venue
   end
 
   def test_it_can_show_percentage_of_home_wins
@@ -93,12 +93,12 @@ class StatTrackerTest < MiniTest::Test
 
   def test_season_with_most_games
 
-    assert_equal "20122013", @stat_tracker.season_with_most_games
+    assert_equal 20122013, @stat_tracker.season_with_most_games
   end
 
   def test_season_with_fewest_games
 
-    assert_equal "20142015", @stat_tracker.season_with_fewest_games
+    assert_equal 20142015, @stat_tracker.season_with_fewest_games
   end
 
   def test_it_can_show_count_of_games_by_season
@@ -134,6 +134,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Bruins", @stat_tracker.team_id_name(6)
   end
 
+  def test_it_counts_games_by_team
+
+    assert_equal 5, @stat_tracker.count_games_by_team(3)
+  end
+
   def test_it_has_best_offense
 
     assert_equal "Capitals", @stat_tracker.best_offense
@@ -158,6 +163,13 @@ class StatTrackerTest < MiniTest::Test
   def test_it_has_worst_defense
 
     assert_equal "Flyers", @stat_tracker.worst_defense
+  end
+
+  def test_it_can_get_averages
+
+    games = {3=>[2, 2, 1], 6=>[2, 3], 29=>[2],26=>[3],16=>[2],21=>[2],30=>[4, 1, 0, 5],24=>[3],15=>[3],4=>[4],23=>[3],25=>[4]}
+    expected = {3=>1.6666666666666667,6=>2.5,29=>2.0,26=>3.0,16=>2.0,21=>2.0,30=>2.5,24=>3.0,15=>3.0,4=>4.0,23=>3.0,25=>4.0}
+    assert_equal expected, @stat_tracker.get_averages(games)
   end
 
   def test_it_has_average_goals_by_visitor
@@ -194,41 +206,41 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_can_calculate_percentages
      original_hash = {3=>["FALSE", "TRUE"], 6=>["TRUE", "TRUE", "FALSE"], 5=>["FALSE"], 17=>["FALSE", "FALSE"], 16=>["TRUE", "TRUE"], 9=>["TRUE"], 8=>["FALSE"]}
-     expected_hash = {3=>50.0, 6=>66.7, 5=>0.0, 17=>0.0, 16=>100.0, 9=>100.0, 8=>0.0}
+     expected_hash = {3=>0.5, 6=>0.6666666666666666, 5=>0.0, 17=>0.0, 16=>1.0, 9=>1.0, 8=>0.0}
      assert_equal expected_hash, @stat_tracker.calculate_percentages(original_hash)
   end
 
   def test_it_has_a_winningest_team
 
-    assert_equal "Canucks", @stat_tracker.winningest_team
+    assert_equal "Capitals", @stat_tracker.winningest_team
   end
 
   def test_home_wins_percentages
 
-    {6=>1.0, 3=>0.5, 24=>0.5, 30=>1.0, 21=>0.5, 4=>0.0, 25=>0.0, 23=>0.0, 26=>1.0, 15=>0.0, 29=>0.0, 16=>0.0}
+    expected_hash = {6=>1.0, 3=>0.5, 24=>0.5, 30=>1.0, 21=>0.5, 4=>0.0, 25=>1.0, 23=>0.0, 26=>1.0, 15=>1.0, 29=>0.0, 16=>0.0}
     assert_equal expected_hash, @stat_tracker.home_wins_percentages
   end
 
   def test_away_win_percentages
 
-    expected_hash = {3=>0.0, 6=>0.0, 29=>0.0, 26=>0.0, 30=>0.5, 24=>0.0, 15=>0.0, 16=>0.0, 21=>0.0, 4=>0.0, 25=>0.5, 23=>1.0}
+    expected_hash = {3=>0.0, 6=>0.5, 29=>0.0, 26=>0.0, 30=>0.5, 24=>1.0, 15=>1.0, 16=>0.0, 21=>0.0, 4=>0.0, 25=>1.0, 23=>1.0}
     assert_equal expected_hash, @stat_tracker.away_win_percentages
   end
 
   def test_it_can_merge_away_and_win_percentages
 
-    expected_hash = {6=>[1.0, 0.0], 3=>[0.5, 0.0], 24=>[0.5, 0.0], 30=>[1.0, 0.5], 21=>[0.5, 0.0], 4=>[0.0, 0.0], 25=>[0.0, 0.5], 23=>[0.0, 1.0], 26=>[1.0, 0.0], 15=>[0.0, 0.0], 29=>[0.0, 0.0], 16=>[0.0, 0.0]}
+    expected_hash = {6=>[1.0, 0.5], 3=>[0.5, 0.0], 24=>[0.5, 1.0], 30=>[1.0, 0.5], 21=>[0.5, 0.0], 4=>[0.0, 0.0], 25=>[1.0, 1.0], 23=>[0.0, 1.0], 26=>[1.0, 0.0], 15=>[1.0, 1.0], 29=>[0.0, 0.0], 16=>[0.0, 0.0]}
     assert_equal expected_hash, @stat_tracker.away_and_home_percentages
   end
 
   def test_it_has_best_fans
 
-    assert_equal "Bruins", @stat_tracker.best_fans
+    assert_equal "Kings", @stat_tracker.best_fans
   end
 
   def test_it_has_worst_fans
 
-    assert_equal ["Stars", "Canucks"], @stat_tracker.worst_fans
+    assert_equal ["Ducks", "Canucks"], @stat_tracker.worst_fans
   end
 
   def test_it_can_group_games_by_season
@@ -245,7 +257,7 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_wins_percentage
 
-    expected = {3=>0.2, 6=>0.8, 16=>0.0, 30=>0.0}
+    expected = {3=>0.2, 6=>0.8, 16=>0.0, 30=>1.0}
     assert_equal expected, @stat_tracker.wins_percentage(20122013, "P")
   end
 
@@ -282,10 +294,17 @@ class StatTrackerTest < MiniTest::Test
     games = [2012030221, 2012030222]
     assert_equal 4, @stat_tracker.home_goals_allowed(games, 6)
   end
-  #
+
   def test_it_has_a_season_summary
 
-    expected_hash = {:preseason=>{:win_percentage=>100.0, :goals_scored=>3, :goals_against=>2}, :regular_season=>{:win_percentage=>100.0, :goals_scored=>3, :goals_against=>3}}
+    expected_hash = {:preseason=>
+                      {:win_percentage => 1.0,
+                      :goals_scored => 3,
+                      :goals_against => 2},
+                    :regular_season =>
+                      {:win_percentage => 1.0,
+                        :goals_scored => 3,
+                        :goals_against => 3}}
     assert_equal expected_hash, @stat_tracker.season_summary(20122013, 30)
   end
 
@@ -383,53 +402,39 @@ class StatTrackerTest < MiniTest::Test
 
   def test_it_has_games_by_team_type_and_season
 
-    expected = {20122013=>[2012030153], 20132014=>[2013030151], 20152016=>[2015030151]}
-    assert_equal expected, @stat_tracker.games_by_team_type_and_season(30, "P", [20122013, 20132014, 20152016])
+    assert_equal 1, @stat_tracker.count_games_by_team_type_and_season(30, "P", 20122013)
   end
 
   def test_it_has_a_seasonal_summary
 
-    expected_hash = {20122013=>
-                      {:preseason=>
-                        {:win_percentage=>100.0,
-                         :total_goals_scored=>3,
-                         :total_goals_against=>2,
-                         :average_goals_scored=>3.0,
-                         :average_goals_against=>2.0},
-                       :regular_season=>
-                        {:win_percentage=>100.0,
-                         :total_goals_scored=>3,
-                         :total_goals_against=>3,
-                         :average_goals_scored=>3.0,
-                         :average_goals_against=>3.0}},
-                     20132014=>
-                      {:preseason=>
-                        {:win_percentage=>0.0,
-                         :total_goals_scored=>4,
-                         :total_goals_against=>5,
-                         :average_goals_scored=>4.0,
-                         :average_goals_against=>5.0},
-                       :regular_season=>
-                        {:win_percentage=>100.0,
-                         :total_goals_scored=>1,
-                         :total_goals_against=>1,
-                         :average_goals_scored=>1.0,
-                         :average_goals_against=>1.0}},
-                     20152016=>
-                      {:preseason=>
-                        {:win_percentage=>0.0,
-                         :total_goals_scored=>0,
-                         :total_goals_against=>4,
-                         :average_goals_scored=>0,
-                         :average_goals_against=>4.0},
-                       :regular_season=>
-                        {:win_percentage=>100.0,
-                          :total_goals_scored=>5,
-                         :total_goals_against=>2,
-                         :average_goals_scored=>5.0,
-                         :average_goals_against=>2.0}}}
+    expected_hash = {"20122013" =>
+                      {:preseason =>
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 2,
+                        :total_goals_against => 3,
+                        :average_goals_scored => 2.0,
+                        :average_goals_against => 3.0},
+                      :regular_season =>
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 0,
+                        :total_goals_against => 0,
+                        :average_goals_scored => 0.0,
+                        :average_goals_against => 0.0}},
+                    "20132014" =>
+                      {:preseason =>
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 0,
+                        :total_goals_against => 0,
+                        :average_goals_scored => 0.0,
+                        :average_goals_against => 0.0},
+                      :regular_season =>
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 2,
+                        :total_goals_against => 3,
+                        :average_goals_scored => 2.0,
+                        :average_goals_against => 3.0}}}
 
-    assert_equal expected_hash, @stat_tracker.seasonal_summary(30)
+    assert_equal expected_hash, @stat_tracker.seasonal_summary(16)
   end
 
 end
