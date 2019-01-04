@@ -4,6 +4,7 @@ module LeagueStatistics
     @teams_data.count
   end
 
+# Helper Method
   def count_games_by_team(team_id)
     @games_teams_stats.count do |stat|
       stat.team_id == team_id
@@ -79,7 +80,7 @@ module LeagueStatistics
   end
 
   def highest_scoring_visitor #tested line 169
-    highest_scoring = average_goals_by_visitor.max_by { |team,goals| goals }
+    highest_scoring = average_goals_by_visitor.max_by { |team, goals| goals }
     team_id_name(highest_scoring[0])
   end
 
@@ -97,17 +98,17 @@ module LeagueStatistics
   end
 
   def highest_scoring_home_team #tested line 180
-    highest_scoring = average_goals_by_home_team.max_by { |team,goals| goals }
+    highest_scoring = average_goals_by_home_team.max_by { |team, goals| goals }
     team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_visitor #tested line 185
-    highest_scoring = average_goals_by_visitor.min_by { |team,goals| goals }
+    highest_scoring = average_goals_by_visitor.min_by { |team, goals| goals }
     team_id_name(highest_scoring[0])
   end
 
   def lowest_scoring_home_team #tested line 190
-    highest_scoring = average_goals_by_home_team.min_by { |team,goals| goals }
+    highest_scoring = average_goals_by_home_team.min_by { |team, goals| goals }
     team_id_name(highest_scoring[0])
   end
 
@@ -121,7 +122,7 @@ module LeagueStatistics
       end
     end
     percentages = calculate_percentages(team_wins)
-    winningest = percentages.max_by {|k,v| v}
+    winningest = percentages.max_by {|k, v| v}
     team_id_name(winningest[0])
   end
 

@@ -11,8 +11,8 @@ module GameStatistics
   end
 
   def biggest_blowout #tested line 63
-   all_nums = @games_data.map { |game| game.away_goals - game.home_goals }
-   num = all_nums.max_by { |num| num.abs}.abs
+   difference_in_goals = @games_data.map { |game| game.away_goals - game.home_goals }
+   difference_in_goals.max_by { |difference| difference.abs }.abs
   end
 
   # Helper Method
@@ -45,11 +45,11 @@ module GameStatistics
   end
 
   def season_with_most_games #tested line 90
-    count_of_games_by_season.max_by { |key, value| value}[0].to_i
+    count_of_games_by_season.max_by { |season, game_count| game_count }[0].to_i
   end
 
   def season_with_fewest_games #tested line 99
-    min = count_of_games_by_season.min_by { |key, value| value }[0].to_i
+    min = count_of_games_by_season.min_by { |season, game_count| game_count }[0].to_i
   end
 
   def count_of_games_by_season #tested line 104
@@ -70,24 +70,24 @@ module GameStatistics
   def average_goals_by_season
     average = Hash.new(0)
     @games_data.each do |game|
-      average_goals = (game.home_goals.to_f + game.away_goals.to_f)
+      total_goals = (game.home_goals.to_f + game.away_goals.to_f)
       if average.has_key?(game.season.to_s)
-        average[game.season.to_s].push(average_goals)
+        average[game.season.to_s].push(total_goals)
       else
-        average[game.season.to_s] = [average_goals]
+        average[game.season.to_s] = [total_goals]
       end
     end
-    all_values = average.map do |key, value|
-      value = value.sum / value.count
-      value.round(2)
+    averaged_goals = average.map do |season, goals|
+      goals = goals.sum / goals.count
+      goals.round(2)
     end
-    average.map do |key, value|
-      value = all_values[0]
-      average[key] = value
-      all_values.shift
+    average.map do |season, averages|
+      averages = averaged_goals[0]
+      average[season] = averages
+      averaged_goals.shift
     end
     return average
-end
+  end
 
 
 end
