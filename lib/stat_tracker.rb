@@ -75,7 +75,6 @@ class StatTracker
                     :giveaways => row[13],
                     :takeaways => row[14])
   end
-
   StatTracker.new(games_data, teams_data, games_teams_stats)
   end
 

@@ -85,4 +85,5 @@ module LeagueStatistics
     end
     worst_fans.map { |team| team.team_name }
   end
+  
 end
