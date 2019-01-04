@@ -4,9 +4,9 @@ SimpleCov.start
 require './lib/stat_tracker'
 require './lib/games_data'
 require './lib/teams_data'
+require 'pry'
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'pry'
 
 class StatTrackerTest < MiniTest::Test
 
