@@ -15,7 +15,6 @@ module GameStatistics
    num = all_nums.max_by { |num| num.abs}.abs
   end
 
-  # Helper Method
   def counts_venues_occurrences #tested line 68
    occurences = Hash.new(0)
    @games_data.each { |game| occurences[game.venue] += 1 }

@@ -1,19 +1,18 @@
 module SeasonalSummary
 
-def games_by_team_type_and_season(team_id, type, season) #tested 471
-    @games_data.find_all do |game|
-      game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
-    end
-end
+  def games_by_team_type_and_season(team_id, type, season)
+      @games_data.find_all do |game|
+        game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
+      end
+  end
 
-
-    def seasons_played_by_team(team_id)
-      @games_data.map do |game|
-        if game.away_team_id == team_id || game.home_team_id == team_id
-          game.season
-        end
-      end.compact.uniq
-    end
+  def seasons_played_by_team(team_id)
+    @games_data.map do |game|
+      if game.away_team_id == team_id || game.home_team_id == team_id
+        game.season
+      end
+    end.compact.uniq
+  end
 
     def create_seasonal_summary_hash(seasons)
       seasonal_summary = Hash.new(0)
