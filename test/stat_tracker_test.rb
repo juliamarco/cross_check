@@ -134,6 +134,11 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Bruins", @stat_tracker.team_id_name(6)
   end
 
+  def test_it_counts_games_by_team
+
+    assert_equal 5, @stat_tracker.count_games_by_team(3)
+  end
+
   def test_it_has_best_offense
 
     assert_equal "Capitals", @stat_tracker.best_offense
@@ -404,45 +409,32 @@ class StatTrackerTest < MiniTest::Test
 
     expected_hash = {"20122013" =>
                       {:preseason =>
-                        {:win_percentage => 1.0,
-                        :total_goals_scored => 3,
-                        :total_goals_against => 2,
-                        :average_goals_scored => 3.0,
-                        :average_goals_against => 2.0},
-                      :regular_season =>
-                        {:win_percentage => 1.0,
-                        :total_goals_scored => 3,
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 2,
                         :total_goals_against => 3,
-                        :average_goals_scored => 3.0,
-                        :average_goals_against => 3.0}},
+                        :average_goals_scored => 2.0,
+                        :average_goals_against => 3.0},
+                      :regular_season =>
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 0,
+                        :total_goals_against => 0,
+                        :average_goals_scored => 0.0,
+                        :average_goals_against => 0.0}},
                     "20132014" =>
                       {:preseason =>
                         {:win_percentage => 0.0,
-                        :total_goals_scored => 4,
-                        :total_goals_against => 5,
-                        :average_goals_scored => 4.0,
-                        :average_goals_against => 5.0},
-                      :regular_season =>
-                        {:win_percentage => 1.0,
-                        :total_goals_scored => 1,
-                        :total_goals_against => 1,
-                        :average_goals_scored => 1.0,
-                        :average_goals_against => 1.0}},
-                    "20152016" =>
-                      {:preseason =>
-                        {:win_percentage => 0.0,
                         :total_goals_scored => 0,
-                        :total_goals_against => 4,
+                        :total_goals_against => 0,
                         :average_goals_scored => 0.0,
-                        :average_goals_against => 4.0},
+                        :average_goals_against => 0.0},
                       :regular_season =>
-                        {:win_percentage => 1.0,
-                        :total_goals_scored => 5,
-                        :total_goals_against => 2,
-                        :average_goals_scored => 5.0,
-                        :average_goals_against => 2.0}}}
+                        {:win_percentage => 0.0,
+                        :total_goals_scored => 2,
+                        :total_goals_against => 3,
+                        :average_goals_scored => 2.0,
+                        :average_goals_against => 3.0}}}
 
-    assert_equal expected_hash, @stat_tracker.seasonal_summary(30)
+    assert_equal expected_hash, @stat_tracker.seasonal_summary(16)
   end
 
 end

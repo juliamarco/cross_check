@@ -1,6 +1,5 @@
 require 'simplecov'
 SimpleCov.start
-
 require './lib/teams_data'
 require 'pry'
 require 'minitest/autorun'

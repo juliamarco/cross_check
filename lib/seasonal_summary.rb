@@ -64,6 +64,7 @@ module SeasonalSummary
           else
             stats[:preseason][:average_goals_against] = (pre_goals_against / all_pre_games).round(2)
           end
+          # binding.pry
           stats[:regular_season][:win_percentage] = summary_hash[:regular_season][:win_percentage]
           stats[:regular_season][:total_goals_scored] = reg_goals_scored
           stats[:regular_season][:total_goals_against] = reg_goals_against
@@ -93,7 +94,7 @@ module SeasonalSummary
         end
         if reg_wins_percent.include?(team_id)
           summary[:regular_season][:win_percentage] = reg_wins_percent.find {|team,wins| team == team_id}[1].round(2)
-        else summary[:preseason][:win_percentage] = 0.0
+        else summary[:regular_season][:win_percentage] = 0.0
         end
       preseason_games = game_by_type(season, "P")
       p_goals_scored = away_goals_scored(preseason_games, team_id) + home_goals_scored(preseason_games, team_id)
