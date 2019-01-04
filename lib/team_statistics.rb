@@ -24,8 +24,8 @@ module TeamStatistics
         end
         games_by_season[season] = all_games_played.map { |game| game.game_id }
       end
-      games_by_season = games_by_season.reject { |season,games| games.empty? }
-      games_by_season.each do |season,games|
+      games_by_season = games_by_season.reject { |season, games| games.empty? }
+      games_by_season.each do |season, games|
         @games_teams_stats.map do |stat|
           if games.include?(stat.game_id)
             if stat.team_id == team_id
@@ -34,7 +34,7 @@ module TeamStatistics
           end
         end
       end
-      games_by_season.each do |season,games|
+      games_by_season.each do |season, games|
         game_results = games.reject { |game| game.is_a?(Numeric) }
         games_by_season[season] = game_results
       end
@@ -132,7 +132,7 @@ module TeamStatistics
   def rival(team_id) #tested line 358
     hash = Hash.new
     get_opponents_results(team_id.to_i, hash)
-    team = calculate_percentages(hash).max_by { |k,v| v }[0]
+    team = calculate_percentages(hash).max_by { |k, v| v }[0]
     team_id_name(team)
   end
 
