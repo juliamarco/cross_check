@@ -14,6 +14,7 @@ module TeamStatistics
     return new
   end
 
+ # Helper Method
   def games_played_by_season(team_id)
     games_by_season = @games_data.group_by { |game| game.season }
       games_by_season.each do |season,games|
@@ -22,15 +23,8 @@ module TeamStatistics
         end
         games_by_season[season] = all_games_played.map { |game| game.game_id }
       end
-    return games_by_season
-  end
-
-# Helper Method
-  def games_won_by_season(team_id) #tested line 299
-    team_id = team_id.to_i
-    games_by_season = games_played_by_season(team_id)
-      games_by_season = games_by_season.reject { |season,games| games.empty? }
-      games_by_season.each do |season,games|
+      games_by_season = games_by_season.reject { |season, games| games.empty? }
+      games_by_season.each do |season, games|
         @games_teams_stats.map do |stat|
           if games.include?(stat.game_id)
             if stat.team_id == team_id
@@ -39,7 +33,7 @@ module TeamStatistics
           end
         end
       end
-      games_by_season.each do |season,games|
+      games_by_season.each do |season, games|
         game_results = games.reject { |game| game.is_a?(Numeric) }
         games_by_season[season] = game_results
       end
@@ -137,7 +131,7 @@ module TeamStatistics
   def rival(team_id) #tested line 358
     hash = Hash.new
     get_opponents_results(team_id.to_i, hash)
-    team = calculate_percentages(hash).max_by { |k,v| v }[0]
+    team = calculate_percentages(hash).max_by { |k, v| v }[0]
     team_id_name(team)
   end
 
@@ -170,6 +164,7 @@ module TeamStatistics
     get_goals_blowout(games_lost).max
   end
 
+ # Helper Method
   def all_opponents(id)
     @games_data.map do |game|
       if game.away_team_id == id
@@ -180,12 +175,14 @@ module TeamStatistics
     end.compact.uniq
   end
 
+ # Helper Method 
   def games_played_against(team_id, opponent)
     @games_data.count do |game|
       game.away_team_id == team_id && game.home_team_id == opponent || game.home_team_id == team_id && game.away_team_id == opponent
     end
   end
 
+ # Helper Method
   def games_won_against(team_id, opponent)
     @games_data.count do |game|
       game.away_team_id == team_id && game.home_team_id == opponent && game.outcome.include?("away") || game.home_team_id == team_id && game.away_team_id == opponent && game.outcome.include?("home")
@@ -205,12 +202,14 @@ module TeamStatistics
     return head_to_head
   end
 
+ # Helper Method
   def games_by_team_type_and_season(team_id, type, season) #tested 471
       @games_data.find_all do |game|
         game.season == season && (game.away_team_id == team_id || game.home_team_id == team_id) && game.type == type
       end
   end
-
+  
+ # Helper Method
   def seasons_played_by_team(team_id)
     @games_data.map do |game|
       if game.away_team_id == team_id || game.home_team_id == team_id
@@ -219,6 +218,7 @@ module TeamStatistics
     end.compact.uniq
   end
 
+ # Helper Method
   def create_seasonal_summary_hash(seasons)
     seasonal_summary = Hash.new(0)
     seasons.each do |season|
