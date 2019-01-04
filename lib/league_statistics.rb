@@ -4,26 +4,6 @@ module LeagueStatistics
     @teams_data.count
   end
 
-<<<<<<< HEAD
-# Helper Method
-  def count_games_by_team(team_id)
-    @games_teams_stats.count do |stat|
-      stat.team_id == team_id
-    end
-  end
-
- # Helper Method
-  def goals_scored #tested line 126
-    games = Hash.new(0)
-    @games_data.each do |game|
-      games[game.away_team_id] += game.away_goals
-      games[game.home_team_id] += game.home_goals
-    end
-    return games
-  end
-
-=======
->>>>>>> ab533da114711cefad79fbcb158a2e7330172ceb
   def best_offense #tested line 137
     best_offense_id = goals_scored.max_by do |team_id, goals|
       goals.to_f / count_games_by_team(team_id)
